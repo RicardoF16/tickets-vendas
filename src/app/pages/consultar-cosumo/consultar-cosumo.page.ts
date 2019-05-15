@@ -10,7 +10,7 @@ export class ConsultarCosumoPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('Teste');
+    console.log('Teste ');
   }
 
 }

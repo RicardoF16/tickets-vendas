@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import{} from './pages/comprar-creditos/comprar-creditos.page'
+import{} from './login/login.page'
 
 
 
@@ -13,6 +14,11 @@ import{} from './pages/comprar-creditos/comprar-creditos.page'
 })
 export class AppComponent {
   public appPages = [
+    {
+      title: 'Login',
+      url: 'login',
+      icon: 'login'
+    },
     {
       title: 'Home',
       url: '/home',
@@ -40,8 +46,20 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      console.log('Teste git');
+
+      // this.appPages.push(
+      //   {
+      //     title: 'Login',
+      //     url: '/login',
+      //     icon: ''
+      //   }
+      // );
+
+
     });
   }
 }
