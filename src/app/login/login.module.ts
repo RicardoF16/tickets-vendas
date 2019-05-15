@@ -11,6 +11,14 @@ const routes: Routes = [
   {
     path: '',
     component: LoginPage
+  },
+  {
+    path: 'criar-conta',
+    loadChildren: './criar-conta/criar-conta.module#CriarContaPageModule'
+  },
+  {
+    path: 'esqueci-senha',
+    loadChildren: './esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule'
   }
 ];
 
