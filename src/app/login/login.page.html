@@ -1,4 +1,4 @@
-<!-- <app-loading></app-loading> projeto pcp tem esse component para exemplo -->
+<app-loading></app-loading>
 
 <ion-content padding class="container">
   
@@ -8,20 +8,20 @@
   
     <button class="btn-facebook" (click)="loginFacebook()">
       <img src="assets/imgs/facebook-logo.svg" class="img-facebook" />
-      <!-- {{ 'PAGE_LOGIN_FACEBOOK' | translate }} -->
+      <!-- {{ 'PAGE_LOGIN_FACEBOOK' | translate }} --> Login  facebook
     </button>
     <hr margin style="border-bottom: 1px solid #ccc;" class="ion-margin-top">
     <form [formGroup]="form">
       <ion-grid class="ion-padding">
-        <ion-row class="ion-align-items-center rounded">
-        <!-- [ngClass]="form.hasError('email', 'user')  ? 'rounded-error' : 'rounded'"    -->
+        <ion-row class="ion-align-items-center rounded" [ngClass]="form.hasError('email', 'user')  ? 'rounded-error' : 'rounded'">
+                  
         <ion-col class="ion-no-padding ion-text-center" size="2">
           <ion-icon name="person"  style="color:gray; font-size: x-large;"></ion-icon>
         </ion-col>
         <ion-col size="9">
           <ion-input type="email" class="ion-no-padding-horizontal" 
-          
-          inputmode="email" formControlName="user"></ion-input>
+              inputmode="email" formControlName="user" placeholder="Email">
+          </ion-input>
         </ion-col>
         <!-- placeholder="{{ 'PAGE_LOGIN_USER' | translate }}"  -->
       </ion-row>
@@ -32,8 +32,8 @@
         </ion-col>
         <ion-col size="9">
           <ion-input type="password" class="ion-no-padding-horizontal" 
-          
-           inputmode="password" formControlName="password"></ion-input>
+           inputmode="password" formControlName="password" placeholder="Senha">
+          </ion-input>
         </ion-col>
         <!-- placeholder="{{ 'PAGE_LOGIN_PASS' | translate }}" -->
       </ion-row>
@@ -43,12 +43,14 @@
   <ion-grid>
     <ion-row justify-content-center>
       <ion-col size="6">
-        <ion-button expand="block" color="success" [routerLink]="['/login/criar-conta']">
+        <ion-button expand="block" color="success" [routerLink]="['/login/criar-conta/true']">
+          Criar conta
           <!-- {{ 'PAGE_LOGIN_SIGNUP' | translate }} -->
         </ion-button>
       </ion-col>
       <ion-col size="6">
         <ion-button expand="block" color="primary" [disabled]="form.invalid" (click)="login()">
+          Entrar
           <!-- {{ 'PAGE_LOGIN_LOGIN' | translate }} -->
         </ion-button>
       </ion-col>
@@ -61,6 +63,7 @@
   </p>
   <p text-center>
     <b class="esqueci-senha" [routerLink]="['/login/esqueci-senha']">
+      Esquecir minha senha 
       <!-- {{ 'PAGE_LOGIN_FORGOT_PASS' | translate }} -->
     </b>
   </p>

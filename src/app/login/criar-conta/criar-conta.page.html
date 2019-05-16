@@ -1,9 +1,92 @@
+<app-loading></app-loading>
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>criar-conta</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title>{{ 'PAGE_SIGNUP_TITLE' | translate }}</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="container">
+  <ion-card>
+    <form [formGroup]="form">
+      <ion-list style="background: white">
+        <ion-item color="white">
+          <ion-input type="text" formControlName="name" autocomplete="username" placeholder="Nome">
+            
+          </ion-input>
+          <!-- placeholder="{{ 'PAGE_SIGNUP_FULLNAME' | translate }}"> -->
+        </ion-item>
 
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'name')"></div>
+        <div style="color: green; padding-top: 0.2rem" *ngIf="!form.hasError('required', 'name')"></div>
+
+        <ion-item color="white">
+          <ion-input type="email" [ngClass]="{'is-valid': form.get('email').errors}" autocomplete="email"
+            formControlName="email" placeholder="E-mail">
+          </ion-input>
+        </ion-item>
+
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'email')"></div>
+
+        <ion-item color="white">
+          <ion-input type="email" [ngClass]="{'is-valid': form.get('confirmEmail').errors}"
+            formControlName="confirmEmail" autocomplete="email" placeholder="Confirmação Email"> 
+            
+          </ion-input>
+          <!-- placeholder="{{ 'PAGE_SIGNUP_CONFIRM_EMAIL' | translate }}"> -->
+        </ion-item>
+
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'confirmEmail')"></div>
+
+        <ion-item color="white">
+          <ion-input type="password" [ngClass]="{'is-valid': form.get('password').errors}" autocomplete="new-password"
+            formControlName="password" placeholder="Senha">
+          </ion-input>
+          <!-- placeholder="{{ 'PAGE_LOGIN_PASS' | translate }}" -->
+        </ion-item>
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'password')"></div>
+
+        <ion-item color="white">
+          <ion-input type="password" [ngClass]="{'is-valid': form.get('confirmPassword').errors}"
+            formControlName="confirmPassword" autocomplete="new-password" placeholder="Confirmação de senha"
+            >
+          </ion-input>
+          <!-- placeholder="{{ 'PAGE_SIGNUP_CONFIRM_PASS' | translate }}" -->
+        </ion-item>
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'confirmPassword')"></div>
+
+        <!-- <ion-item color="white" lines="full">
+          <div class="upload-img" (click)="getImage()">
+            <ion-icon [ngClass]="{'img-attached': form.get('profileImg').value}" name="images"></ion-icon>
+            {{ form.get('profileImg').value ? 'PAGE_SIGNUP_ADD_PICTURE_SUCCESS' : 'PAGE_SIGNUP_ADD_PICTURE' | translate }}
+          </div>
+        </ion-item> -->
+
+        <ion-item class="ion-no-padding" lines="none" color="white">
+          <ion-grid>
+            <ion-row class="ion-padding-top ">
+              <ion-col size="1" class="ion-align-self-start">
+                <ion-checkbox color="primary ion-no-margin" formControlName="terms"></ion-checkbox>
+              </ion-col>
+              <ion-col size="11">
+                <span class="termos-de-uso">
+                  <!-- {{ 'PAGE_SIGNUP_I_AGREE' | translate }} --> Concordo
+                  <b class="termos" [routerLink]="['/login', 'criar-conta', 'termos-uso']">
+                    <!-- {{ 'PAGE_SIGNUP_TERMS' | translate }} --> Aceito
+                  </b>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </form>
+  </ion-card>
+  <ion-button margin expand="block" [disabled]="!form.valid" (click)="submit()">
+    <!-- {{ 'PAGE_SIGNUP_CONTINUE' | translate }} --> ok
+  </ion-button>
 </ion-content>
+

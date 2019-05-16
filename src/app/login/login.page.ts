@@ -4,6 +4,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { LoadingComponent } from 'src/app/modules/loading/loading.component';
+import { EmailValidator } from 'src/app/_validators/email-validator';
+import { PasswordValidator } from 'src/app/_validators/password-validator';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
