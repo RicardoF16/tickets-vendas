@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 //import { AnyAaaaRecord } from 'dns';
 
 
@@ -20,7 +21,8 @@ export class CriarContaPage implements OnInit {
   form: FormGroup;
   constructor(private fb: FormBuilder,
               private routeActive: ActivatedRoute,
-              private route: Router,) { }
+              private route: Router,
+              private navCtrl: NavController,) { }
 
   ngOnInit() {
 
@@ -35,7 +37,8 @@ export class CriarContaPage implements OnInit {
       password: [user.senha, [Validators.required, Validators.minLength(6)]],
       confirmPassword: [user.confirmPassword, [Validators.required, Validators.minLength(6), PasswordValidator('password')]],
       profileImg: [user.imagemURL],
-      terms: [terms, Validators.requiredTrue]
+      terms: [terms, Validators.requiredTrue],
+      dataNascimento: [user.dataNascimento, Validators.required],
     });
   }
 

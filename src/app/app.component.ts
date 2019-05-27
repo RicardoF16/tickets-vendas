@@ -15,25 +15,21 @@ import{} from './login/login.page'
 export class AppComponent {
   public appPages = [
     {
-      title: 'Login',
-      url: 'login',
-      icon: 'login'
-    },
-    {
-      title: 'Home',
+      title: 'Eventos',
       url: '/home',
       icon: 'home'
     },
+    
+    // {
+    //   title: 'Comprar Creditos',
+    //   url: '/comprar-creditos',
+    //   icon: ''
+    // },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
-      title: 'Comprar Creditos',
-      url: '/comprar-creditos',
-      icon: ''
-    },
+      title: 'Sair',
+      url: 'login',
+      icon: 'login'
+    }
   ];
 
   constructor(

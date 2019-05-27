@@ -58,6 +58,28 @@
         </ion-item>
         <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'confirmPassword')"></div>
 
+        <ion-item color="white">
+
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+                          formControlName="dataNascimento"
+                          [ngClass]="{'is-valid': form.get('dataNascimento').errors}"
+                          placeholder="Data Nascimento" >
+            </ion-datetime>
+
+          <!-- <ion-input type="date" 
+                     [ngClass]="{'is-valid': form.get('confirmPassword').errors}"
+                     formControlName="confirmPassword" 
+                     autocomplete="new-password" 
+                     placeholder="Confirmação de senha"
+            >
+          </ion-input> -->
+
+          <!-- placeholder="{{ 'PAGE_SIGNUP_CONFIRM_PASS' | translate }}" -->
+        </ion-item>
+        <div style="color: red; padding-top: 0.2rem" *ngIf="form.hasError('required', 'dataNascimento')"></div>
+
+
+
         <!-- <ion-item color="white" lines="full">
           <div class="upload-img" (click)="getImage()">
             <ion-icon [ngClass]="{'img-attached': form.get('profileImg').value}" name="images"></ion-icon>

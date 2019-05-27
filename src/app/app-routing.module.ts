@@ -41,7 +41,12 @@ const routes: Routes = [
   
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'esqueci-senha', loadChildren: './login/esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule' },
-  { path: 'criar-conta', loadChildren: './login/criar-conta/criar-conta.module#CriarContaPageModule' }
+  { path: 'criar-conta', loadChildren: './login/criar-conta/criar-conta.module#CriarContaPageModule' },
+  { path: 'cadastrar-evento', loadChildren: './pages/cadastrar-evento/cadastrar-evento.module#CadastrarEventoPageModule' },
+  { 
+    path: 'visao-evento', 
+    loadChildren: './pages/visao-evento/visao-evento.module#VisaoEventoPageModule' },
+  { path: 'comprar-bilhete', loadChildren: './pages/comprar-bilhete/comprar-bilhete.module#ComprarBilhetePageModule' }
 ];
 
 @NgModule({
