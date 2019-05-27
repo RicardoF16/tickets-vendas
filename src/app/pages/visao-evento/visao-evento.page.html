@@ -1,7 +1,22 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>visao-evento</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Informações do evento</ion-title>
+    </ion-toolbar>
+
+    <!-- <ion-toolbar>
+        <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button [value]="0" checked>
+            <ion-label>Descrição</ion-label>
+          </ion-segment-button>
+          <ion-segment-button [value]="1">
+            <ion-label>Release</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>   -->
+
 </ion-header>
 
 <ion-content>

@@ -16,4 +16,9 @@ ngOnInit() {}
     this.navCtrl.navigateRoot(['/visao-evento']);
   }
 
+
+  segmentChanged(ev: any) {
+    //this.resetAll();
+  }
+
 }

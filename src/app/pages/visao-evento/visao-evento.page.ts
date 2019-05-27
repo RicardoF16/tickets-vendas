@@ -12,4 +12,6 @@ export class VisaoEventoPage implements OnInit {
   ngOnInit() {
   }
 
+  segmentChanged(){}
+
 }
