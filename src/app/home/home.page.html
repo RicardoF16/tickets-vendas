@@ -4,12 +4,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Eventos
-    </ion-title>
+    <!-- <ion-title>Eventos</ion-title> -->
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 
-  <ion-toolbar>
+  <!-- <ion-toolbar> -->
       <ion-segment (ionChange)="segmentChanged($event)">
         <ion-segment-button [value]="0" checked>
           <ion-label>Destaque</ion-label>
@@ -18,7 +17,7 @@
           <ion-label>Todos</ion-label>
         </ion-segment-button>
       </ion-segment>
-    </ion-toolbar> 
+    <!-- </ion-toolbar>  -->
 
 
 </ion-header>
@@ -57,6 +56,6 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-      </ion-card>
+    </ion-card>
   
 </ion-content>
