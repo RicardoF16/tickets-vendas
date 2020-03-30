@@ -13,7 +13,8 @@ export class HomePage {
 ngOnInit() {}
 
   visaoEvento(){
-    this.navCtrl.navigateRoot(['/visao-evento']);
+    //this.navCtrl.navigateRoot(['/visao-evento']);
+    this.navCtrl.navigateRoot(['/detalhe-evento']);
   }
 
 

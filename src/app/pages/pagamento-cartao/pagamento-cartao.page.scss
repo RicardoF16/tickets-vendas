@@ -1,0 +1,29 @@
+.flag{
+    width: 40px;
+}
+
+.credit-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.invalid {
+    color: red;
+}
+
+.visivel{
+    display: flex;
+}
+.invisivel{
+    display: none
+}
+
+
+.imgHeader{
+    width: 200px !important;
+}
+
+.firstCharupperCase {
+    text-transform: capitalize !important;
+}

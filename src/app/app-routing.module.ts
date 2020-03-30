@@ -43,10 +43,12 @@ const routes: Routes = [
   { path: 'esqueci-senha', loadChildren: './login/esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule' },
   { path: 'criar-conta', loadChildren: './login/criar-conta/criar-conta.module#CriarContaPageModule' },
   { path: 'cadastrar-evento', loadChildren: './pages/cadastrar-evento/cadastrar-evento.module#CadastrarEventoPageModule' },
-  { 
-    path: 'visao-evento', 
-    loadChildren: './pages/visao-evento/visao-evento.module#VisaoEventoPageModule' },
-  { path: 'comprar-bilhete', loadChildren: './pages/comprar-bilhete/comprar-bilhete.module#ComprarBilhetePageModule' }
+  { path: 'comprar-bilhete', loadChildren: './pages/comprar-bilhete/comprar-bilhete.module#ComprarBilhetePageModule' },
+  { path: 'detalhe-evento', loadChildren: './pages/detalhe-evento/detalhe-evento.module#DetalheEventoPageModule' },  { path: 'escolher-ingresso', loadChildren: './pages/escolher-ingresso/escolher-ingresso.module#EscolherIngressoPageModule' },
+  { path: 'meu-carrinho', loadChildren: './pages/meu-carrinho/meu-carrinho.module#MeuCarrinhoPageModule' },
+  { path: 'pagamento-cartao', loadChildren: './pages/pagamento-cartao/pagamento-cartao.module#PagamentoCartaoPageModule' }
+
+
 ];
 
 @NgModule({
