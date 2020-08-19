@@ -1,0 +1,45 @@
+<app-loading></app-loading>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  </ion-toolbar>
+
+  <ion-toolbar>
+      <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button [value]="0" checked>
+          <ion-label>Destaque</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [value]="1">
+          <ion-label>Todos</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar> 
+
+</ion-header>
+
+<ion-content >
+     
+     <ion-card *ngFor="let evento of eventos">
+       <ion-grid>
+         <ion-row class="ion-align-items-center">
+           <ion-col size="12" text-center>
+              <img [src]="evento.imagemURL" (click)="visaoEvento(evento)">
+           </ion-col>
+         </ion-row>
+       </ion-grid>
+     </ion-card>
+
+     <!--<ion-card>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="12" text-center>
+                <img src="assets/imgs/offParaElas.jpg" (click)="visaoEvento()">
+            </ion-col>
+          </ion-row>
+        </ion-grid> 
+    </ion-card> !-->
+  
+</ion-content>

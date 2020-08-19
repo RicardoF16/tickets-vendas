@@ -1,0 +1,369 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: api
+  description: api
+basePath: /henkoti-beta/us-central1/api
+
+tags:
+  - name: Usuario
+    description: Informações gerais de usuário
+
+  - name: Exemplo
+    description: Um exemplo para testes da documentação
+
+    
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+  
+components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+  schemas:
+    
+    Usuario:
+      type: object
+      title: usuario
+      required:
+        - uid
+        - nome
+        - email
+        - papel
+      properties:
+        uid: 
+          type: string
+          example: AU125aaa00V
+        nome:
+          type: string
+          example: Usuario 01
+        email:
+          type: string
+          example: usuario@email.com
+        papel:
+          type: number
+          example: 0
+        empresaNome:
+          type: string
+          example: HenkoTI
+
+    Exemplo:
+      type: object
+      title: Exemplo
+      required:
+        - id
+        - nome
+        - responsavel
+      properties:
+        id:
+          type: string
+          example: -xpto0123
+        nome:
+          type: string
+          example: Projeto 01
+        responsavel:
+          type: string
+          example: AU125aa00V
+
+
+
+
+definitions:
+  Usuario:
+    $ref: "#/components/schemas/Usuario"
+  Exemplo:
+    $ref: "#/components/schemas/Exemplo"
+        
+consumes:
+  - application/json
+produces:
+  - application/json
+
+
+
+paths:
+
+  /usuarios:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      description: Busca todos os usuários disponíveis
+      responses:
+        200:
+          description: Retorna todos os usuários
+          schema: 
+            type: array
+            items:
+              $ref: "#/components/schemas/Usuario"
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      description: Cria um novo usuário
+      parameters:
+        - name: Usuário
+          in: body
+          description: Um usuário
+          required: true
+          schema: 
+            $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Usuário criado com sucesso
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+  /usuarios/me:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      description: Busca as informações do usuário logado
+
+      responses:
+        200:
+          description: Retorna as informações do usuário logado
+          schema:
+            $ref: "#/components/schemas/Usuario"
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      description: Salva alterações do usuário logado
+      responses:
+        200:
+          description: Retorna as informações do usuário logado
+          schema:
+            $ref: "#/components/schemas/Usuario"
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+
+  /usuarios/{uid}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+
+      description: Busca um usuário por UID
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: UID do usuário
+          type: string
+      responses:
+        200:
+          description: Retorna o usuário do UID especificado
+        404:
+          description: Usuário não encontrado
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: UID do usuário
+          type: string
+          
+        - name: Usuário
+          in: body
+          description: Um usuário
+          required: true
+          schema: 
+            $ref: "#/components/schemas/Usuario"
+      description: Salva um usuário por UID
+      responses:
+        200:
+          description: Retorna o usuário do UID especificado
+          schema:
+            $ref: "#/components/schemas/Usuario"
+        404:
+          description: Usuário não encontrado
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Usuario
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: UID do usuário
+          type: string
+      description: Deleta um usuário por UID
+      responses:
+        201:
+          description: Usuario deletado com sucesso
+        404:
+          description: Usuario não encontrado
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+  /exemplos:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Exemplo
+      description: Busca todos as organizações disponíveis
+      responses:
+        200:
+          description: Retorna todos os exemplo
+          schema: 
+            type: array
+            items:
+              $ref: "#/components/schemas/Exemplo"
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Exemplo
+      description: Cria uma nova organização
+      parameters:
+        - name: Exemplo
+          in: body
+          description: uma Exemplo
+          required: true
+          schema: 
+            $ref: "#/components/schemas/Exemplo"
+      responses:
+        201:
+          description: exemplo criada com sucesso
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+  /exemplos/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Exemplo
+      description: Busca uma exemplo por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da exemplo
+          type: string
+          
+      responses:
+        200:
+          description: Retorna a exemplo do ID especificado
+          schema:
+            $ref: "#/components/schemas/Exemplo"
+        404:
+          description: exemplo não encontrada
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Exemplo
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da exemplo
+          type: string
+          
+        - name: Exemplo
+          in: body
+          description: uma Exemplo
+          required: true
+          schema: 
+            $ref: "#/components/schemas/Exemplo"
+      
+      description: Altera uma exemplo por ID
+      responses:
+        200:
+          description: Retorna a exemplo do UID especificados]
+          schema:
+            $ref: "#/components/schemas/Exemplo"
+        404:
+          description: Usuário não encontrado
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Exemplo
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da exemplo
+          type: string
+      description: Deleta uma exemplo por ID
+      responses:
+        201:
+          description: exemplo deletada com sucesso
+        404:
+          description: exemplo não encontrada
+        403:
+          description: Usuário não tem autorização para fazer a requisição solicitada
+          schema:
+            $ref: '#/components/responses/UnauthorizedError'
+
+  /spec:
+    get:
+      tags:
+        - Especificação
+      responses:
+        200:
+          description: Retorna a especificação da API 
+

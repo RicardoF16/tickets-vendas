@@ -1,0 +1,78 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+//@import '../node_modules/ionic4-auto-complete/auto-complete';
+
+
+ion-header{
+    // border-bottom: 3px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 30px #ccc;
+}
+
+.header-md:after, .header-ios:after{
+    display: none;
+}
+
+.logo-menu{
+    width: 50%;
+}
+
+::-webkit-input-placeholder{
+    font-size: 12px;
+    color: #222 !important;
+}
+
+.add-item{
+    position: absolute;
+    right: 5%;
+    top: 12%;
+    width: 40px;
+}
+
+ion-title{
+    color: #1472D0;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    // font-weight: 200;
+}
+
+ion-item{
+    color:black;
+}
+
+ion-menu-button, ion-back-button{
+    color: #1472D0 !important;
+}
+
+.select-placeholder{
+    font-size: 12px !important;
+}
+
+ion-col .arrow{
+    height: 30px;
+}
+
+ion-button{
+    height: 45px;
+}
+
+.searchbar-input.sc-ion-searchbar-md, .searchbar-input.sc-ion-searchbar-ios{
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 12px;
+    color: gray;
+}
+
+.pac-item {
+    line-height: 37px;
+}

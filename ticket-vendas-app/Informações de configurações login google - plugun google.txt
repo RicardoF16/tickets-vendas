@@ -1,0 +1,114 @@
+===============================================================
+FAZENDO LOGIN COM A CONTA DA GOOGLE
+===============================================================
+
+===============================================================
+ACESSANDO O CONSOLLE DO DEVEPOLOPER DA GOOGLE
+===============================================================
+
+	https://console.cloud.google.com/
+        usuario: ricardo.f16@hotmail.com	
+	senha: Ric05081725
+
+===============================================================
+FONTE DE PESQUISA 
+===============================================================
+
+	https://medium.com/enappd/implement-google-login-in-ionic-4-apps-using-firebase-57334bad0910
+
+
+===============================================================
+GERANDO O SHAR1
+===============================================================
+	Acessar prompt do DOS: 
+     
+		C:\Program Files\Java\jre1.8.0_241\bin> e rode o comando abaixo: 
+
+   		/*keytool -keystore path-to-debug-or-production-keystore -list -v*/
+
+                Senha da chave de <tikets-vendas>: Ric#05081725
+                Senha da área de armazenamento de chaves:  Ric#05081725
+  
+   		keytool -keystore C:\HENKO\tickets-vendas\ticket-vendas-app\certificado\tikets-vendas.keystore -list -v
+
+		MD5:  29:2D:57:CC:38:0E:5D:B0:D3:01:B2:15:DA:50:FE:FD
+        	SHA1: DD:87:0B:E3:F5:50:DC:41:38:C3:05:84:D1:30:2E:FD:0D:BE:55:E3
+	        SHA256: 1A:9A:5E:57:1B:37:34:6E:B2:22:A5:FD:DF:88:3E:2C:9E:D0:32:BD:5E:08:FD:4D:36:32:8A:51:F1:1A:48:AD
+  
+                ATENÇÃO: O CLIENT ID DEVE USAR DO APLICATIVO WEB E NÃO DO APP ANDROID, AMBOS ESTÃO NO CONSOLLE DO DEVEPOLOPER DA GOOGLE NO
+		MENU CREDENCIAIS >> IDs DO CLIENT OAUTH 2.0	
+
+		REVERSED_CLIENT_ID": "5583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6.apps.googleusercontent.com"
+
+
+================================================================
+CONSOLLE DO DEVEPOLOPER DA GOOGLE
+===============================================================
+IDs do cliente OAuth 2.0
+
+	DEVE CRIAR UM APLICATIVO DO TIPO "APLICATIVO DA WEB" 
+	
+		UTILIZAR O ID CLIENT DO "APLICATIVO DA WEB" PARA INSTALAÇÃO DO PLUGIN E CONFIGURAÇÕES NO PROJETO:
+
+			583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6.apps.googleusercontent.com  
+
+	DEVE CRIAR UM APLICATIVO DO TIPO "ANDROID" 
+
+        	NO ANDROID DEVE INFORMAR O MESMO PACOTE INFORMADO NO CONFIG.XML DO PROJETO
+                INFORMAR SHA1 GERADO NO PASSO ANTERIOR  
+	
+		CASO N SEJA CRIADO ESSE APP NO CONSOLE DA GOOOGLE VAI OCORRER O "ERRO 12500" RETORNADO PELA API DA GOOGLE.
+
+
+===============================================================
+
+
+
+===============================================================
+INSERINDO O CHAR1 NO PROJETO DO FIREBASE
+===============================================================					 
+
+ACESSE O MENU VISÃO GRAL >>> CONFIGURAÇÕES DO PROJETO >>>> SELECIONE O APLICATIVO ANDROID OU IOS 
+
+	CLIQUE NA FUNCIONALIDADE "ADICIONAR IMPRESSÃO DIGITAL" INFORME O SHAR1 GERADO E CLIQUE EM SALVAR.
+
+	CASO N SEJA INFORMADO ESSA IMPRESSÃO DIGITAL VAI OCORRER O "ERRO 12500" RETORNADO PELA API DA GOOGLE.
+
+
+===============================================================
+INSTALANDO PLUGIN 
+===============================================================					 
+	Ionic:
+
+	   ionic (Ionic CLI)          : 4.1.2 
+	   Ionic Framework            : @ionic/angular 4.3.1
+	   @angular-devkit/core       : 7.3.8
+	   @angular-devkit/schematics : 7.3.8
+	   @angular/cli               : 7.3.10
+	   @ionic/ng-toolkit          : not installed
+	   @ionic/schematics-angular  : not installed
+
+	Cordova:
+
+	   cordova (Cordova CLI) : not installed
+	   Cordova Platforms     : android 8.1.0
+	   Cordova Plugins       : cordova-plugin-ionic-keyboard 2.2.0, cordova-plugin-ionic-webview 4.1.3, (and 5 other plugins)
+	System:
+
+	   Android SDK Tools : 26.1.1 (C:\Users\Ricardo\AppData\Local\Android\sdk)
+	   NodeJS            : v10.15.0 (C:\Program Files\nodejs\node.exe)
+	   npm               : 6.4.1
+	   OS                : Windows 10
+
+
+        INSTALAR OS PLUGINS GOOGLE-PLUS:
+
+		npm install --save @ionic-native/google-plus@5.8.0
+
+	        ATENÇÃO: O CLIENT ID DEVE USAR DO APLICATIVO WEB E NÃO DO APP ANDROID, AMBOS ESTÃO NO CONSOLLE DO DEVEPOLOPER DA GOOGLE NO
+			MENU CREDENCIAIS >> IDs DO CLIENT OAUTH 2.0
+
+			REVERSED_CLIENT_ID=com.googleusercontent.apps.583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6
+
+                ionic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6
+

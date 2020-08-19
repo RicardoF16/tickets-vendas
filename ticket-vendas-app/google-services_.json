@@ -1,0 +1,9 @@
+{"web":
+    {
+    "client_id":"583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6.apps.googleusercontent.com",
+    "project_id":"tickets-vendas-65715","auth_uri":"https://accounts.google.com/o/oauth2/auth",
+    "token_uri":"https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret":"Jp6JoK61i58sDYV7F8W5sK9e"
+    }
+}

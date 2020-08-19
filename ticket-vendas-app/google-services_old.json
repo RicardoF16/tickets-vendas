@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "583783993277",
+    "firebase_url": "https://tickets-vendas-65715.firebaseio.com",
+    "project_id": "tickets-vendas-65715",
+    "storage_bucket": "tickets-vendas-65715.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583783993277:android:1abdfdccbbdf06687d8cd4",
+        "android_client_info": {
+          "package_name": "br.com.kintalclub.vendastickets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeHcsGKgoLSC_Pnp4Xpagby_LPnSYW0Xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583783993277-v6iu1ubijs774422n53icp7ucmm6k5i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

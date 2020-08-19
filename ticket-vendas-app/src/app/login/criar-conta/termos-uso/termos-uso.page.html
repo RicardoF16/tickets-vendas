@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/criar-conta"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-text">
+      {{ 'PAGE_TERMS_TITLE' | translate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <iframe src="/assets/termos.html" style="width: 100%; height: 100%;"></iframe>
+  
+  <!-- <button class="btn-concordo" [routerLink]="['/login/criar-conta/true']">
+    {{ 'PAGE_TERMS_AGREE' | translate }}</button>
+  <button class="btn-discordo" [routerLink]="['/login/criar-conta/false']">
+    {{ 'PAGE_TERMS_DISAGREE' | translate }}
+  </button> -->
+</ion-content>

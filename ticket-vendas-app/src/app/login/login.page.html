@@ -1,0 +1,83 @@
+<app-loading></app-loading>
+
+<ion-content padding class="container">
+  <div text-center>
+    <img src="assets/imgs/logo_login.png" class="img-logo" />
+  </div>
+
+  <button class="btn-facebook" (click)="loginFacebook()">
+    <img src="assets/imgs/facebook-logo.svg" class="img-facebook" />
+    {{ 'PAGE_LOGIN_FACEBOOK' | translate }}
+  </button>
+
+  <button class="btn-google" (click)="loginWithGoogle()">
+    <img src="assets/imgs/google_signin.png" class="img-google" />
+    {{ 'PAGE_LOGIN_GOOGLE' | translate }}
+  </button>
+
+  <ion-grid ion-padding>
+    <ion-row>
+      <ion-col size="5" no-padding>
+        <hr margin style="border-bottom: 1px solid #ccc;" />
+      </ion-col>
+      <ion-col size="2" align-self-center text-center no-padding>
+        <small style="color: #ccc">{{ 'PAGE_LOGIN_OR' | translate }}</small>
+      </ion-col>
+      <ion-col size="5" no-padding>
+        <hr margin style="border-bottom: 1px solid #ccc;" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--     <hr margin style="border-bottom: 1px solid #ccc;" class="ion-margin-top"> -->
+
+  <form [formGroup]="form">
+    <ion-grid class="ion-padding" style="padding-top: 0">
+      <ion-row class="ion-align-items-center rounded"
+        [ngClass]="form.hasError('email', 'user') ? 'rounded-error' : 'rounded'">
+        <ion-col class="ion-text-center" align-self-center="center" size="2">
+          <ion-icon name="person" style="color:gray; font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9">
+          <ion-input type="email" class="ion-no-padding-horizontal" placeholder="{{ 'PAGE_LOGIN_USER' | translate }}"
+            inputmode="email" formControlName="user"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center rounded ion-margin-top"
+        [ngClass]="form.hasError('minlength', 'password') ? 'rounded-error' : 'rounded'">
+        <ion-col class="ion-text-center" align-self-center="center" size="2">
+          <ion-icon name="lock" style="color:gray; font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="9">
+          <ion-input type="password" class="ion-no-padding-horizontal" placeholder="{{ 'PAGE_LOGIN_PASS' | translate }}"
+            inputmode="password" formControlName="password"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col size="6">
+        <ion-button expand="block" color="success" [routerLink]="['/login/criar-conta/true']">
+          {{ 'PAGE_LOGIN_SIGNUP' | translate }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="primary" [disabled]="form.invalid" (click)="login()">
+          {{ 'PAGE_LOGIN_LOGIN' | translate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <p text-center [routerLink]="['/']">
+    <b class="continue">
+      {{ 'PAGE_LOGIN_LABEL_CONTINUE_WIHTOUT_LOGIN' | translate }}
+    </b>
+  </p> -->
+  <p text-center>
+    <b class="esqueci-senha" [routerLink]="['/login/esqueci-senha']">
+      {{ 'PAGE_LOGIN_FORGOT_PASS' | translate }}
+    </b>
+  </p>
+</ion-content>

@@ -1,0 +1,30 @@
+<app-loading></app-loading>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-text">
+      {{ 'PAGE_FORGOT_PASSWORD_TITLE' | translate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="container"><br />
+  <form [formGroup]="form">
+    <ion-grid class="ion-padding">
+      <ion-row class="ion-align-items-center rounded" 
+               [ngClass]="form.hasError('email', 'user') ? 'rounded-error' : 'rounded'">
+        <ion-col class="ion-text-center" align-self-center="center" size="2">
+          <ion-icon name="mail" style="color:gray; font-size: x-large;"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <ion-input type="email" class="ion-no-padding-horizontal" formControlName="user" placeholder="E-mail" inputmode="email"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button margin expand="block" class="btn-entrar" [disabled]="form.invalid" (click)="sendEmailReset()">
+      {{ 'PAGE_FORGOT_PASSWORD_BTN_SEND' | translate }}
+    </ion-button>
+  </form>
+</ion-content>

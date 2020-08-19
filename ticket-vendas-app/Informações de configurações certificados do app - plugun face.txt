@@ -1,0 +1,93 @@
+Dados do face:
+
+sdk face boock:
+
+	https://developers.facebook.com/apps/676521406498214/dashboard/
+
+Fonte de pesquisa de login do face: 
+
+	https://ionicframework.com/blog/ionic-firebase-facebook-login/
+
+id do app do face: 
+
+	676521406498214
+
+nome do app:
+
+	 Tickets-Vendas
+
+chave secreta do app: 
+
+	beabef27aeebaa5050e754db190d98fa
+
+
+Instalando plugin do face
+
+	- ionic cordova plugin add cordova-plugin-facebook4@4.2.1 --variable APP_ID="676521406498214" --variable APP_NAME="Tickets-Vendas"
+
+Site para baixar o openssll
+
+	- https://code.google.com/archive/p/openssl-for-windows/downloads
+
+        - Descompactar
+
+        - Criar uma pasta no c:\OpenSSL
+
+        - Copiar os arquivos descompactados para dentro da pasta  c:\OpenSSL
+
+
+Gerar certificado de produção
+
+
+        - Acessar prompt do DOS
+         
+        - Acessar via dos o caminho C:\Program Files\Java\jre1.8.0_241\bin> rodar o comando abaixo
+
+        - Informar na linha de comando o nome do alias, que seja um nome sujestivo e facil
+
+        - Informar na linha de comando o caminho onde será salvo o certificado, importante n deve gerar no c:\ e sim na pasta do projeto
+
+	 - keytool -genkey -v -keystore C:\HENKO\tickets-vendas\ticket-vendas-app\certificado\tikets-vendas.keystore -alias tikets-vendas -keyalg RSA -keysize 2048 -validity 10000
+
+        	Informe a senha da área de armazenamento de chaves:Ric#05081725
+	        Qual é o seu nome e o seu sobrenome: Ricardo Aguiar
+	        Qual é o nome da sua unidade organizacional: Kintal Club
+		Qual é o nome da sua empresa: Kintal Club
+	        Qual é o nome da sua Cidade ou Localidade: Belo Horizonte
+	        Qual é o nome do seu Estado ou Município: Belo Horizonte
+		Quais são as duas letras do código do país desta unidade: BR
+    
+        - Informar a senha da chave de <tikets-vendas>: Ric#05081725
+        - Alias: tikets-vendas
+
+
+Para gerar "Hashes chave" Acessar: 
+
+   - Acessar prompt do DOS
+
+   - C:\Program Files\Java\jre1.8.0_241\bin> e rode o comando abaixo: 
+
+   - Informar na linha de comando o nome do alias criado no momento que foi gerado o certificado de produção - passo anterior
+
+   - Informar na linha de comando o caminho onde foi gerado o certificado no momento que foi gerado o certificado de produção - passo anterior
+ 
+   - keytool -exportcert -alias tikets-vendas -keystore C:\HENKO\tickets-vendas\ticket-vendas-app\certificado\tikets-vendas.keystore | C:\OpenSSL\bin\openssl sha1 -binary | C:\OpenSSL\bin\openssl base64
+
+   - Informe a senha da área de armazenamento de chaves:  Ric#05081725
+
+   - Hashes chave = 3YcL4/VQ3EE4wwWE0TAu/Q2+VeM=
+
+
+ASSINAR APK NO ANDROID STUDIO
+
+	-Abrir o android studio e esperar o sync do graddle
+	
+	-Menu build - generate signed apk
+
+	-Selecione a opção apk e avance
+
+	-Preencha os dados do seu certificado e avance
+
+	-Selecione release, e marque as opções v1 e v2 e clique em finish
+
+

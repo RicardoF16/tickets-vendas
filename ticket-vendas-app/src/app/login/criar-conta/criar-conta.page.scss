@@ -1,0 +1,33 @@
+.container{
+    
+    ::-webkit-input-placeholder, .upload-img{
+        // font-size: 13px;
+        color: rgb(163, 163, 163);
+    }
+
+    .img-attached {
+        color: #1472d0;
+    }
+    
+    .upload-img{
+        text-indent: 30px;
+        padding: 12px;
+        // border-bottom: 1px solid rgb(236, 236, 236);
+        ion-icon{
+            font-size: 30px;
+            position: absolute; 
+            left: 2%;
+            margin-top: -2%;
+        }
+    }
+
+    .termos-de-uso{
+        text-indent: 10px;
+        font-size: 12px;
+        color: #222;
+        .termos{
+            color: #1472d0;
+            font-weight: bold;
+        }
+    }
+}

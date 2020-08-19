@@ -1,0 +1,7 @@
+{
+  "name": "tickets-vendas",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
