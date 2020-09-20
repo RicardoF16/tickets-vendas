@@ -190,7 +190,6 @@ class CollectionInstance {
     if (schema) {
       this.schema = schema;
     }
-
     return this;
   }
 
@@ -251,7 +250,8 @@ class CollectionInstance {
   }
 
   find(options) {
-    //console.error('find(options) >> ', options);
+    console.error('find(options) >> ', options);
+    
     return new Promise((resolve, reject) => {
       let reference = this.reference;
       let page, perPage, offset;
@@ -268,18 +268,21 @@ class CollectionInstance {
       }
 
       let promises = [reference.once("value")];
-
       if (options && !options.where) {
         promises.push(this.count());
         options.internalQuery = true;
       }
+      
 
       Promise.all(promises).then(values => {
         const entityValue = values[0].val();
         const count = values[1];
+        //console.log('entityValue >> ', entityValue);
         const result = this.query(entityValue)
           .discover(options)
           .execute();
+
+        console.log('result >> ', ); 
 
         if (!options.where) {
           result.total = count;
@@ -318,6 +321,7 @@ class CollectionInstance {
 
   findById(id) {
     console.log('inicio do findById >> firenode');
+    console.log('this.reference >> ', this.reference.once("value"));
     return new Promise((resolve, reject) => {
       if (!id) {
         throw new Error("id cannot be null or empty");
@@ -327,7 +331,7 @@ class CollectionInstance {
         .once("value")
         .then(entitySnap => {
           let entity = entitySnap.val();
-          console.log('let entity', entity );
+          //console.log('let entity', entity );
           if (entity) {
             resolve(entity);
           } else {

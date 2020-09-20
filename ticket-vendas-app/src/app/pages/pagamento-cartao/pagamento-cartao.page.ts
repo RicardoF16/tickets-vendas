@@ -12,6 +12,7 @@ import { CarrinhoService } from 'src/app/_services/carrinho.service';
 import { UserStateService } from 'src/app/_services/user-state.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class PagamentoCartaoPage implements OnInit {
               private route: Router,
               private gAlert: GenericAlertService,
               private carrinhoService: CarrinhoService,
-              private userState: UserStateService
+              private userState: UserStateService,
+              public navCtrl: NavController
              ) { }
 
   ngOnInit() {
@@ -52,16 +54,15 @@ export class PagamentoCartaoPage implements OnInit {
     this.translate.onLangChange.subscribe(() => {
       this.getTranslations();
     });
+
     this.getTranslations();
 
     this.userState.getUser$
       .pipe(takeUntil(this.uns))
       .subscribe(user => this.user = user);
-
-    console.log('User >> ', this.user);
+    
     this.meuCarrinho = this.carrinhoService.getDadosCarrinho();
     console.log('Carrinho >> ', this.meuCarrinho);
-
   }
 
   private getTranslations() {
@@ -78,8 +79,6 @@ export class PagamentoCartaoPage implements OnInit {
         };
       });
   }
-
-
   
   classDisplay(){
     let css = 'visivel'
@@ -90,6 +89,12 @@ export class PagamentoCartaoPage implements OnInit {
     return css;
   }
 
+  finalizarCompras(){
+    this.cadastrar();
+    //A pagina meus tickets tem que ser chamada após a garantia de ter retorno de ter salvo todos os tickets.
+    //this.navCtrl.navigateRoot('/meus-tickets'); 
+  }
+
   async cadastrar(){
     this.tickets = new Array<MeusTikets>();
     let ticket : MeusTikets;
@@ -97,24 +102,27 @@ export class PagamentoCartaoPage implements OnInit {
     try {
           this.meuCarrinho.forEach( item =>{
             if(item.qtd > 0){
-              ticket = { diaEvento: 'teste',
-                        valor :item.valor,
-                        lote : '1',
-                        qrcode : 'img',
-                        utilizado : "NAO",
-                        setor : item.setor,
-                        dataCriacao : '15-08-2020',
-                        diaSemana : 'sabado',
-                        diaMes : '23',
-                        descricaoMes : item.descricao
+              for(let cont = 0; cont < item.qtd; cont++) {
+                ticket = { descricaoEvento: 'Pós Forrozao',
+                           valor :item.valor,
+                           lote : '1',
+                           qrcode : 'img',
+                           setor : item.setor,
+                           dataCriacao : '15-08-2020',
+                           idUser : this.user.id,
+                           descricaoDiaSemana : 'Sabado',
+                           descricaoMes : 'Julho',
+                           diaNoMes: '24',
+                           ano:'2020',
+                           dataEvento: '23-07-2020',
+                           dataValidacao: '24-07-2020',
+                           horaValidacao: '00:05'
                       };
-              //this.tickets.push(ticket)
               this.saveTickets(this.user.id,ticket);
+             }
             }
           });
 
-          console.log('this.tickets >> ', this.tickets) 
-          //this.saveTickets(this.user.id,this.tickets);
     } catch (error) {
       this.loading.dismissLoading();
     }
@@ -124,19 +132,16 @@ export class PagamentoCartaoPage implements OnInit {
 
   private async saveTickets(idUser: string, tickets: MeusTikets) {
 
-
     this.meusTicketsService.post(idUser, tickets)
       .subscribe(async data => {
-        debugger;
         await this.loading.dismissLoading();
         this.gAlert.presentToastSuccess(this.translations.PAGE_INFO_SAVING_SUCCESS);
-        //this.route.navigateRoot('/menu/lista');
-        console.log(data);
       }, async erro => {
         console.log(erro);
         this.gAlert.presentToastError(this.translations.PAGE_INFO_SAVING_ERROR);
         await this.loading.dismissLoading();
       });
+
   }
 
 

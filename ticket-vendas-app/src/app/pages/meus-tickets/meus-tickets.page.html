@@ -1,3 +1,5 @@
+<app-loading></app-loading>
+
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
@@ -16,15 +18,18 @@
     <div id="container">
       <ion-list>
         
-        <ion-item>
+        <ion-item *ngFor="let ticket of meustickets"> 
           <ion-avatar slot="start">
             <img src="">
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
-                <h2>Pós Forrozão</h2>
-                <p>Quinta, 23 de Julho</p>
+                <h2>{{ticket.descricaoEvento}}</h2>
+                <p>{{ticket.descricaoDiaSemana}}, {{ticket.diaNoMes}}, de {{ticket.descricaoMes}}, {{ticket.ano}}</p>
+                <p>Setor: {{ticket.setor}}</p>
+                <p>Valor: {{ticket.valor}}</p>
+                <p>QRCODE: {{ticket.qrcode}}</p>
                 <p>Abertura: 23:00</p>
                 <p>Show: 00:00</p>
               </ion-col>

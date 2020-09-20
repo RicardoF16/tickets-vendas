@@ -7,6 +7,7 @@ class UsuarioController {
   getAll(req, res) {
     console.log('GetAll');
     const query = req.query;
+    console.log('req.query >>', req.query);
     UsuarioService.getAll(query)
       .then(usuarios => {
         if (usuarios) {
@@ -133,10 +134,12 @@ class UsuarioController {
 getByUidUser(req, res) {
   const { id } = req.params;
   console.log('inicio ByUidUser >> Controler');
+  console.log('iduser >>', id);
   const query = req.query;
-  //itemService.getByIdUser({ where: `(id,=,${id})`, perPage: 9999 })
+  
+  //itemService.getAll({ where: `(id,=,${id})`, perPage: 9999 })
   itemService.getByIdUser(id)
-    .then(meusTickets => {
+      .then(meusTickets => {
       if (meusTickets) {
         res.send(meusTickets)
       }

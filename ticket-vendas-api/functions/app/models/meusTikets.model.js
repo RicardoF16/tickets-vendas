@@ -2,10 +2,12 @@ const firenode = require('../lib/firenode'),
       Model = firenode.model;
 
  const schema = {
-    diaEvento: {
+  
+  descricaoEvento: {
     type: String,
-    required: [true, 'REQUIRED_DIA_DO_EVENTO']
+    required: [true, 'DESCRICAO_EVENTO']
   },
+
   valor: {
     type: String,
     required: [true, 'VALOR_TICKET']
@@ -18,10 +20,6 @@ const firenode = require('../lib/firenode'),
     type: String,
     required: [true, 'TICKET_QRCODE']
   },
-  utilizado: {
-    type: String,
-    required: [true, 'TICKET_UTILIZADO']
-  },
   setor: {
     type: String,
     required: [true, 'SETOR']
@@ -30,19 +28,39 @@ const firenode = require('../lib/firenode'),
     type: String,
     required: [true, 'DATA_CRIACAO']
   },
-  diaSemana: {
+  idUser: {
     type: String,
-    required: [true, 'DIA_SEMANA']
+    required: [true, 'IDUSUARIO']
   },
-  diaMes: {
+  
+  descricaoDiaSemana: {
     type: String,
-    required: [true, 'DIA_MES']
+    required: [true, 'DESCRICAO_DIA_SEMANA']
   },
   descricaoMes: {
     type: String,
     required: [true, 'DESCRICAO_MES']
+  },
+  diaNoMes: {
+    type: String,
+    required: [true, 'DIA_NO_MES']
+  },
+  ano: {
+    type: String,
+    required: [true, 'AMO']
+  },
+  dataEvento: {
+    type: String,
+    required: [true, 'DATAEVENTO']
+  },
+  dataValidacao:{
+    type: String,
+    required: ['DATA_VALIDACAO']
+  },
+  horaValidacao:{
+    type: String,
+    required: ['HORA_VALIDACAO']
   }
-  
 };
 
 const meusTicketsModel = new firenode.schema(schema);

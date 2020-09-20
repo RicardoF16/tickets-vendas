@@ -9,42 +9,22 @@ class ItemService {
   */
 
   getAll(query) {
-    return itemModel.find(query);
+    return meusTicketsModel.find(query);
   }
+
+  getAllUsers() {
+    return usuariosModel.rebuild(`/usuarios`).find({});
+  }
+
 
   getByIdUser(id) {
-    console.log('Inicio getByIdUser >>> itemService>> ', id);
-    console.log('id 1>> ', id);
-    return meusTicketsModel.rebuild(`/usuarios/${id}/meusTickets`);
+    return meusTicketsModel.rebuild(`/usuarios/${id}/meusTickets`).find({})
   }
 
-  /*getByIdUser(query) {
-    console.log('query >> ', query)
+  getById(query) {
     return meusTicketsModel.find(query);
-  }*/
-
-  getById(id, idItem) {
-    console.log('id 1>> ', id);
-    console.log('idItem 2>> ', idItem);
-    return meusTicketsModel.rebuild(`/usuarios/${id}/meusTickets`).findById(idItem);
   }
 
-  /*getById(id, idInfo, idSetor) {
-    return setorModel.rebuild(`/eventos/${id}/informacoes/${idInfo}/setor`).findById(idSetor);
-  }*/
-
-  //getById(id, idItem) {
-    /*if (tipoItem == '0')
-      return veiculoModel.rebuild(`/usuarios/${id}/veiculos`).findById(idItsem);
-    else if (tipoItem == '1')
-      return pessoaModel.rebuild(`/usuarios/${id}/pessoas`).findById(idItem);
-    else
-      return petModel.rebuild(`/usuarios/${id}/pets`).findById(idItem);*/
-    /*console.log('id >>', id); 
-    console.log('idItem >>', idItem);
-    return meusTicketsModel.rebuild(`/usuarios/${id}/meusTickets`).findById(idItem); */
-  //return       setorModel.rebuild(`/eventos/${id}/informacoes/${idInfo}/setor`).findById(idSetor);
-  //}
 
   create(usuario, item, tipoItem, id) {
     /*if (tipoItem == '0') {

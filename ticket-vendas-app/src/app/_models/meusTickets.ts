@@ -1,29 +1,42 @@
 export interface MeusTikets{
-         diaEvento : string;
+         descricaoEvento: string; 
          valor : string;
          lote : string;
          qrcode : string;
-         utilizado : string;
          setor : string;
          dataCriacao : string;
-         diaSemana : string;
-         diaMes : string;
-         descricaoMes : string;
+         idUser: string;
+         descricaoDiaSemana: string;
+         descricaoMes: string;
+         diaNoMes: string;
+         ano: string;
+         dataEvento: string;
+         dataValidacao: string;
+         horaValidacao: string;
 }
 
+export interface MeusTiketsListResponse {
+    list: Array<MeusTikets>;
+    pages: number;
+    current: number;
+    perPage: number;
+    total: number;
+}
 
-
-export interface  MeusTiketsResponse extends MeusTikets {
+export interface MeusTiketsResponse extends MeusTikets {
     __v: number;
-    diaEvento : string;
+    descricaoEvento: string; 
     valor : string;
     lote : string;
     qrcode : string;
-    utilizado : string;
     setor : string;
     dataCriacao : string;
-    diaSemana : string;
-    diaMes : string;
-    descricaoMes : string;
-    id: string;
+    idUser: string;
+    descricaoDiaSemana: string;
+    descricaoMes: string;
+    diaNoMes: string;
+    ano: string;
+    dataEvento: string;
+    dataValidacao: string;
+    horaValidacao: string;
 }
