@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SelecionarDataEventoPage } from './selecionar-data-evento.page';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: SelecionarDataEventoPage
+    component: SelecionarDataEventoPage,
+    canActivate: [AuthGuard]
   }
 ];
 

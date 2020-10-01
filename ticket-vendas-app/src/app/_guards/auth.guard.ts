@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
@@ -10,10 +10,8 @@ export class AuthGuard implements CanActivate {
 
     constructor (public navCtrl: NavController) {}
 
-    canActivate(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        let user = localStorage.getItem('userData');
+    canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+        let user = localStorage.getItem('user');
         if (user)
             user = JSON.parse(user);
 

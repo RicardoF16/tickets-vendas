@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { MeuCarrinhoPage } from './meu-carrinho.page';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: MeuCarrinhoPage
+    component: MeuCarrinhoPage,
+    canActivate: [AuthGuard]
   }
 ];
 

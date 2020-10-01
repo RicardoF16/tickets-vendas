@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { EscolherIngressoPage } from './escolher-ingresso.page';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: EscolherIngressoPage
+    component: EscolherIngressoPage,
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -8,11 +8,13 @@ import { IonicModule } from '@ionic/angular';
 import { PagamentoCartaoPage } from './pagamento-cartao.page';
 
 import { LoadingModule } from '../../modules/loading/loading.module';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: PagamentoCartaoPage
+    component: PagamentoCartaoPage,
+    canActivate: [AuthGuard]
   }
 ];
 

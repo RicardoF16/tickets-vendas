@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   { 
     path: 'feed-redes-sociais', 
-    loadChildren: './pages/feed-redes-sociais/feed-redes-sociais.module#FeedRedesSociaisPageModule' 
+    loadChildren: './pages/feed-redes-sociais/feed-redes-sociais.module#FeedRedesSociaisPageModule'
   },
   
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
@@ -48,7 +48,8 @@ const routes: Routes = [
   { path: 'escolher-ingresso', loadChildren: './pages/escolher-ingresso/escolher-ingresso.module#EscolherIngressoPageModule' },
   { path: 'meu-carrinho', loadChildren: './pages/meu-carrinho/meu-carrinho.module#MeuCarrinhoPageModule' },
   { path: 'pagamento-cartao', loadChildren: './pages/pagamento-cartao/pagamento-cartao.module#PagamentoCartaoPageModule' },
-  { path: 'selecionar-data-evento', loadChildren: './pages/selecionar-data-evento/selecionar-data-evento.module#SelecionarDataEventoPageModule' },  { path: 'meus-tickets', loadChildren: './pages/meus-tickets/meus-tickets.module#MeusTicketsPageModule' }
+  { path: 'selecionar-data-evento', loadChildren: './pages/selecionar-data-evento/selecionar-data-evento.module#SelecionarDataEventoPageModule' },
+  { path: 'meus-tickets', loadChildren: './pages/meus-tickets/meus-tickets.module#MeusTicketsPageModule' }
 
 
 
