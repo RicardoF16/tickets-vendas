@@ -1,0 +1,63 @@
+{
+  "compras" : {
+    "idCompra" : {
+      "dadospagamento" : "descrição",
+      "dtCompra" : "yyyy-MM-dd HH:mm:ss",
+      "idEvento" : "bla",
+      "idUsuario" : "bla",
+      "tickets" : "Array<string>",
+      "valorTotal" : 0
+    }
+  },
+  "eventos" : {
+    "idEvento" : {
+      "dataFim" : "data ultimo dia evento",
+      "dataInicio" : "data do 1º dia evento",
+      "descricao" : "bla",
+      "diasEvento" : {
+        "idDiaEvento" : {
+          "dataFim" : "data",
+          "dataInicio" : "data",
+          "id" : "",
+          "lotes" : {
+            "idLote" : {
+              "cortesia" : "true / false",
+              "descricao" : "bla",
+              "id" : "",
+              "listaCortesia" : "Array<obj> 'Array com um obj que terá o id do usuário e qtd de ingressos que terão acesso a cortesia caso o campo cortesia seja true'",
+              "qtdeTicketsVendidos" : "valor total de tickets vendidos",
+              "qtdeTotalTickets" : "valor total de tickes disponíveis nesse lote",
+              "setor" : "Enum do setor que o lote é destinado",
+              "valor" : "30,00"
+            }
+          }
+        }
+      },
+      "id" : "",
+      "imagemUrl" : "url",
+      "tipo" : "Enum tipo evento ex: festival, show",
+      "titulo" : ""
+    }
+  },
+  "tickets" : {
+    "idTicket" : {
+      "dataCriacao" : "YYYY-MM-DD HH:mm:ss",
+      "dataValidacao" : "YYYY-MM-DD HH:mm:ss",
+      "idEvento" : "bla",
+      "idUsuario" : "bla",
+      "setor" : "Enum camarote/pista",
+      "tipo" : "cortesia, desconto, compra",
+      "validado" : "false \"false = não utilizado | true= utilizado\"",
+      "valor" : "valorUnitarioTicket"
+    }
+  },
+  "usuarios" : {
+    "m3LWLNHDpBdKFEPCMDWUtYzwg412" : {
+      "__v" : 4,
+      "email" : "ricardo.f16@hotmail.com",
+      "id" : "m3LWLNHDpBdKFEPCMDWUtYzwg412",
+      "index" : 5,
+      "nome" : "Ricardo Aguiar"
+    }
+  }
+}

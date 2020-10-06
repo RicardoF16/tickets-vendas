@@ -1,0 +1,9 @@
+PROJETO TICKETS
+
+FLUXO DE COMPRA
+-Alterar para que o usuário consiga comprar ingresso para mais de 1 dia de evento
+
+
+
+CUPONS DESCONTO
+-Analisar todos os possíveis casos para implementar a estrutura
