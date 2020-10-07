@@ -1,7 +1,7 @@
 const { admin } = require('../lib/firebase');
 const UsuarioModel = require('../services/usuario.service');
 
-const validarBearerToken = (req, res, next) => {
+const auth = (req, res, next) => {
 
     if (
         (!req.headers.authorization ||
@@ -43,4 +43,4 @@ const validarBearerToken = (req, res, next) => {
         });
 };
 
-module.exports = validarBearerToken;
+module.exports = auth;

@@ -17,19 +17,23 @@ const schema = {
   },
   dataInicio: {
     type: String,
-    required: [true, 'O campo data de inicio do evento é obrigatório']
+    required: [true, 'O campo "dataInicio" é obrigatório']
   },
   dataFim: {
     type: String,
-    required: [true, 'O campo data final do evento é obrigatório']
+    required: [true, 'O campo "dataFim" é obrigatório']
   },
   imagemUrl: {
     type: String,
-    required: [true, 'O campo imagemUrl é obrigatório']
+    required: [true, 'O campo "imagemUrl" é obrigatório']
+  },
+  ativo: {
+    type: Boolean,
+    required: [true, 'O campo "ativo" é obrigatório']
   },
   tipo: {
     type: Number,
-    required: [true, 'O campo tipo é obrigatório']
+    required: [true, 'O campo "tipo" é obrigatório']
   },
   diasEvento: {
     type: Array,
