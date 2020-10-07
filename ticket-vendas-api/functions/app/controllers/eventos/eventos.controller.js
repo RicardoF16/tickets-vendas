@@ -72,40 +72,6 @@ class EventoController {
 
     EventoService.create(evento)
       .then(eventoCriado => {
-        /*EventoService.enviarNotificacaoParaQuemEstiverPerto(
-          solicitacaoCriada.lat,
-          solicitacaoCriada.long,
-          solicitacaoCriada.idDono,
-          tipoItem,
-          "Nova solicitação.",
-          "Verifique, existe uma nova solicitação no Pet Car People");*/
-          // "Verifique, existe uma nova solicitação no Pet Car People: " + solicitacaoCriada.descricao);
-        /*eventoCriado.idPCP = solicitacaoCriada.pcp.id;
-        let tipo = '';
-        if (solicitacaoCriada.pcp['placa']) {
-          tipo = 'veiculos';
-        } else if (solicitacaoCriada.pcp['parentesco']) {
-          tipo = 'pessoas';
-        } else if (solicitacaoCriada.pcp['raca']) {
-          tipo = 'pets';
-        }*/
-
-        /*const obj = {
-          [tipo]: {
-            [solicitacaoCriada.pcp.id]: {
-              ...solicitacaoCriada.pcp,
-              status: 1
-            }
-          }
-        };*/
-
-        // console.log('obj >>>>>>>> ', obj);
-        // console.log('solicitacaoCriada.idDono >>>>>>>> ', solicitacaoCriada.idDono);
-
-        /*usuariosModel.update(solicitacaoCriada.idDono, obj)
-          .then(succ => {
-          }, err => {
-          });*/
         res.send(eventoCriado);
       }).catch(err => {
         if (err.hasError) {
@@ -119,11 +85,6 @@ class EventoController {
   put(req, res) {
     const { id } = req.params;
     const evento = req.body;
-    /*const tipoItem = req.body.typeItem;
-    let statusAtual = "";
-    let idDono = "";
-    let lat = "";
-    let long = "";*/
 
     EventoService.getById(id).then(solicitacaoAtual => {
       if (solicitacaoAtual) {

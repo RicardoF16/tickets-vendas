@@ -7,13 +7,9 @@ const schema = {
     type: String,
     required: [true, '']
   },  
-  titulo: {
-    type: String,
-    required: [true, 'O Campo titulo é obrigatório']
-  },
   descricao: {
     type: String,
-    required: [true, 'O Campo descrição é obrigatório']
+    required: [false, '']
   },
   dataInicio: {
     type: String,
@@ -23,20 +19,12 @@ const schema = {
     type: String,
     required: [true, 'O campo data final do evento é obrigatório']
   },
-  imagemUrl: {
-    type: String,
-    required: [true, 'O campo imagemUrl é obrigatório']
-  },
-  tipo: {
-    type: Number,
-    required: [true, 'O campo tipo é obrigatório']
-  },
-  diasEvento: {
+  lotes: {
     type: Array,
     required: [false, '']
   }
 };
 
-const EventoModel = new firenode.schema(schema);
+const DiaEventoModel = new firenode.schema(schema);
 
-module.exports = Model.ref('/evento', EventoModel);
+module.exports = Model.ref('/dia_evento', DiaEventoModel);
