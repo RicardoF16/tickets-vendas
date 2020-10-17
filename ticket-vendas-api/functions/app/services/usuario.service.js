@@ -2,11 +2,9 @@ let BaseService = require('./base.service');
 
 class UsuarioService extends BaseService {
 
-  getAll(empresaKey) {
+  getAll() {
     return new Promise((resolve, reject) => {
       this.database.ref('usuarios')
-        .orderByChild('empresaKey')
-        .equalTo(empresaKey)
         .once('value', usuarioSnap => {
           const usuarios = usuarioSnap.val();
           let lista = [];
@@ -21,30 +19,6 @@ class UsuarioService extends BaseService {
             })
           }
 
-          resolve(lista);
-        }).catch(err => reject(err));
-    });
-  }
-
-  getAllRegistraPonto(empresaKey) {
-    return new Promise((resolve, reject) => {
-      this.database.ref('usuarios')
-        .orderByChild('empresaKey')
-        .equalTo(empresaKey)
-        .once('value', usuarioSnap => {
-          const usuarios = usuarioSnap.val();
-          let lista = [];
-
-          if (usuarios) {
-            Object.keys(usuarios).forEach(key => {
-              if (usuarios[key].registraPonto)
-                lista.push(usuarios[key]);
-            });
-
-            lista.sort(function (a, b) {
-              return (a.nome).localeCompare(b.nome);
-            });
-          }
           resolve(lista);
         }).catch(err => reject(err));
     });
@@ -75,20 +49,11 @@ class UsuarioService extends BaseService {
         emailVerified: false
       }).then(usuarioCriado => {
         usuario.uid = usuarioCriado.uid;
-        usuario.key = usuario.uid;
+        usuario.key = usuarioCriado.uid;
         delete usuario.senha;
         this.database.ref('/usuarios/' + usuarioCriado.uid)
           .set(usuario)
           .then(data => {
-            const param = new Date();
-            const paramDate = param.getFullYear() + '' + (param.getMonth() + 1) - 1;
-            this.database.ref('/empresas/' + usuario.empresaKey + '/extratoMensal/' + usuario.key + '/' + paramDate).set({
-              horasDebito: 0,
-              horasExtras: 0,
-              horasMesPassadoCalculado: true,
-              horasTotalMesPassado: 0,
-              uidAlteracao: ''
-            })
             resolve(usuario);
           }).catch(err => {
             reject(err);
@@ -96,6 +61,25 @@ class UsuarioService extends BaseService {
       }).catch(error => {
         reject(error);
       });
+    });
+  }
+
+  createSocialLogin(usuario) {
+    return new Promise((resolve, reject) => {
+      usuario.role = 1;
+
+      this.create(usuario)
+        .then(usuarioCriadoFb => {
+          resolve(usuarioCriadoFb);
+        })
+        .catch(err => {
+          firebase
+            .auth()
+            .deleteUser(usuario.id)
+            .then(() => {
+              reject(err);
+            });
+        });
     });
   }
 

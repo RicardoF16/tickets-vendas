@@ -5,10 +5,7 @@ const UsuarioService = require('../../services/usuario.service');
 class UsuarioController {
 
   getAll(req, res) {
-    console.log('GetAll');
-    const query = req.query;
-    console.log('req.query >>', req.query);
-    UsuarioService.getAll(query)
+    UsuarioService.getAll()
       .then(usuarios => {
         if (usuarios) {
           res.send(usuarios)
@@ -35,7 +32,6 @@ class UsuarioController {
   }
 
   getMe(req, res) {
-    console.log('getMe');
     res.send(req.usuario);
   }
 
