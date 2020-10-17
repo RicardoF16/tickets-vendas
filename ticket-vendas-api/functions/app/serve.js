@@ -22,7 +22,8 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 // ROUTES
 app.use('/exemplos', require('./controllers/exemplo/exemplo.router'));
 
-app.use('/exemplos', require('./controllers/exemplo/exemplo.router'));
+app.use('/usuarios', require('./controllers/usuarios/usuario.router'));
+app.use('/eventos', require('./controllers/eventos/eventos.router'));
 
 
 

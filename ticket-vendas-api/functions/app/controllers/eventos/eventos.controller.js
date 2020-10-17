@@ -3,8 +3,7 @@ const EventoService = require('../../services/evento.service');
 class EventoController {
 
   getAll(req, res) {
-    const query = { orderBy: true };
-    EventoService.getByQuery(query)
+    EventoService.getAll()
       .then(eventos => {
         if (eventos) {
           res.send(eventos)
@@ -18,22 +17,22 @@ class EventoController {
       });
   }
 
-  getById(req, res) {
-    query.id = req.param.id;
+  // getById(req, res) {
+  //   query.id = req.param.id;
 
-    EventoService.getById(id)
-      .then(evento => {
-        if (evento) {
-          res.send(eventos)
-        }
-      }).catch(err => {
-        if (err.hasError) {
-          res.status(400).send(err);
-        } else {
-          res.sendStatus(500);
-        }
-      });
-  }
+  //   EventoService.getById(id)
+  //     .then(evento => {
+  //       if (evento) {
+  //         res.send(eventos)
+  //       }
+  //     }).catch(err => {
+  //       if (err.hasError) {
+  //         res.status(400).send(err);
+  //       } else {
+  //         res.sendStatus(500);
+  //       }
+  //     });
+  // }
 }
 
 module.exports = new EventoController();

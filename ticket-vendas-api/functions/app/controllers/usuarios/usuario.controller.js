@@ -1,5 +1,5 @@
 const UsuarioService = require('../../services/usuario.service');
-const itemService = require('../../services/item.service');
+// const itemService = require('../../services/item.service');
 //const SolicitacaoService = require('../../services/evento.service');
 
 class UsuarioController {
@@ -127,101 +127,5 @@ class UsuarioController {
         }
       });
   }
-
-
-
-  //ITEM
-getByUidUser(req, res) {
-  const { id } = req.params;
-  console.log('inicio ByUidUser >> Controler');
-  console.log('iduser >>', id);
-  const query = req.query;
-  
-  //itemService.getAll({ where: `(id,=,${id})`, perPage: 9999 })
-  itemService.getByIdUser(id)
-      .then(meusTickets => {
-      if (meusTickets) {
-        res.send(meusTickets)
-      }
-    }).catch(err => {
-      res.sendStatus(500);
-    });
-   
-  }
-
-  getByUidItem(req, res) {
-
-    const { id, idItem } = req.params;
-   
-    itemService.getById(id, idItem)
-      .then(item => {
-        if (item) {
-          console.log('Retorno', item);
-          res.send(item);
-        } else {
-          res.sendStatus(404);
-        }
-      }).catch(err => {
-        if (err.hasError) {
-          res.status(400).send(err);
-        } else {
-          res.sendStatus(500);
-        }
-      });
-  }
-
-
-  async postItem(req, res) {
-
-    const item = req.body;
-    const usuario = req.usuario;
-    const tipoItem = req.body.tipoItem;
-    const { id } = req.params;
-
-    console.log('Item >>> ', item)
-
-    itemService.create(usuario, item, tipoItem, id)
-      .then(itemCriado => {
-        res.send(itemCriado);
-      }).catch(err => {
-        res.status(400).send({ message: 'Você não está autorizado a efetuar essa ação.' });
-      });
-  }
-
-  putItem(req, res) {
-    const item = req.body;
-    const { id, idItem } = req.params;
-    itemService.update(id, idItem, item)
-      .then(itemEditado => {
-        res.send(itemEditado);
-        /*SolicitacaoService.atualizarItemSolicitacao(item)
-          .then(ret => {
-            res.send(itemEditado);
-          })*/
-      }).catch(err => {
-        if (err.hasError) {
-          res.status(400).send(err);
-        } else {
-          res.sendStatus(500);
-        }
-      });
-  }
-
-  deleteItem(req, res) {
-
-    const { id, idItem } = req.params;
-    itemService.delete(id, idItem)
-      .then(() => {
-        res.send({});
-      }).catch(err => {
-        if (err.hasError) {
-          res.status(400).send(err);
-        } else {
-          res.sendStatus(500);
-        }
-      });
-  }
-
 }
-
 module.exports = new UsuarioController();

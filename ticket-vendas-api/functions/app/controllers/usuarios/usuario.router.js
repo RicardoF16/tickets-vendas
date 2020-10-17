@@ -14,13 +14,6 @@ module.exports = Router
   .post('/admin',  controller.admin)
   .post('/social',  controller.postSocial)
   .put('/:uid', permissoes(99), controller.put)
-  .delete('/:uid',  controller.delete)
-
-  //.post('/:id/informacoes', controller.postInfo)
-  .post('/:id/meusTickets',  controller.postItem)
-  .get('/:id/meusTickets/:idItem',  controller.getByUidItem)
-  .get('/:id/meusTickets',  controller.getByUidUser)
-  .delete('/:id/meusTickets/:idItem',  controller.deleteItem)
-  .put('/:id/meusTickets/:idItem',  controller.putItem);
+  .delete('/:uid', permissoes(99),controller.delete)
 
   
