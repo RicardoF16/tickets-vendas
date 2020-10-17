@@ -7,8 +7,8 @@ const express = require('express'),
   app = express(),
   path = require('path'),
   errorHandler = require('./middleware/error-handler'),
-  pino = require('express-pino-logger')();
-const auth = require('../app/middleware/authentication');
+  // pino = require('express-pino-logger')();
+// const auth = require('./middleware/authentication');
 
 // importando todas as rotas
 const exemploRouter = require('./controllers/exemplo/exemplo.router');
