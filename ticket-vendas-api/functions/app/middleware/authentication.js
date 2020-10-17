@@ -1,5 +1,5 @@
 const { admin } = require('../lib/firebase');
-const UsuarioModel = require('../services/usuario.service');
+const userService = require('../services/usuario.service');
 
 const auth = (req, res, next) => {
 
@@ -8,7 +8,6 @@ const auth = (req, res, next) => {
             !req.headers.authorization.startsWith('Bearer ')) &&
         !req.cookies.__session
     ) {
-        //console.log('Unauthorized');
         res.status(403).send('Unauthorized');
         return;
     }
@@ -26,8 +25,7 @@ const auth = (req, res, next) => {
         .auth()
         .verifyIdToken(idToken)
         .then(decodedIdToken => {
-
-            UsuarioModel.getByUid(decodedIdToken.uid)
+            this.userService.getByUid(decodedIdToken.uid)
                 .then(usuario => {
                     if (usuario) {
                         usuario.id = decodedIdToken.uid;
@@ -35,10 +33,11 @@ const auth = (req, res, next) => {
 
                     req.usuario = usuario;
                     next();
+                }).catch(ex => {
+                    res.status(403).send('Unauthorized' + idToken);        
                 });
         })
         .catch(error => {
-            console.log('decodedIdToken 2 >>', error);
             res.status(403).send('Unauthorized' + idToken);
         });
 };

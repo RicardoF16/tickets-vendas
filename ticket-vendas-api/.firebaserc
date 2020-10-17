@@ -1,5 +1,6 @@
 {
   "projects": {
-    "n": "pet-car-people-prod"
+    "n": "pet-car-people-prod",
+    "default": "pet-car-people-prod"
   }
 }
