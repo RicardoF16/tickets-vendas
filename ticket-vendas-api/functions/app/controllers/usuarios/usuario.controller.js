@@ -82,16 +82,16 @@ class UsuarioController {
 
   admin(req, res) {
     const usuario = req.body;
-    UsuarioService.adminLogin(usuario)
-      .then(usuarioCriado => {
-        res.status(201).send(usuarioCriado);
-      }).catch(err => {
-        if (err.hasError) {
-          res.status(400).send(err);
-        } else {
-          res.sendStatus(500);
-        }
-      });
+    // UsuarioService.adminLogin(usuario)
+    //   .then(usuarioCriado => {
+    //     res.status(201).send(usuarioCriado);
+    //   }).catch(err => {
+    //     if (err.hasError) {
+    //       res.status(400).send(err);
+    //     } else {
+    //       res.sendStatus(500);
+    //     }
+    //   });
   }
 
   postSocial(req, res) {
