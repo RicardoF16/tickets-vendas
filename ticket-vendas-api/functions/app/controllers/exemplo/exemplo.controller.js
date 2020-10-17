@@ -1,24 +1,9 @@
 const ExemploService = require('../../services/exemplo.service');
-const util = require('../../services/util.service');
-const moment = require('moment');
 
 class ExemploController {
 
   getAll(req, res) {
-    let bla;
-
-    bla = `Dia: ${util.getDayOfWeek('2018-01-31')}`;
-    res.send(bla);
-
-
-    // ExemploService.getAll()
-    //   .then(exemplos => {
-    //     if(exemplos) {
-    //       res.send(exemplos)
-    //     }
-    //   }).catch(err => {
-    //       res.sendStatus(500);
-    //   });
+    res.send('Teste Exemplo')
   }
 
   getById(req, res) {
