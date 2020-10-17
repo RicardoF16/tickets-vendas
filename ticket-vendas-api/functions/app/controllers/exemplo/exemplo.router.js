@@ -1,5 +1,6 @@
 const express = require('express');
 const controller = require('./exemplo.controller');
+const authentication = require('../../middleware/authentication');
 const Router = express.Router();
 
 module.exports = Router

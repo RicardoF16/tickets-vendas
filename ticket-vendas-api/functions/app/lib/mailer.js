@@ -1,12 +1,11 @@
 const nodemailer = require('nodemailer'),
-      config = require('../config/constants'),
       hbs = require('nodemailer-express-handlebars');
 
 class Mailer {
   constructor() {
-    this.transporter = {};
-    this.mailOptions = {};
-    
+    this._link = '';
+    this._transporter = {};
+    this._mailOptions = {};
     const options = {
       viewEngine: {
         extname: '.hbs',
@@ -18,32 +17,32 @@ class Mailer {
       extName: '.hbs'
     };
 
-    this.transporter = nodemailer.createTransport({
+    this._transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: config.mailer.email,
-        pass: config.mailer.pwd
+        user: '',
+        pass: ''
       }
     });
 
-    this.transporter.use('compile', hbs(options));
+    this._transporter.use('compile', hbs(options));
 
-    this.mailOptions = {
-      from: `"${config.mailer.name}" <${config.mailer.email}>`
+    this._mailOptions = {
+      from: '"nome" <>'
     };
 
   }
 
-enviarEmail(email, body) {
+enviarEmail(info, body) {
+    info.link = this._link;
 
-    this.mailOptions.to = email;
-    this.mailOptions.cc = 'support@petcarpeople.com';
-    this.mailOptions.subject = ` [${Date.now()}]`;
-    this.mailOptions.template = body.template;
-    this.mailOptions.context = body;
+    this._mailOptions.to = info.email;
+    this._mailOptions.subject = ` [${Date.now()}]`;
+    this._mailOptions.template = 'email';
+    this._mailOptions.context = body;
 
-    this.transporter
-      .sendMail(this.mailOptions, (error, response) => {
+    this._transporter
+      .sendMail(this._mailOptions, (error, response) => {
         if (error) {
           return console.log(error);
         }

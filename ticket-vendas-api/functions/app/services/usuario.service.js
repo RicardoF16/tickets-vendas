@@ -1,344 +1,137 @@
-const { firebase } = require('../lib/firebase');
-const UsuarioModel = require('../models/usuario.model');
-//const IuguService = require('../services/iugu.service');
+let BaseService = require('./base.service');
 
-class UsuarioService {
-  getAll(query) {
-    return UsuarioModel.find(query);
+class UsuarioService extends BaseService {
+
+  getAll(empresaKey) {
+    return new Promise((resolve, reject) => {
+      this.database.ref('usuarios')
+        .orderByChild('empresaKey')
+        .equalTo(empresaKey)
+        .once('value', usuarioSnap => {
+          const usuarios = usuarioSnap.val();
+          let lista = [];
+
+          if (usuarios) {
+            Object.keys(usuarios).forEach(key => {
+              lista.push(usuarios[key]);
+            });
+
+            lista.sort(function (a, b) {
+              return (a.nome).localeCompare(b.nome);
+            })
+          }
+
+          resolve(lista);
+        }).catch(err => reject(err));
+    });
   }
 
-  getOne(query) {
-    return UsuarioModel.findOne(query);
+  getAllRegistraPonto(empresaKey) {
+    return new Promise((resolve, reject) => {
+      this.database.ref('usuarios')
+        .orderByChild('empresaKey')
+        .equalTo(empresaKey)
+        .once('value', usuarioSnap => {
+          const usuarios = usuarioSnap.val();
+          let lista = [];
+
+          if (usuarios) {
+            Object.keys(usuarios).forEach(key => {
+              if (usuarios[key].registraPonto)
+                lista.push(usuarios[key]);
+            });
+
+            lista.sort(function (a, b) {
+              return (a.nome).localeCompare(b.nome);
+            });
+          }
+          resolve(lista);
+        }).catch(err => reject(err));
+    });
   }
 
   getByUid(uid) {
-    console.log(' Dentro do service getByUid');
-    console.log(' uid ' + uid);
-    return UsuarioModel.findById(uid);
+    return new Promise((resolve, reject) => {
+      this.database.ref('/usuarios/' + uid)
+        .once('value', usuarioSnap => {
+          const usuario = usuarioSnap.val();
+          if (usuario) {
+            resolve(usuario);
+          } else {
+            resolve(null);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
   }
 
   create(usuario) {
     return new Promise((resolve, reject) => {
-      firebase
-        .auth()
-        .createUser({
-          email: usuario.email,
-          password: usuario.senha,
-          displayName: usuario.nome,
-          emailVerified: true
-        })
-        .then(usuarioCriado => {
-          usuario.uid = usuarioCriado.uid;
-          delete usuario.senha;
-          usuario.premium = false;
-
-          UsuarioModel.create(usuario)
-            .then(usuarioCriadoFb => {
-              resolve(usuarioCriadoFb);
-
-              // IuguService.criarCliente({
-              //   name: usuario.name,
-              //   email: usuario.email
-              // }).then(iuguCliente => {
-              //   usuario.idGateway = iuguCliente.id;
-              //   console.log(iuguCliente);
-              //   UsuarioModel.update(usuarioCriado.uid, usuario)
-              //     .then(usuario => {
-              //       console.log('conta iugu gerada com sucesso.');
-              //       resolve(usuarioCriadoFb);
-              //     });
-              // }).catch(error => {
-              //   console.log(error);
-              // })
-
+      this.authorization.createUser({
+        email: usuario.email,
+        password: usuario.senha,
+        displayName: usuario.nome,
+        emailVerified: false
+      }).then(usuarioCriado => {
+        usuario.uid = usuarioCriado.uid;
+        usuario.key = usuario.uid;
+        delete usuario.senha;
+        this.database.ref('/usuarios/' + usuarioCriado.uid)
+          .set(usuario)
+          .then(data => {
+            const param = new Date();
+            const paramDate = param.getFullYear() + '' + (param.getMonth() + 1) - 1;
+            this.database.ref('/empresas/' + usuario.empresaKey + '/extratoMensal/' + usuario.key + '/' + paramDate).set({
+              horasDebito: 0,
+              horasExtras: 0,
+              horasMesPassadoCalculado: true,
+              horasTotalMesPassado: 0,
+              uidAlteracao: ''
             })
-            .catch(err => {
-              firebase
-                .auth()
-                .deleteUser(usuarioCriado.uid)
-                .then(() => {
-                  reject(err);
-                });
-            });
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
-
-  listarAssinaturaAtivas(idCliente) {
-    return IuguService.listarAssintura(idCliente);
-  }
-
-  // buscarBoletoId(idBoleto) {
-  //   console.log(idBoleto);
-
-  //   return IuguService.boletoPorId(idBoleto);
-  // }
-
-  criarAssinatura(id, type, cliente) {
-    return new Promise((resolve, reject) => {
-      UsuarioModel.findById(id)
-        .then(async usuario => {
-
-          if (cliente) {
-            await IuguService.updateCliente(usuario.idGateway, cliente);
-          }
-
-          if (type == 'boleto') {
-            IuguService.criarAssinatura(usuario.idGateway, usuario.segundoPlano, 'bank_slip')
-              .then(assinatura => {
-                try {
-                  const info = {
-                    idAssinatura: assinatura.idTransaction,
-                    criadaEm: assinatura.createdAt
-                  };
-
-                  if (usuario.assinaturas) {
-                    usuario.assinaturas.push(info);
-                  } else {
-                    usuario.assinaturas = [info];
-                  }
-
-                  if (usuario.veiculosDisponiveis) {
-                    usuario.veiculosDisponiveis++;
-                  } else {
-                    usuario.veiculosDisponiveis = 1;
-                  }
-
-                  this.update(id, usuario)
-                    .then(() => { });
-                  usuario.segundoPlano = true;
-                  UsuarioModel.update(id, usuario);
-                  resolve(assinatura);
-                } catch (err) {
-                  console.log(err);
-                  reject(err);
-                }
-              }).catch(err => {
-                reject(err);
-              });
-          } else {
-            IuguService.listarCartoes(usuario.idGateway)
-              .then(cartoes => {
-                if (cartoes.length > 0) {
-                  IuguService.criarAssinatura(usuario.idGateway, usuario.segundoPlano, 'credit_card')
-                    .then(assinatura => {
-                      console.log('assinatura ', assinatura);
-
-                      try {
-                        const info = {
-                          idAssinatura: assinatura.idTransaction,
-                          criadaEm: assinatura.createdAt
-                        };
-
-                        if (usuario.assinaturas) {
-                          usuario.assinaturas.push(info);
-                        } else {
-                          usuario.assinaturas = [info];
-                        }
-
-                        if (usuario.veiculosDisponiveis) {
-                          usuario.veiculosDisponiveis++;
-                        } else {
-                          usuario.veiculosDisponiveis = 1;
-                        }
-
-                        this.update(id, usuario)
-                          .then(() => { });
-                        usuario.segundoPlano = true;
-                        UsuarioModel.update(id, usuario);
-                        resolve(assinatura);
-                      } catch (err) {
-                        console.log(err);
-                        reject(err);
-                      }
-                    }).catch(err => {
-                      console.log('criarAssinatura ', err);
-                      reject();
-                    });
-                } else {
-                  console.log('cartoes ', cartoes);
-                  reject();
-                }
-              });
-          }
-
-        });
-    });
-
-  }
-
-  suspenderAssinatura(id, idAssinatura) {
-    // return new Promise((resolve, reject) => { 
-    //   IuguService.suspenderAssinatura(idAssinatura)
-    //   resolve();
-    // });
-
-    return new Promise((resolve, reject) => {
-      UsuarioModel.findById(id)
-        .then(usuario => {
-
-          const assinatura = usuario.assinaturas.find(assinatura => {
-            return idAssinatura == assinatura.idAssinatura;
+            resolve(usuario);
+          }).catch(err => {
+            reject(err);
           });
-
-          if (assinatura) {
-            IuguService.suspenderAssinatura(idAssinatura)
-              .then(() => {
-
-                if (!assinatura.isUsed) {
-                  usuario.veiculosDisponiveis--;
-                } else {
-                  Object.keys(usuario.veiculos)
-                    .forEach(key => {
-                      if (usuario.veiculos[key].idAssinatura == idAssinatura) {
-                        delete usuario.veiculos[key];
-                      }
-                    });
-                }
-
-                usuario.assinaturas = usuario.assinaturas.filter(assinaturaAtual =>
-                  assinaturaAtual.idAssinatura != idAssinatura);
-
-                UsuarioModel.update(id, usuario)
-                  .then(() => {
-                    resolve();
-                  }).catch(error => {
-                    reject(error)
-                  })
-              }).catch(() => {
-                reject();
-              });
-          } else {
-            reject({
-              msg: 'ERROR_NOT_AUTHORIZED'
-            });
-          }
-        });
-    });
-  }
-
-  listarCartoes(idCliente) {
-    return IuguService.listarCartoes(idCliente);
-  }
-
-  addCartao(idCliente, cartao) {
-    return IuguService.adicionarCartao(idCliente, cartao);
-  }
-
-  removeCartao(idCliente, idCartao) {
-    return IuguService.removerCartao(idCliente, idCartao);
-  }
-
-  adminLogin(usuario) {
-    return new Promise((resolve, reject) => {
-      usuario.papel = 99;
-
-      firebase
-        .auth()
-        .createUser({
-          email: usuario.email,
-          password: usuario.senha,
-          displayName: usuario.nome,
-          emailVerified: true
-        })
-        .then(usuarioCriado => {
-          usuario.uid = usuarioCriado.uid;
-          delete usuario.senha;
-
-          UsuarioModel.create(usuario)
-            .then(usuarioCriadoFb => {
-
-              resolve(usuarioCriadoFb);
-            })
-            .catch(err => {
-              firebase
-                .auth()
-                .deleteUser(usuarioCriado.uid)
-                .then(() => {
-                  reject(err);
-                });
-            });
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
-
-  createSocialLogin(usuario) {
-    return new Promise((resolve, reject) => {
-      usuario.premium = false;
-      usuario.papel = 1;
-
-      UsuarioModel.create(usuario)
-        .then(usuarioCriadoFb => {
-          // IuguService.criarCliente({
-          //   name: usuario.name,
-          //   email: usuario.email
-          // }).then(iuguCliente => {
-          //   usuarioCriadoFb.idGateway = iuguCliente.id;
-          //   console.log(iuguCliente);
-          //   UsuarioModel.update(usuarioCriadoFb.id, usuarioCriadoFb)
-          //     .then(usuario => {
-          //       console.log('conta iugu gerada com sucesso.');
-          //       resolve(usuarioCriadoFb);
-          //     });
-          // });
-        })
-        .catch(err => {
-          firebase
-            .auth()
-            .deleteUser(usuario.id)
-            .then(() => {
-              reject(err);
-            });
-        });
+      }).catch(error => {
+        reject(error);
+      });
     });
   }
 
   update(uid, usuario) {
     return new Promise((resolve, reject) => {
-      const senha = usuario.senha;
-      UsuarioModel.update(uid, usuario)
-        .then(usuarioAtualizado => {
-          if (senha) {
-            firebase.auth()
-              .updateUser(uid, { password: senha })
-              .then(() => {
-                console.info(`Usuário: ${uid}, acaba de trocar de senha`);
-              });
-          }
-          resolve(usuarioAtualizado);
-        })
-        .catch(err => {
-          console.log('bla', err)
-          reject(err);
-        });
+      if (usuario.senha) {
+        let requisicao = { password: usuario.senha };
+        this.authorization.updateUser(uid, requisicao)
+          .then(() => {
+            console.info(`Usuário: ${uid}, acaba de trocar de senha`);
+          });
+
+        delete usuario.senha;
+      }
+
+      this.database.ref('/usuarios/' + uid).update(usuario).then(data => {
+        resolve(data);
+      }).catch(err => {
+        reject(err);
+      });
     });
   }
 
   delete(uid) {
     return new Promise((resolve, reject) => {
-      firebase.auth().deleteUser(uid)
+      this.authorization.deleteUser(uid)
         .then(() => {
-          UsuarioModel.delete(uid)
-            .then(() => {
-              resolve();
-            }, () => {
-              reject();
-            }).catch(err => {
-              reject(err);
-            });
-        }, err => {
-          reject();
-        }).catch((error) => {
-          reject();
+          this.database.ref('/usuarios/' + uid).remove();
+          resolve();
+        })
+        .catch(err => {
+          reject(err);
         });
-    });
+    })
   }
+
 }
 
 module.exports = new UsuarioService();

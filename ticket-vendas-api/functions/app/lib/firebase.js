@@ -4,7 +4,6 @@ const admin = require('firebase-admin'),
       functions = require('firebase-functions'),
       firebase = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        // databaseURL: "https://pet-car-people-dev.firebaseio.com"
         databaseURL: "https://tickets-vendas-65715.firebaseio.com/"
       });
 

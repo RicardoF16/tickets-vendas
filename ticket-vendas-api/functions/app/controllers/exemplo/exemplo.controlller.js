@@ -1,15 +1,12 @@
 const ExemploService = require('../../services/exemplo.service');
 const util = require('../../services/util.service');
-const moment = require('moment');
 
 class ExemploController {
 
   getAll(req, res) {
-    let bla;
 
-    bla = `Dia: ${util.getDayOfWeek('2018-01-31')}`;
-    res.send(bla);
-
+    res.send({teste: util.hHMMToMinutes('01:20')});
+    
 
     // ExemploService.getAll()
     //   .then(exemplos => {
@@ -20,23 +17,23 @@ class ExemploController {
     //       res.sendStatus(500);
     //   });
   }
-
-  getById(req, res) {
+  
+  getById(req, res){
     const { id } = req.params;
 
     ExemploService.getById(id)
       .then(exemplo => {
-        if (exemplo) {
-          res.send(exemplo);
-        } else {
-          res.sendStatus(404);
-        }
+      if(exemplo) {
+        res.send(exemplo);
+      } else {
+        res.sendStatus(404);
+      }
       }).catch(err => {
         res.sendStatus(500);
       });
   }
 
-
+  
   put(req, res) {
     const { id } = req.params;
     const exemplo = req.body;
@@ -48,18 +45,18 @@ class ExemploController {
         res.sendStatus(500)
       });
   }
-
-  post(req, res) {
+  
+  post(req, res) {    
     const exemplo = req.body;
 
     ExemploService.create(exemplo)
       .then(() => {
         res.sendStatus(201);
-      }).catch(() => {
+      }).catch( () => {
         res.sendStatus(500);
       });
   }
-
+  
   delete(req, res) {
     const { id } = req.params;
 
@@ -69,7 +66,7 @@ class ExemploController {
       }).catch(() => {
         res.sendStatus(500);
       })
-  }
+    }
 
 }
 
