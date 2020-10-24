@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home"></ion-back-button>
-      </ion-buttons>
-      <!-- <ion-title>Informações do evento</ion-title> -->
-      <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title>Informações do evento</ion-title> -->
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="12" text-center>
-            <img [src]="dadosEvento.imagemURL" >
+          <img [src]="dadosEvento?.imagemURL">
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -30,18 +30,18 @@
           <ion-button fill="outline" slot="end">View</ion-button>
         </ion-item>
       </ion-card> -->
-  
-      <ion-list >
-        
+
+      <ion-list>
+
         <ion-item>
           <ion-avatar slot="start">
-            <img [src]="dadosEvento.imagemURL">
+            <img [src]="dadosEvento?.imagemURL">
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
                 <h2>Data</h2>
-                <p>{{dadosEvento.dataInicio}}</p>
+                <p>{{dadosEvento?.dataInicio}}</p>
                 <p>Abertura: 23:00</p>
                 <p>Show: 00:00</p>
               </ion-col>
@@ -51,7 +51,7 @@
 
         <ion-item>
           <ion-avatar slot="start">
-            
+
             <img src="assets/imgs/ban-8x.png">
           </ion-avatar>
           <ion-label>
@@ -123,9 +123,5 @@
       </ion-list>
     </div>
   </ion-card>
-  
-
-
-    
 
 </ion-content>

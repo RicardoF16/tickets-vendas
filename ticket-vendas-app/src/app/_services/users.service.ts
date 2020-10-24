@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UserResponse, User } from '../_models/user';
-import { TypeItem } from '../_models/enums';
 
 
 @Injectable({

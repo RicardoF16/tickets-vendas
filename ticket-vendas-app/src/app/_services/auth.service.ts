@@ -26,28 +26,18 @@ export class AuthService {
     private router: Router
   ) {
 
-    this.af.authState.subscribe(userFb => {
-      // console.log('userFb ', userFb);
-      // if (userFb) {
-      //   userFb.getIdToken(true).then(token => {
-      //     console.log(token);
-      //   });
-      // }
-      // userFb.getIdTokenResult().then(token => console.log('token ', token));
-
-      this.userState.setFbUser(userFb);
+    // this.af.authState.subscribe(userFb => {
+    //   this.userState.setFbUser(userFb);
     
-      if (userFb) {
-        userFb.getIdToken(true).then(token => {
-          console.log(token);
-          this.appState.setToken(token);
-          this.userState.setUserReady(true);
-        });
-      }
-    });
+    //   if (userFb) {
+    //     userFb.getIdToken(true).then(token => {
+    //       this.appState.setToken(token);
+    //       this.userState.setUserReady(true);
+    //     });
+    //   }
+    // });
 
     this.userState.getUserFb.subscribe(user => {
-      console.log('firebase User ', user);
       if (user && user['ra']) {
         console.log(user['ra']);
         this.appState.setToken(user['ra']);
@@ -55,11 +45,8 @@ export class AuthService {
     });
   }
 
-  login(email: string, passowrd: string): Promise<firebase.auth.UserCredential> {
-    console.log('Antes de chamar serviço de login do firebase');
-    
+  login(email: string, passowrd: string): Promise<firebase.auth.UserCredential> {    
     return this.af.auth.signInWithEmailAndPassword(email, passowrd);
-    
   }
 
   doGoogleLogin() {
@@ -175,8 +162,7 @@ export class AuthService {
   }
 
   
-  facebookLogin(): Promise<any> {
-    
+  facebookLogin(): Promise<any> {    
     return new Promise<any>((resolve, reject) => {
       if (this.platform.is('cordova')) {
         this.facebook

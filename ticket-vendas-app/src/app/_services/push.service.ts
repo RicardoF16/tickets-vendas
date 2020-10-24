@@ -88,8 +88,6 @@ export class PushService {
       });
   }
 
-
-
   // Get permission from the user
   async getToken() {
 

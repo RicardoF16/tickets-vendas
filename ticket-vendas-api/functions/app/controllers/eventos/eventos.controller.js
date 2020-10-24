@@ -7,6 +7,8 @@ class EventoController {
       .then(eventos => {
         if (eventos) {
           res.send(eventos)
+        } else {
+          res.sendStatus(500);
         }
       }).catch(err => {
         if (err.hasError) {
@@ -17,22 +19,24 @@ class EventoController {
       });
   }
 
-  // getById(req, res) {
-  //   query.id = req.param.id;
-
-  //   EventoService.getById(id)
-  //     .then(evento => {
-  //       if (evento) {
-  //         res.send(eventos)
-  //       }
-  //     }).catch(err => {
-  //       if (err.hasError) {
-  //         res.status(400).send(err);
-  //       } else {
-  //         res.sendStatus(500);
-  //       }
-  //     });
-  // }
+  getById(req, res) {
+    const id = req.params.id;
+    
+    EventoService.getById(id)
+      .then(evento => {
+        if (evento) {
+          res.send(evento)
+        } else {
+          res.sendStatus(500);
+        }
+      }).catch(err => {
+        if (err && err.hasError) {
+          res.status(400).send(err);
+        } else {
+          res.sendStatus(500);
+        }
+      });
+  }
 }
 
 module.exports = new EventoController();

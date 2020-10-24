@@ -2,7 +2,7 @@ const { admin } = require('../lib/firebase');
 const userService = require('../services/usuario.service');
 
 const auth = (req, res, next) => {
-
+    
     if (
         (!req.headers.authorization ||
             !req.headers.authorization.startsWith('Bearer ')) &&
@@ -11,6 +11,8 @@ const auth = (req, res, next) => {
         res.status(403).send('Unauthorized');
         return;
     }
+
+
 
     let idToken;
     if (
@@ -21,14 +23,15 @@ const auth = (req, res, next) => {
     } else {
         idToken = req.cookies.__session;
     }
+    
     admin
         .auth()
         .verifyIdToken(idToken)
         .then(decodedIdToken => {
-            this.userService.getByUid(decodedIdToken.uid)
+            userService.getByUid(decodedIdToken.uid)
                 .then(usuario => {
                     if (usuario) {
-                        usuario.id = decodedIdToken.uid;
+                        usuario.uid = decodedIdToken.uid;
                     }
 
                     req.usuario = usuario;

@@ -4,8 +4,7 @@ import { Informacoes } from 'src/app/_models/selecionar-data-evento';
 import { Component, OnInit } from '@angular/core';
 import { Ingresso} from './../../_models/form-escolher-ingressos';
 import { NavController } from '@ionic/angular';
-import { EventosResponse } from 'src/app/_models/home';
-import { DetalheEventoService } from 'src/app/_services/detalhe-evento.service';
+import { EventoResponse } from 'src/app/_models/eventoModel';
 import { CarrinhoService } from 'src/app/_services/carrinho.service';
 import { SelecionarDataEventoService } from 'src/app/_services/selecionar-data-evento.service';
 import { CustomValidators } from '../../util/customValidators';
@@ -19,7 +18,7 @@ import { CustomValidators } from '../../util/customValidators';
 export class EscolherIngressoPage implements OnInit {
 
   selSetor :Array<Ingresso>;
-  dadosEvento: EventosResponse;
+  dadosEvento: EventoResponse;
   Informacoes: Informacoes;
   carrinho: Array<Ingresso>;
   
@@ -27,7 +26,6 @@ export class EscolherIngressoPage implements OnInit {
   qtde = 0;
   //ingresso : Array<Ingresso> = new Array<Ingresso>();
   constructor(public navCtrl: NavController,
-              private detalheEventoService : DetalheEventoService,
               private selecionarDataEventoService: SelecionarDataEventoService,
               private carrinhoService:CarrinhoService) { }
 
@@ -42,7 +40,7 @@ export class EscolherIngressoPage implements OnInit {
   carregarListaIngresos(){
     
     this.Informacoes = this.selecionarDataEventoService.getDataSelecinada();
-    this.dadosEvento =  this.detalheEventoService.getDadosEvento();
+    // this.dadosEvento =  this.detalheEventoService.getDadosEvento();
     /*O objeto de "Ingresso" é transformado em uma lista de objetos do tipo <Ingresso>,
       desta forma conseguimos trabalhar com comandos de loop.
     */ 

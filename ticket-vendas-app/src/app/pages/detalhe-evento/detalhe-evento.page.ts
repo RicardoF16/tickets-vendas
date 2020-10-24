@@ -1,10 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { DetalheEventoService } from '../../_services/detalhe-evento.service'
-import { SelecionarDataEventoService } from '../../_services/selecionar-data-evento.service'
-import { EventosResponse } from './../../_models/home';
-import { forEach } from '@angular/router/src/utils/collection';
+import { EventoService } from '../../_services/evento.service'
+import { EventoResponse } from '../../_models/eventoModel';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhe-evento',
@@ -13,19 +12,33 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class DetalheEventoPage implements OnInit {
 
-  dadosEvento: EventosResponse
+  idEvento: string = '';
+  dadosEvento: EventoResponse = new EventoResponse();
 
   constructor(public navCtrl: NavController,
-              private detalheEventoService : DetalheEventoService,
-              private selecionarDataEventoService : SelecionarDataEventoService
-              ) { }
+    private eventoService: EventoService,
+    public activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.dadosEvento =  this.detalheEventoService.getDadosEvento();
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.idEvento = params.id;
+        this.getDados();
+      }
+    });
   }
-  
-  escolherIngresso(){
-      this.navCtrl.navigateRoot(['/selecionar-data-evento']);
+
+  getDados() {
+    this.eventoService.getEventoById(this.idEvento).toPromise().then(result => {
+      this.dadosEvento = result;
+    }).catch(err => {
+      console.log("erro", err);
+    });
+  }
+
+  escolherIngresso() {
+    this.navCtrl.navigateRoot(['/selecionar-data-evento']);
   }
 
 }

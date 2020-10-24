@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
   }
 
   async loginFacebook() {
-    
+
     await this.loading.showLoading(this.translations.PAGE_LOGIN_MAKING_LOGIN);
     this.auth
       .facebookLogin()
@@ -96,12 +96,13 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    
     await this.loading.showLoading(this.translations.PAGE_LOGIN_MAKING_LOGIN);
     this.auth
       .login(this.aux('user'), this.aux('password'))
       .then(async user => {
         await this.loading.showLoading(this.translations.PAGE_LOGIN_LOADING_CONFIG);
+        if ((user.user as any).xa)
+          localStorage.setItem('token', (user.user as any).xa)
         this.getUserInfo(user.user.uid);
       },
         async e => {
@@ -140,9 +141,9 @@ export class LoginPage implements OnInit {
     this.userService.getUserInfo(userId)
       .subscribe(async userInfo => {
         //if (userInfo.papel === TypeUser.user) {
-          this.userState.setUser(userInfo);
-          this.navCtrl.navigateRoot(['/home']);
-          //this.pushService.getToken();
+        this.userState.setUser(userInfo);
+        this.navCtrl.navigateRoot(['/home']);
+        //this.pushService.getToken();
         // /} else {
         //   this.auth.logoff();
         //   await this.gAlert.presentToastError(this.translations.PAGE_LOGIN_LOGIN_AUTH_ERROR);

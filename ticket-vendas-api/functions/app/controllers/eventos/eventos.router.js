@@ -7,7 +7,7 @@ const permissoes = require('./../../middleware/permissoes');
 module.exports = Router
 
 .get('/', controller.getAll) //Retorna todos os eventos com informações de exibição
-// .get('/:id', auth, controller.getById) //Retorna evento pelo id
+.get('/:id', auth, controller.getById) //Retorna evento pelo id
 // .get('/data/:dtInicio/:dtFim', controller.getAll) //Retorna todos eventos por data
 
 // .post('/', auth, permissoes(88), controller.post) //Cadastra novo evento

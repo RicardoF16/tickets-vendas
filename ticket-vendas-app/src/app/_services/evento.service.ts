@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { EventosResponse } from '../_models/home';
+import { EventoResponse } from '../_models/eventoModel';
 import { TypeItem } from '../_models/enums';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class EventoService {
 
   private readonly endpoint = `${environment.urlService}eventos`;
-  constructor(private http: HttpClient) { }
-
-  
+  constructor(private http: HttpClient) { }  
 
   /*postUserSocial(user: User): Observable<UserResponse> {
     if (!user.imagemURL) {
@@ -25,8 +23,12 @@ export class HomeService {
   }*/
  
 
-  getEventos(): Observable<EventosResponse> {
-    return this.http.get<EventosResponse>(`${this.endpoint}`).pipe(take(1));
+  getEventos(): Observable<EventoResponse> {
+    return this.http.get<EventoResponse>(`${this.endpoint}`).pipe(take(1));
+  }
+
+  getEventoById(id: string): Observable<EventoResponse> {
+    return this.http.get<EventoResponse>(`${this.endpoint}/${id}`, ).pipe(take(1));
   }
 
 }
