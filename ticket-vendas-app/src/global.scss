@@ -43,6 +43,8 @@ ion-title{
     font-size: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     // font-weight: 200;
+    text-align: center;
+    margin-right: 3rem !important;
 }
 
 ion-item{
@@ -75,4 +77,21 @@ ion-button{
 
 .pac-item {
     line-height: 37px;
+}
+
+.ellipse {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+// COLORS
+
+.color-blue {
+    color: #1472D0 !important;
+}
+
+.color-blue-link {
+    color: #86abdb !important;
 }

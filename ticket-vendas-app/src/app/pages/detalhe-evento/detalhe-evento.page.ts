@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DetalheEventoPage implements OnInit {
 
   idEvento: string = '';
-  dadosEvento: EventoResponse = new EventoResponse();
+  dadosEvento: EventoResponse;
 
   constructor(public navCtrl: NavController,
     private eventoService: EventoService,
@@ -38,7 +38,7 @@ export class DetalheEventoPage implements OnInit {
   }
 
   escolherIngresso() {
-    this.navCtrl.navigateRoot(['/selecionar-data-evento']);
+    this.navCtrl.navigateRoot(['/selecionar-data-evento'], {queryParams: {id: this.idEvento}});
   }
 
 }

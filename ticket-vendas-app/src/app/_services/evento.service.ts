@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaderResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { EventoResponse } from '../_models/eventoModel';
-import { TypeItem } from '../_models/enums';
+import { DiasEventoResponse, EventoResponse } from '../_models/eventoModel';
 
 
 @Injectable({
@@ -29,6 +28,10 @@ export class EventoService {
 
   getEventoById(id: string): Observable<EventoResponse> {
     return this.http.get<EventoResponse>(`${this.endpoint}/${id}`, ).pipe(take(1));
+  }
+
+  getDatas(id: string): Observable<Array<DiasEventoResponse>> {
+    return this.http.get<Array<DiasEventoResponse>>(`${this.endpoint}/${id}/datas`, ).pipe(take(1));
   }
 
 }

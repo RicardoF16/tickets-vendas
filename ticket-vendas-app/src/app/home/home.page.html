@@ -4,6 +4,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-title>Eventos</ion-title>
     <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 
@@ -23,10 +24,10 @@
 <ion-content >
      
      <ion-card *ngFor="let evento of eventos">
-       <ion-grid>
+       <ion-grid (click)="visaoEvento(evento)">
          <ion-row class="ion-align-items-center">
            <ion-col size="12" text-center>
-              <img [src]="evento.imagemUrl" (click)="visaoEvento(evento)">
+              <img [src]="evento.imagemUrl">
            </ion-col>
            <ion-col size="12" text-center>
             {{evento.titulo}}

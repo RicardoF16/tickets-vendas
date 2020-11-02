@@ -1,8 +1,9 @@
 import { Informacoes } from './../../_models/selecionar-data-evento';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { EventoResponse } from 'src/app/_models/eventoModel';
-import { SelecionarDataEventoService } from 'src/app/_services/selecionar-data-evento.service';
+import { DiasEventoResponse} from 'src/app/_models/eventoModel';
+import { EventoService } from 'src/app/_services/evento.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-selecionar-data-evento',
@@ -10,33 +11,33 @@ import { SelecionarDataEventoService } from 'src/app/_services/selecionar-data-e
   styleUrls: ['./selecionar-data-evento.page.scss'],
 })
 export class SelecionarDataEventoPage implements OnInit {
-  
-   selDataEventoService :Array<Informacoes>;
-   dadosEvento: EventoResponse;
+
+  idEvento: string = '';
+  datas: Array<DiasEventoResponse>;
 
   constructor(public navCtrl: NavController,
-              private selecionarDataEventoService: SelecionarDataEventoService) { }
+    private eventoService: EventoService,
+    public activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(){
-
-    // this.dadosEvento =  this.detalheEventoService.getDadosEvento();
-    /*O objeto de "informacoes" é transformado em uma lista de objetos do tipo <Informacacoes>,
-      desta forma conseguimos trabalhar com comandos de loop.
-    */ 
-    this.selDataEventoService = new Array<Informacoes>();
-    // if (this.dadosEvento.informacoes != null) {
-    //   Object.keys(this.dadosEvento.informacoes)
-    //     .forEach(key => {
-    //       this.selDataEventoService.push(this.dadosEvento.informacoes[key]);
-    //     });   
-    //  }
-    // 
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.idEvento = params.id;
+        this.getDatas();
+      }
+    });
   }
 
-  selecionarSetor(objDataSelecinada)
-  {
-    this.selecionarDataEventoService.setDataSelecinada(objDataSelecinada);
-    this.navCtrl.navigateRoot(['/escolher-ingresso']);
+  getDatas() {
+    this.eventoService.getDatas(this.idEvento).toPromise().then(result => {
+      this.datas = result;
+    }).catch(err => {
+      console.log("erro", err);
+    });
+  }
+
+  selecionarSetor(data) {
+    this.navCtrl.navigateRoot(['/escolher-ingresso'], {queryParams: {id: data.id}});
   }
 
 }

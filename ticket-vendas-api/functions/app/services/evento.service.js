@@ -26,9 +26,37 @@ class EventoService extends BaseService {
           if (value) {
             resolve(value);
           } else {
-            reject()
+            resolve()
           }
         }).catch(() => reject());
+    });
+  }
+
+  getDias(idEvento) {
+    return new Promise((resolve, reject) => {
+      this.getById(idEvento).then(result => {
+        if (result && result.diasEvento) {
+          resolve(result.diasEvento);
+          //TODO: Filtrar dias
+        } else {
+          resolve()
+        }
+      }).catch(() => reject());
+    });
+  }
+
+  getLotes(idEvento, idDiaEvento) {
+    return new Promise((resolve, reject) => {
+      this.getById(idEvento).then(result => {
+        if (result && result.diasEvento[idDiaEvento]) {
+          resolve(result.diasEvento[idDiaEvento].lotes.filter(lote =>
+            //TODO: Filtrar data
+            lote.qtdeTicketsVendidos < lote.qtdeTotalTickets
+          ));
+        } else {
+          resolve()
+        }
+      }).catch(() => reject());
     });
   }
 

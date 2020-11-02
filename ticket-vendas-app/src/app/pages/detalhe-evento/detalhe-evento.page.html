@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <!-- <ion-title>Informações do evento</ion-title> -->
+    <ion-title>Detalhe Evento</ion-title>
     <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="12" text-center>
-          <img [src]="dadosEvento?.imagemURL">
+          <img [src]="dadosEvento?.imagemUrl">
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -22,20 +22,19 @@
 
   <ion-card>
     <div id="container">
-
-      <!-- <ion-card *ngFor="let item of [0,1,2,3,4,5]">
-        <ion-item>
-          <ion-icon name="image" style="font-size: 64px;" slot="start"></ion-icon>
-          <ion-label>Nome Produto...</ion-label>
-          <ion-button fill="outline" slot="end">View</ion-button>
-        </ion-item>
-      </ion-card> -->
-
       <ion-list>
+        <ion-item>
+          <ion-row>
+            <ion-col>
+              <h1 class="color-blue" style="font-weight: 550;">{{dadosEvento?.titulo}}</h1>
+              <p>{{dadosEvento?.descricao}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
 
         <ion-item>
           <ion-avatar slot="start">
-            <img [src]="dadosEvento?.imagemURL">
+            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
           </ion-avatar>
           <ion-label>
             <ion-row>
@@ -51,14 +50,13 @@
 
         <ion-item>
           <ion-avatar slot="start">
-
-            <img src="assets/imgs/ban-8x.png">
+            <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
                 <h2>Censura</h2>
-                <p>16 Anos - Menores de 16 anos apenas acompanhados pelos ou responsável legal</p>
+                <p>{{dadosEvento?.censura}}</p>
               </ion-col>
             </ion-row>
           </ion-label>
@@ -66,13 +64,14 @@
 
         <ion-item>
           <ion-avatar slot="start">
-            <i class="fas fa-map-marker-exclamation"></i>
+            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
                 <h2>Local</h2>
-                <p>R. Timbira, S/N - Centro - Várzea da Palma-MG</p>
+                <p>{{dadosEvento?.local}}</p>
+                <p class="color-blue-link" style="font-size: 11px;">Mostrar no mapa</p>
               </ion-col>
             </ion-row>
           </ion-label>
@@ -80,15 +79,13 @@
 
         <ion-item>
           <ion-avatar slot="start">
-            <img src="">
+            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
                 <h2>Postos de Vendas</h2>
-                <p>Várzea da Palma</p>
-                <p>Pirapora</p>
-                <p>Lassance</p>
+                <p *ngFor="let item of dadosEvento?.pontosVenda">{{item.nome}}</p>
               </ion-col>
             </ion-row>
           </ion-label>
@@ -96,7 +93,7 @@
 
         <ion-item>
           <ion-avatar slot="start">
-            <img src="">
+            <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
           </ion-avatar>
           <ion-label>
             <ion-row>
@@ -108,17 +105,14 @@
           </ion-label>
         </ion-item>
 
-        <ion-item>
-          <ion-label>
-            <ion-row>
-              <ion-col>
-                <ion-button expand="block" color="primary" (click)="escolherIngresso()">
-                  COMPRAR AGORA
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-label>
-        </ion-item>
+
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="primary" (click)="escolherIngresso()">
+              COMPRAR AGORA
+            </ion-button>
+          </ion-col>
+        </ion-row>
 
       </ion-list>
     </div>
