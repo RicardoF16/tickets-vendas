@@ -1,29 +1,30 @@
 'use strict';
 
 const express = require('express'),
-      cookieParser = require('cookie-parser')(),
-      bodyParser = require('body-parser'),
-      cors = require('cors')({ origin: true }),
-      app = express(),
-      path = require('path'),
-      errorHandler = require('./middleware/error-handler'),
-      pino = require('express-pino-logger')();
+  cookieParser = require('cookie-parser')(),
+  bodyParser = require('body-parser'),
+  cors = require('cors')({ origin: true }),
+  app = express(),
+  path = require('path'),
+  errorHandler = require('./middleware/error-handler'),
+  pino = require('express-pino-logger')();
 
-  // const auth = require('./middleware/authentication');
+const auth = require('./middleware/authentication');
 
 app.use(cors);
 app.use(cookieParser);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(pino);
+app.use(pino);
 
-app.use('/', express.static(path.join(__dirname, 'public'))); 
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // ROUTES
 app.use('/exemplos', require('./controllers/exemplo/exemplo.router'));
 
 app.use('/usuarios', require('./controllers/usuarios/usuario.router'));
 app.use('/eventos', require('./controllers/eventos/eventos.router'));
+app.use('/compra', auth, require('./controllers/compra/compra.router'));
 
 
 
