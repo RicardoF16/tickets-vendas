@@ -42,16 +42,27 @@ export class EscolherIngressoPage implements OnInit {
       desta forma conseguimos trabalhar com comandos de loop.
     */ 
     this.selSetor = new Array<Ingresso>();
-    if (this.Informacoes != null) {
-      Object.keys(this.Informacoes.setor)
-        .forEach(key => {
-          this.selSetor.push(this.Informacoes.setor[key]);
-        });   
-    }
+    this.selSetor.push({
+      data: '',
+      descricao: '',
+      diaSemana: '',
+      id: '',
+      lote: '',
+      nomeEvento: '',
+      qtd: 0,
+      setor: '',
+      valor: '30.0'
+    })
+    // if (this.Informacoes != null) {
+    //   Object.keys(this.Informacoes.setor)
+    //     .forEach(key => {
+    //       this.selSetor.push(this.Informacoes.setor[key]);
+    //     });   
+    // }
 
-    this.selSetor.forEach(ingresso => {
-      ingresso.qtd = 0;
-    });
+    // this.selSetor.forEach(ingresso => {
+    //   ingresso.qtd = 0;
+    // });
    
   }
 
