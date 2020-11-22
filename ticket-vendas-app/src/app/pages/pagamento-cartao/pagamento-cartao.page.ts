@@ -61,7 +61,7 @@ export class PagamentoCartaoPage implements OnInit {
       .pipe(takeUntil(this.uns))
       .subscribe(user => this.user = user);
     
-    this.meuCarrinho = this.carrinhoService.getDadosCarrinho();
+    this.carrinhoService.getDadosCarrinho();
     console.log('Carrinho >> ', this.meuCarrinho);
   }
 
@@ -96,36 +96,36 @@ export class PagamentoCartaoPage implements OnInit {
   }
 
   async cadastrar(){
-    this.tickets = new Array<MeusTikets>();
-    let ticket : MeusTikets;
-    await this.loading.showLoading(this.translations.PAGE_INFO_SAVING);
-    try {
-          this.meuCarrinho.forEach( item =>{
-            if(item.qtd > 0){
-              for(let cont = 0; cont < item.qtd; cont++) {
-                ticket = { descricaoEvento: 'Pós Forrozao',
-                           valor :item.valor,
-                           lote : '1',
-                           qrcode : 'img',
-                           setor : item.setor,
-                           dataCriacao : '15-08-2020',
-                           idUser : this.user.id,
-                           descricaoDiaSemana : 'Sabado',
-                           descricaoMes : 'Julho',
-                           diaNoMes: '24',
-                           ano:'2020',
-                           dataEvento: '23-07-2020',
-                           dataValidacao: '24-07-2020',
-                           horaValidacao: '00:05'
-                      };
-              this.saveTickets(this.user.id,ticket);
-             }
-            }
-          });
+    // this.tickets = new Array<MeusTikets>();
+    // let ticket : MeusTikets;
+    // await this.loading.showLoading(this.translations.PAGE_INFO_SAVING);
+    // try {
+    //       this.meuCarrinho.forEach( item =>{
+    //         if(item.qtd > 0){
+    //           for(let cont = 0; cont < item.qtd; cont++) {
+    //             ticket = { descricaoEvento: 'Pós Forrozao',
+    //                        valor :item.valor,
+    //                        lote : '1',
+    //                        qrcode : 'img',
+    //                        setor : item.setor,
+    //                        dataCriacao : '15-08-2020',
+    //                        idUser : this.user.id,
+    //                        descricaoDiaSemana : 'Sabado',
+    //                        descricaoMes : 'Julho',
+    //                        diaNoMes: '24',
+    //                        ano:'2020',
+    //                        dataEvento: '23-07-2020',
+    //                        dataValidacao: '24-07-2020',
+    //                        horaValidacao: '00:05'
+    //                   };
+    //           this.saveTickets(this.user.id,ticket);
+    //          }
+    //         }
+    //       });
 
-    } catch (error) {
-      this.loading.dismissLoading();
-    }
+    // } catch (error) {
+    //   this.loading.dismissLoading();
+    // }
 
   }
 

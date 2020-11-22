@@ -10,6 +10,7 @@ export class EventoResponse {
 }
 
 export class DiasEventoResponse {
+    id: string;
     dataInicio: string;
     dataFim: string;
     lotes: Array<LoteResponse>;

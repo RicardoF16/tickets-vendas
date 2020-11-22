@@ -49,10 +49,11 @@ class EventoService extends BaseService {
     return new Promise((resolve, reject) => {
       this.getById(idEvento).then(result => {
         if (result && result.diasEvento[idDiaEvento]) {
-          resolve(result.diasEvento[idDiaEvento].lotes.filter(lote =>
+          var filter = result.diasEvento[idDiaEvento].lotes.filter(lote =>
             //TODO: Filtrar data
             lote.qtdeTicketsVendidos < lote.qtdeTotalTickets
-          ));
+          );
+          resolve(filter);
         } else {
           resolve()
         }

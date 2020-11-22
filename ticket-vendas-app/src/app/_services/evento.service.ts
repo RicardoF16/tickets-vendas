@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DiasEventoResponse, EventoResponse } from '../_models/eventoModel';
+import { IngressoModel } from '../_models/IngressoModel';
 
 
 @Injectable({
@@ -32,6 +33,10 @@ export class EventoService {
 
   getDatas(id: string): Observable<Array<DiasEventoResponse>> {
     return this.http.get<Array<DiasEventoResponse>>(`${this.endpoint}/${id}/datas`, ).pipe(take(1));
+  }
+
+  getLotes(idEvento: string, idDiaEvento): Observable<Array<IngressoModel>> {
+    return this.http.get<Array<IngressoModel>>(`${this.endpoint}/${idEvento}/${idDiaEvento}/lotes`, ).pipe(take(1));
   }
 
 }

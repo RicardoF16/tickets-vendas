@@ -96,4 +96,24 @@ export class GenericAlertService {
     toast.present();
     return toast;
   }
+
+  async presentToastInfo(
+    msg: string,
+    withButton?: boolean,
+    msgButton?: string
+  ) {
+    const options: ToastOptions = {
+      message: msg,
+      duration: 3000,
+      color: 'dark'
+    };
+    if (withButton) {
+      options.showCloseButton = true;
+      options.closeButtonText = msgButton;
+      options.duration = 0;
+    }
+    const toast = await this.toastController.create(options);
+    toast.present();
+    return toast;
+  }
 }

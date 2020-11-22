@@ -19,7 +19,7 @@ export class MeuCarrinhoPage implements OnInit {
 
 
   ngOnInit() {
-    this.meuCarrinho = this.carrinhoService.getDadosCarrinho();
+    this.carrinhoService.getDadosCarrinho();
     ///console.log('Meu Carrinho >> ', this.meuCarrinho);
     this.setValorTotal();
   }
@@ -37,9 +37,9 @@ export class MeuCarrinhoPage implements OnInit {
   
   setValorTotal(){
     let somatoriaValorTotal = 0;
-    this.meuCarrinho.forEach(item => {
-      somatoriaValorTotal += (parseFloat(item.valor) * item.qtd) ;
-    });
+    // this.meuCarrinho.forEach(item => {
+    //   somatoriaValorTotal += (parseFloat(item.valor) * item.qtd) ;
+    // });
 
     this.valorToal = CustomValidators.getFormatPrice(somatoriaValorTotal);
   }

@@ -36,8 +36,8 @@ export class SelecionarDataEventoPage implements OnInit {
     });
   }
 
-  selecionarSetor(data) {
-    this.navCtrl.navigateRoot(['/escolher-ingresso'], {queryParams: {id: data.id}});
+  selecionarSetor(index) {
+    this.navCtrl.navigateRoot(['/escolher-ingresso'], {queryParams: {id: this.idEvento, idDataEvento: index}});
   }
 
 }

@@ -1,10 +1,10 @@
-import { forEach } from '@angular/router/src/utils/collection';
-import { Carrinho } from './../../_models/carrinho';
-import { Informacoes } from 'src/app/_models/selecionar-data-evento';
-import { Component, OnInit } from '@angular/core';
-import { Ingresso} from './../../_models/form-escolher-ingressos';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IngressoModel } from '../../_models/IngressoModel';
 import { NavController } from '@ionic/angular';
-import { EventoResponse } from 'src/app/_models/eventoModel';
+import { EventoService } from 'src/app/_services/evento.service';
+import { ActivatedRoute } from '@angular/router';
+import { GenericAlertService } from 'src/app/_services/generic-alert.service';
+import { Carrinho } from 'src/app/_models/carrinho';
 import { CarrinhoService } from 'src/app/_services/carrinho.service';
 
 
@@ -14,93 +14,66 @@ import { CarrinhoService } from 'src/app/_services/carrinho.service';
   styleUrls: ['./escolher-ingresso.page.scss'],
 })
 export class EscolherIngressoPage implements OnInit {
+  idEvento: string = '';
+  idDataEvento: string = '';
+  lotes: Array<IngressoModel>;
 
-  selSetor :Array<Ingresso>;
-  dadosEvento: EventoResponse;
-  Informacoes: Informacoes;
-  carrinho: Array<Ingresso>;
-  
-
-  qtde = 0;
-  //ingresso : Array<Ingresso> = new Array<Ingresso>();
   constructor(public navCtrl: NavController,
-              private carrinhoService:CarrinhoService) { }
+    private activatedRoute: ActivatedRoute,
+    private eventoService: EventoService,
+    private carrinhoService: CarrinhoService,
+    private gAlert: GenericAlertService) { }
 
   ngOnInit() {
-    this.carregarListaIngresos();
-  }
-
-  descricaoIngresso: string;
-  valor: string;
-  tipo: number;    
-
-  carregarListaIngresos(){
-    
-    // this.Informacoes = this.selecionarDataEventoService.getDataSelecinada();
-    // this.dadosEvento =  this.detalheEventoService.getDadosEvento();
-    /*O objeto de "Ingresso" é transformado em uma lista de objetos do tipo <Ingresso>,
-      desta forma conseguimos trabalhar com comandos de loop.
-    */ 
-    this.selSetor = new Array<Ingresso>();
-    this.selSetor.push({
-      data: '',
-      descricao: '',
-      diaSemana: '',
-      id: '',
-      lote: '',
-      nomeEvento: '',
-      qtd: 0,
-      setor: '',
-      valor: '30.0'
-    })
-    // if (this.Informacoes != null) {
-    //   Object.keys(this.Informacoes.setor)
-    //     .forEach(key => {
-    //       this.selSetor.push(this.Informacoes.setor[key]);
-    //     });   
-    // }
-
-    // this.selSetor.forEach(ingresso => {
-    //   ingresso.qtd = 0;
-    // });
-   
-  }
-
-  insereItem(id) {
-    
-    let index = 0;
-    this.selSetor.forEach(item => {
-      if (item.id == id)
-      {
-        item.qtd += 1;
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.id && params.idDataEvento) {
+        this.idEvento = params.id;
+        this.idDataEvento = params.idDataEvento;
+        this.getLotes();
+      } else {
+        this.navCtrl.navigateRoot(['/']);
       }
-      index += 1;
+    });
+  }
+
+  async getLotes() {
+    this.eventoService.getLotes(this.idEvento, this.idDataEvento).toPromise().then(result => {
+      this.lotes = result;
+      this.lotes.forEach(l => { 
+        l.qtdeSelecionada = 0; 
+        l.idDataEvento = this.idDataEvento;
+      });
+
+    }).catch(err => {
+      this.gAlert.presentToastInfo("Não foi possível carregar as informações.");
     });
   }
 
-  retiraItem(id){
-    
-    let index = 0;
-    this.selSetor.forEach(item => {
-      if (item.id == id)
-      {
-        item.qtd -= 1;
-      }
-      index += 1;
-    });
+  addItem(item) {
+    if (item.qtdeSelecionada > 0) {
+      item.qtdeSelecionada--;
+    }
   }
 
-  meuCarrinho(){
-    
-    this.carrinho = new Array<Ingresso>();
-    this.selSetor.forEach( item =>{
-      if(item.qtd > 0){
-         this.carrinho.push({...item});  
-      }
-    });
-    
-    this.carrinhoService.setDadosCarrinho(this.carrinho);
-    this.navCtrl.navigateRoot(['/meu-carrinho']);
+  removeItem(item) {
+    if (item.qtdeSelecionada < (item.qtdeTotalTickets - item.qtdeTicketsVendidos)) {
+      item.qtdeSelecionada++;
+    } else {
+      this.gAlert.presentToastInfo("Não é possível adicionar mais itens.");
+    }
   }
 
+  concluirCompra(continuarComprando: false) {
+    let lotesSelecionados = this.lotes.filter(l => l.qtdeSelecionada > 0);
+    if (lotesSelecionados && lotesSelecionados.length > 0) {
+      let carrinho = new Carrinho()
+      carrinho.idEvento = this.idEvento;
+      carrinho.ingressos = lotesSelecionados;
+      this.carrinhoService.setDadosCarrinho(carrinho);
+
+      // TODO: VERIFICAR SE CONTINUA COMPRANDO E REDIRECIONAR PRA DEVIDA TELA 
+    } else {
+      this.gAlert.presentToastInfo("Selecione pelo menos 1 item para avançar!")
+    }
+  }
 }

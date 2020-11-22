@@ -50,6 +50,7 @@ class UsuarioService extends BaseService {
       }).then(usuarioCriado => {
         usuario.uid = usuarioCriado.uid;
         usuario.key = usuarioCriado.uid;
+        usuario.role = 1;
         delete usuario.senha;
         this.database.ref('/usuarios/' + usuarioCriado.uid)
           .set(usuario)
@@ -66,8 +67,6 @@ class UsuarioService extends BaseService {
 
   createSocialLogin(usuario) {
     return new Promise((resolve, reject) => {
-      usuario.role = 1;
-
       this.create(usuario)
         .then(usuarioCriadoFb => {
           resolve(usuarioCriadoFb);

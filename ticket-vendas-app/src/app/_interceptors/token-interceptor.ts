@@ -51,7 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
             return event;
           }),
           catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
+            if (error.status === 401 || error.status === 403) {
               if (error.error.success === false) {
                 console.log("erroInterceptor >>>>>>>>>", error);                
               } else {

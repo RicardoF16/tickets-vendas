@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { debug } from 'util';
-import { Ingresso } from '../_models/form-escolher-ingressos'
-import { take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 const urlservice = environment.urlService + 'helloWorld';
 

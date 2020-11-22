@@ -1,4 +1,4 @@
-import { Ingresso } from './form-escolher-ingressos';
+import { IngressoModel } from './IngressoModel';
 export interface Informacoes {
     descricaoMes: string;
     dataCriacao: string;
@@ -6,7 +6,7 @@ export interface Informacoes {
     diaMes: string;
     diaSemana: string;
     id: string;
-    setor: Array <Ingresso>;
+    setor: Array <IngressoModel>;
     valorFinal: string;
     valorInicial: string;
     index: number;
