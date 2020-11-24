@@ -8,6 +8,7 @@ export class CarrinhoService {
   constructor() { }
 
   public setDadosCarrinho(objCarrinho) {
+    objCarrinho.timestamp = new Date().getTime();
     localStorage.setItem('carrinho', JSON.stringify(objCarrinho));
   }
 
