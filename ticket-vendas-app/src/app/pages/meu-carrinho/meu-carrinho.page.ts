@@ -35,6 +35,20 @@ export class MeuCarrinhoPage implements OnInit {
     });
   }
 
+  valorTotal(): number {
+    if (this.meuCarrinho.ingressos && this.meuCarrinho.ingressos.length > 0) {
+      let total = 0;
+      this.meuCarrinho.ingressos.forEach(i => {
+        if (i.qtdeSelecionada > 0 && i.valor) {
+          total += Number(i.valor) * Number(i.qtdeSelecionada);
+        }
+      });
+      return total;
+    } else {
+      return 0;
+    }
+  }
+
 
   getValorItem(valorItem) {
     return CustomValidators.getFormatPrice(parseFloat(valorItem));

@@ -6,7 +6,6 @@ export class Carrinho {
     ingressos: Array<IngressoModel>;
 
     public valorTotal(): number {
-        debugger;
         if (this.ingressos && this.ingressos.length > 0) {
             let total = 0;
             this.ingressos.forEach(i => {
