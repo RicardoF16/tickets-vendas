@@ -23,6 +23,8 @@ import { NavController } from '@ionic/angular';
 export class PagamentoCartaoPage implements OnInit {
 
   tickets:Array<MeusTikets>
+
+  idEvento: string = "";
   
   meuCarrinho: Array<Carrinho> = new Array<Carrinho>();
 
@@ -61,7 +63,7 @@ export class PagamentoCartaoPage implements OnInit {
       .pipe(takeUntil(this.uns))
       .subscribe(user => this.user = user);
     
-    this.carrinhoService.getDadosCarrinho();
+    this.carrinhoService.getDadosCarrinho(this.idEvento);
     console.log('Carrinho >> ', this.meuCarrinho);
   }
 

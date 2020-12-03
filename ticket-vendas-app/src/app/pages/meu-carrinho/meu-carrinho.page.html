@@ -1,21 +1,21 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/escolher-ingresso"></ion-back-button>
-      </ion-buttons>
-      <!-- <ion-title>Informações do evento</ion-title> -->
-      <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/escolher-ingresso"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title>Informações do evento</ion-title> -->
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
 
-  
+
   <ion-card>
     <div id="container">
       <ion-list>
-        
+
         <ion-item>
           <ion-avatar slot="start">
             <img src="">
@@ -33,16 +33,16 @@
         </ion-item>
 
 
-        <ion-item *ngFor="let item of meuCarrinho">
+        <ion-item *ngFor="let item of meuCarrinho.ingressos">
           <ion-avatar slot="start">
             <img src="">
           </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>
-                <h2>{{item.setor}}</h2>
-                <p>Lote {{item.lote}} | {{getValorItem(item.valor)}}</p>
-                <p>QTD: {{item.qtd}} | {{getValorTotalItem(item)}}</p>
+                <h2>Setor: {{item.setor == 1 ? 'Pista' : item.setor == 2 ? 'Camarote' : ''}}</h2>
+                <p>{{item.descricao}}</p>
+                <p>QTD: {{item.qtdeSelecionada}}</p>
               </ion-col>
             </ion-row>
           </ion-label>
@@ -55,8 +55,7 @@
           <ion-label>
             <ion-row>
               <ion-col>
-                <h2>Total: </h2>
-                <p>{{valorToal}}</p>
+                <h2>Total: {{valorTotal}}</h2>
               </ion-col>
             </ion-row>
           </ion-label>
@@ -77,14 +76,14 @@
           </ion-label>
         </ion-item>
 
-        
+
 
       </ion-list>
     </div>
   </ion-card>
-  
 
 
-    
+
+
 
 </ion-content>

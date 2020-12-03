@@ -7,16 +7,16 @@ import { Carrinho } from '../_models/carrinho';
 export class CarrinhoService {
   constructor() { }
 
-  public setDadosCarrinho(objCarrinho) {
+  public setDadosCarrinho(objCarrinho: Carrinho) {
     objCarrinho.timestamp = new Date().getTime();
     localStorage.setItem('carrinho', JSON.stringify(objCarrinho));
   }
 
-  public getDadosCarrinho(): Carrinho {
+  public getDadosCarrinho(idEvento: string): Carrinho {
     let carrinhoStr = localStorage.getItem('carrinho');
     if (carrinhoStr) {
       const carrinho: Carrinho = JSON.parse(carrinhoStr);
-      if (carrinho.timestamp > 31624200000) {
+      if (new Date().getTime() - carrinho.timestamp > 31624200000 || idEvento != carrinho.idEvento) {
         localStorage.removeItem('carrinho');
         return null;
       } else

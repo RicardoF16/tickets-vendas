@@ -36,14 +36,26 @@ export class EscolherIngressoPage implements OnInit {
     });
   }
 
+  getDadosCarrinho() {
+    const carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
+    if (carrinho) {
+      this.lotes.forEach(l => {
+        const ingresso = carrinho.ingressos.find(i => i.id == l.id && i.idDataEvento == l.idDataEvento);
+        if (ingresso) {
+          l.qtdeSelecionada = ingresso.qtdeSelecionada;
+        }
+      })
+    }
+  }
+
   async getLotes() {
     this.eventoService.getLotes(this.idEvento, this.idDataEvento).toPromise().then(result => {
       this.lotes = result;
-      this.lotes.forEach(l => { 
-        l.qtdeSelecionada = 0; 
+      this.lotes.forEach(l => {
+        l.qtdeSelecionada = 0;
         l.idDataEvento = this.idDataEvento;
       });
-
+      this.getDadosCarrinho();
     }).catch(err => {
       this.gAlert.presentToastInfo("Não foi possível carregar as informações.");
     });
@@ -71,7 +83,12 @@ export class EscolherIngressoPage implements OnInit {
       carrinho.ingressos = lotesSelecionados;
       this.carrinhoService.setDadosCarrinho(carrinho);
 
-      // TODO: VERIFICAR SE CONTINUA COMPRANDO E REDIRECIONAR PRA DEVIDA TELA 
+      if (continuarComprando) {
+        this.gAlert.presentToastInfo("Você pode continuar comprando apenas ingressos do mesmo evento.")
+        this.navCtrl.navigateRoot(['/detalhe-evento'], { queryParams: { id: this.idEvento } });
+      } else {
+        this.navCtrl.navigateRoot(['/meu-carrinho'], { queryParams: { id: this.idEvento } });
+      }
     } else {
       this.gAlert.presentToastInfo("Selecione pelo menos 1 item para avançar!")
     }

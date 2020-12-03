@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Carrinho } from 'src/app/_models/carrinho';
 import { CarrinhoService } from 'src/app/_services/carrinho.service';
@@ -10,41 +11,36 @@ import { CustomValidators } from '../../util/customValidators';
   styleUrls: ['./meu-carrinho.page.scss'],
 })
 export class MeuCarrinhoPage implements OnInit {
-  
-  valorToal = "";
-  meuCarrinho: Array<Carrinho> = new Array<Carrinho>();
-  
+
+  idEvento: string = "";
+  meuCarrinho: Carrinho;
+  valorTotal: number;
+
   constructor(public navCtrl: NavController,
-              private carrinhoService: CarrinhoService) { }
+    private activatedRoute: ActivatedRoute,
+    private carrinhoService: CarrinhoService) {
+  }
 
 
   ngOnInit() {
-    this.carrinhoService.getDadosCarrinho();
-    ///console.log('Meu Carrinho >> ', this.meuCarrinho);
-    this.setValorTotal();
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.idEvento = params.id;
+        this.meuCarrinho = this.carrinhoService.getDadosCarrinho(this.idEvento) as Carrinho;
+        debugger;
+        this.valorTotal = this.meuCarrinho.valorTotal();
+      } else {
+        this.navCtrl.navigateRoot(['/']);
+      }
+    });
   }
 
 
-  getValorItem(valorItem){
+  getValorItem(valorItem) {
     return CustomValidators.getFormatPrice(parseFloat(valorItem));
   }
-  
-  getValorTotalItem(item){
-    let somatoriaItemTotal = 0;
-    somatoriaItemTotal = (parseFloat(item.valor) * item.qtd) ;
-    return CustomValidators.getFormatPrice(somatoriaItemTotal);
-  }
-  
-  setValorTotal(){
-    let somatoriaValorTotal = 0;
-    // this.meuCarrinho.forEach(item => {
-    //   somatoriaValorTotal += (parseFloat(item.valor) * item.qtd) ;
-    // });
 
-    this.valorToal = CustomValidators.getFormatPrice(somatoriaValorTotal);
-  }
-
-  avancarPagamento(){
+  avancarPagamento() {
     this.navCtrl.navigateRoot(['pagamento-cartao']);
   }
 
