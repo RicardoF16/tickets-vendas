@@ -35,7 +35,7 @@ export class MeuCarrinhoPage implements OnInit {
     });
   }
 
-  valorTotal(): number {
+  getValorTotal(): number {
     if (this.meuCarrinho.ingressos && this.meuCarrinho.ingressos.length > 0) {
       let total = 0;
       this.meuCarrinho.ingressos.forEach(i => {

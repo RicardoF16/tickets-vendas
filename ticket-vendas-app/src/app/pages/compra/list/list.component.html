@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Minhas Compras</ion-title>
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <div id="container">
+
+      <ion-list>
+        <ion-item *ngFor="let item of ['00001', '00002', '00003']" (click)="onClick('5f8b10068e0acc1cf86ca396')">
+            <ion-col size="9">
+              <ion-label>Ticket {{item}}</ion-label>
+            </ion-col>
+            <ion-col size="3" text-right>
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </ion-col>
+        </ion-item>
+      </ion-list>
+
+    </div>
+  </ion-card>
+
+</ion-content>

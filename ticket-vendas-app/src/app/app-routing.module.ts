@@ -49,8 +49,8 @@ const routes: Routes = [
   { path: 'meu-carrinho', loadChildren: './pages/meu-carrinho/meu-carrinho.module#MeuCarrinhoPageModule' },
   { path: 'pagamento-cartao', loadChildren: './pages/pagamento-cartao/pagamento-cartao.module#PagamentoCartaoPageModule' },
   { path: 'selecionar-data-evento', loadChildren: './pages/selecionar-data-evento/selecionar-data-evento.module#SelecionarDataEventoPageModule' },
-  { path: 'meus-tickets', loadChildren: './pages/meus-tickets/meus-tickets.module#MeusTicketsPageModule' }
-
+  { path: 'meus-tickets', loadChildren: './pages/meus-tickets/meus-tickets.module#MeusTicketsPageModule' },
+  { path: 'compras', loadChildren: './pages/compra/compra.module#CompraModule'}
 
 
 ];
