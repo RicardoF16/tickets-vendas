@@ -37,4 +37,8 @@ export class MinhaCompraComponent implements OnInit {
     });
   }
 
+  onClick(id) {
+    this.navCtrl.navigateRoot(['compras/ingresso'], { queryParams: { id: id } });
+  }
+
 }

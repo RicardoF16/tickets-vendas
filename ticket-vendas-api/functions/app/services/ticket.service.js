@@ -29,14 +29,27 @@ class TicketService extends BaseService {
   //     });
   //   }
 
-  create(obj) {
+  create(idUser, idEvento, obj) {
     return new Promise((resolve, reject) => {
       let myRef = this.database.ref().push();
       let key = myRef.key;
-      obj.id = key;
+      let newObj = {};
+      newObj.id = key;
+      newObj.idUsuario = idUser;
+      newObj.idEvento = idEvento;
+      newObj.dataCriacao = new Date().toISOString();
+      // newObj.dataValidacao = null;
+      newObj.setor = obj.setor;
+      newObj.tipo =  1;
+      if (obj.cortesia == true) {
+        newObj.tipo = 2;
+      }
 
-      this.database.ref('tickets/' + key).set(obj).then(result => {
-        resolve(obj);
+      newObj.validado = false;
+      newObj.valor = obj.valor;
+
+      this.database.ref('tickets/' + key).set(newObj).then(result => {
+        resolve(newObj);
       }).catch(err => {
         reject(null);
       });

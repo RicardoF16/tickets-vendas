@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/escolher-ingresso"></ion-back-button>
     </ion-buttons>
-    <!-- <ion-title>Informações do evento</ion-title> -->
+    <ion-title>Resumo da compra</ion-title>
     <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
   </ion-toolbar>
 </ion-header>
@@ -55,16 +55,13 @@
           <ion-label>
             <ion-row>
               <ion-col>
-                <h2>Total: {{valorTotal}}</h2>
+                <h2>Total: {{getValorItem(valorTotal)}}</h2>
               </ion-col>
             </ion-row>
           </ion-label>
         </ion-item>
 
         <ion-item>
-          <ion-avatar slot="start">
-            <img src="">
-          </ion-avatar>
           <ion-label>
             <ion-row>
               <ion-col>

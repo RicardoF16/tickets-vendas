@@ -21,17 +21,22 @@ export class AppComponent {
     {
       title: 'Eventos',
       url: '/home',
-      icon: 'home'
+      icon: 'fa fa-home'
     },
     {
-      title: 'Meus Tickets',
-      url: '/meus-tickets',
-      icon: 'home'
+      title: 'Minhas Compras',
+      url: '/compras',
+      icon: 'fa fa-shopping-cart'
     },
+    // {
+    //   title: 'Meus Tickets',
+    //   url: '/meus-tickets',
+    //   icon: 'home'
+    // },
     {
       title: 'Sair',
       url: '/login',
-      icon: 'login'
+      icon: 'fa fa-sign-out'
     }
   ];
 

@@ -13,6 +13,7 @@ import { UserStateService } from 'src/app/_services/user-state.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NavController } from '@ionic/angular';
+import { CompraService } from 'src/app/_services/compra.service';
 
 
 @Component({
@@ -22,11 +23,8 @@ import { NavController } from '@ionic/angular';
 })
 export class PagamentoCartaoPage implements OnInit {
 
-  tickets:Array<MeusTikets>
-
   idEvento: string = "";
-  
-  meuCarrinho: Array<Carrinho> = new Array<Carrinho>();
+  meuCarrinho: Carrinho;
 
   private user: UserResponse;
   private uns = new Subject<any>();
@@ -40,18 +38,28 @@ export class PagamentoCartaoPage implements OnInit {
   };
 
   descricaoBandeira = '';
-  constructor(private userService: UsersService,
-              private meusTicketsService: MeusTicketsService,
-              private translate: TranslateService,
-              private routeActive: ActivatedRoute,
-              private route: Router,
-              private gAlert: GenericAlertService,
-              private carrinhoService: CarrinhoService,
-              private userState: UserStateService,
-              public navCtrl: NavController
-             ) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private meusTicketsService: MeusTicketsService,
+    private translate: TranslateService,
+    private routeActive: ActivatedRoute,
+    private route: Router,
+    private compraService: CompraService,
+    private gAlert: GenericAlertService,
+    private carrinhoService: CarrinhoService,
+    private userState: UserStateService,
+    public navCtrl: NavController
+  ) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.idEvento = params.id;
+        this.meuCarrinho = this.carrinhoService.getDadosCarrinho(this.idEvento) as Carrinho;
+      } else {
+        this.navCtrl.navigateRoot(['/']);
+      }
+    });
 
     this.translate.onLangChange.subscribe(() => {
       this.getTranslations();
@@ -62,7 +70,7 @@ export class PagamentoCartaoPage implements OnInit {
     this.userState.getUser$
       .pipe(takeUntil(this.uns))
       .subscribe(user => this.user = user);
-    
+
     this.carrinhoService.getDadosCarrinho(this.idEvento);
     console.log('Carrinho >> ', this.meuCarrinho);
   }
@@ -81,71 +89,25 @@ export class PagamentoCartaoPage implements OnInit {
         };
       });
   }
-  
-  classDisplay(){
+
+  classDisplay() {
     let css = 'visivel'
-    if (this.descricaoBandeira == '')
-    {
+    if (this.descricaoBandeira == '') {
       css = 'invisivel'
     }
     return css;
   }
 
-  finalizarCompras(){
-    this.cadastrar();
-    //A pagina meus tickets tem que ser chamada após a garantia de ter retorno de ter salvo todos os tickets.
-    //this.navCtrl.navigateRoot('/meus-tickets'); 
+  finalizarCompras() {
+    this.compraService.post(this.meuCarrinho).toPromise().then(result => {
+      this.carrinhoService.clear();
+      // this.navCtrl.navigateRoot([`/compras/compra?id=${(result as any).id}`]);
+      this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: '5f8b10068e0acc1cf86ca396' } });
+    }).catch(err => {
+      this.carrinhoService.clear();
+      this.gAlert.presentToastError('Não foi possível registrar a compra, tente novamente mais tarde!');
+      this.navCtrl.navigateRoot(['/']);
+    });
   }
-
-  async cadastrar(){
-    // this.tickets = new Array<MeusTikets>();
-    // let ticket : MeusTikets;
-    // await this.loading.showLoading(this.translations.PAGE_INFO_SAVING);
-    // try {
-    //       this.meuCarrinho.forEach( item =>{
-    //         if(item.qtd > 0){
-    //           for(let cont = 0; cont < item.qtd; cont++) {
-    //             ticket = { descricaoEvento: 'Pós Forrozao',
-    //                        valor :item.valor,
-    //                        lote : '1',
-    //                        qrcode : 'img',
-    //                        setor : item.setor,
-    //                        dataCriacao : '15-08-2020',
-    //                        idUser : this.user.id,
-    //                        descricaoDiaSemana : 'Sabado',
-    //                        descricaoMes : 'Julho',
-    //                        diaNoMes: '24',
-    //                        ano:'2020',
-    //                        dataEvento: '23-07-2020',
-    //                        dataValidacao: '24-07-2020',
-    //                        horaValidacao: '00:05'
-    //                   };
-    //           this.saveTickets(this.user.id,ticket);
-    //          }
-    //         }
-    //       });
-
-    // } catch (error) {
-    //   this.loading.dismissLoading();
-    // }
-
-  }
-
-
-  private async saveTickets(idUser: string, tickets: MeusTikets) {
-
-    this.meusTicketsService.post(idUser, tickets)
-      .subscribe(async data => {
-        await this.loading.dismissLoading();
-        this.gAlert.presentToastSuccess(this.translations.PAGE_INFO_SAVING_SUCCESS);
-      }, async erro => {
-        console.log(erro);
-        this.gAlert.presentToastError(this.translations.PAGE_INFO_SAVING_ERROR);
-        await this.loading.dismissLoading();
-      });
-
-  }
-
-
 
 }

@@ -1,3 +1,28 @@
-<p>
-  meu-ingresso works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ingresso</ion-title>
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" text-center>
+          <ngx-qrcode [value]="qrCode" class="imgQrcode"></ngx-qrcode>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card>
+    <div id="container">
+    </div>
+  </ion-card>
+
+</ion-content>

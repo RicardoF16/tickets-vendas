@@ -27,8 +27,7 @@ export class MeuCarrinhoPage implements OnInit {
       if (params && params.id) {
         this.idEvento = params.id;
         this.meuCarrinho = this.carrinhoService.getDadosCarrinho(this.idEvento) as Carrinho;
-        debugger;
-        this.valorTotal = this.meuCarrinho.valorTotal();
+        this.valorTotal = this.getValorTotal();
       } else {
         this.navCtrl.navigateRoot(['/']);
       }
@@ -55,7 +54,7 @@ export class MeuCarrinhoPage implements OnInit {
   }
 
   avancarPagamento() {
-    this.navCtrl.navigateRoot(['pagamento-cartao']);
+    this.navCtrl.navigateRoot(['pagamento-cartao'], { queryParams: { id: this.idEvento } });
   }
 
 }

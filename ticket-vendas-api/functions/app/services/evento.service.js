@@ -1,3 +1,4 @@
+const { reject } = require('lodash');
 let BaseService = require('./base.service');
 
 class EventoService extends BaseService {
@@ -75,9 +76,25 @@ class EventoService extends BaseService {
     });
   }
 
+  updateQtdeIngressos(carrinho) {
+    this.getById(carrinho.idEvento).then(result => {
+
+      carrinho.ingressos.forEach(item => {
+        const lote = result.diasEvento[item.idDataEvento].lotes[item.id];
+        if (lote) {
+          lote.qtdeTicketsVendidos = parseInt(lote.qtdeTicketsVendidos) + parseInt(item.qtdeSelecionada);
+        }
+      });
+      this.update(carrinho.idEvento, result);
+      resolve();
+    }).catch(err => {
+      reject(err);
+    });
+  }
+
   update(id, exemplo) {
     return new Promise((resolve, reject) => {
-      this.database.ref('eventos/' + id).set(exemplo);
+      this.database.ref('eventos/' + id).update(exemplo);
       resolve();
     });
   }

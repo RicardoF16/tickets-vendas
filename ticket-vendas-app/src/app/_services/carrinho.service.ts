@@ -16,13 +16,17 @@ export class CarrinhoService {
     let carrinhoStr = localStorage.getItem('carrinho');
     if (carrinhoStr) {
       const carrinho: Carrinho = JSON.parse(carrinhoStr);
-      if (new Date().getTime() - carrinho.timestamp > 31624200000 || idEvento != carrinho.idEvento) {
+      if (new Date().getTime() - carrinho.timestamp > 1054140000 || idEvento != carrinho.idEvento) {
         localStorage.removeItem('carrinho');
         return null;
       } else
         return carrinho;
     } else
       return null;
+  }
+
+  public clear() {
+    localStorage.removeItem('carrinho');
   }
 
 

@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meu-ingresso.component.scss'],
 })
 export class MeuIngressoComponent implements OnInit {
-
+  qrCode: String = "bla";
+  
   constructor() { }
 
   ngOnInit() {}

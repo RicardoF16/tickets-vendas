@@ -59,10 +59,11 @@ class CompraController {
 
     post(req, res) {
         const body = req.body;
-        CompraService.create(body)
+        CompraService.create(req, body)
             .then(result => {
                 res.send(result)
             }).catch(err => {
+                console.log("bla 5", err);
                 if (err && err.hasError) {
                     res.status(400).send(err);
                 } else {
