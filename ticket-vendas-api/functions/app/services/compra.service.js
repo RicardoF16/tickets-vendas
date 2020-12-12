@@ -55,6 +55,7 @@ class CompraService extends BaseService {
             const dateNow = new Date().toISOString();
 
             let newObj = {
+                id: key,
                 dataCompra: dateNow,
                 idEvento: obj.idEvento,
                 idUsuario: req.usuario.uid,
