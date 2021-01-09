@@ -1,19 +1,69 @@
 <app-loading></app-loading>
 
-<ion-content padding class="container">
+<ion-content padding>
   <div text-center>
-    <img src="assets/imgs/logo_login.png" class="img-logo" />
+    <img src="assets/icon/logo_login.png" class="img-logo" />
   </div>
 
-  <button class="btn-facebook" (click)="loginFacebook()">
-    <img src="assets/imgs/facebook-logo.svg" class="img-facebook" />
-    {{ 'PAGE_LOGIN_FACEBOOK' | translate }}
-  </button>
+  <form [formGroup]="form">
 
-  <button class="btn-google" (click)="loginWithGoogle()">
-    <img src="assets/imgs/google_signin.png" class="img-google" />
-    {{ 'PAGE_LOGIN_GOOGLE' | translate }}
-  </button>
+    <ion-row margin-top>
+      <ion-col>
+        <ion-input class="input" type="email txt" placeholder="E-mail" inputmode="email" formControlName="user"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input type="password" class="input txt" placeholder="Senha" inputmode="password" formControlName="password">
+        </ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row padding-top>
+      <ion-col>
+        <button class="btn-primary txt" [routerLink]="['/login/criar-conta/true']">Cadastre-se</button>
+      </ion-col>
+      <ion-col>
+        <button class="btn-white txt-bold" [disabled]="form.invalid" (click)="login()">Entrar</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col margin-top>
+        <hr style="background: #FFFFFF; opacity: 1; height: 1px;">
+      </ion-col>
+      <ion-col padding-left padding-right style="margin-top: 5px !important;">
+        <p class="txt-bold color-white txt-center" style="font-size: 12px;">ou</p>
+      </ion-col>
+      <ion-col margin-top>
+        <hr style="background: #FFFFFF; opacity: 1; height: 1px;">
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button class="btn-facebook" (click)="loginFacebook()">
+          <img src="assets/icon/ic_facebook.svg" />
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="btn-google" (click)="loginWithGoogle()">
+          <img src="assets/icon/ic_google.png" />
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col padding-left>
+        <p text-left class="txt-bold color-white" style="font-size: 12px; padding-left: 20px;" [routerLink]="['/login/esqueci-senha']">
+            Esqueceu sua senha?
+        </p>
+      </ion-col>
+    </ion-row>
+
+  </form>
+  <!--
 
   <ion-grid ion-padding>
     <ion-row>
@@ -28,7 +78,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!--     <hr margin style="border-bottom: 1px solid #ccc;" class="ion-margin-top"> -->
 
   <form [formGroup]="form">
     <ion-grid class="ion-padding" style="padding-top: 0">
@@ -70,14 +119,9 @@
     </ion-row>
   </ion-grid>
 
-  <!-- <p text-center [routerLink]="['/']">
-    <b class="continue">
-      {{ 'PAGE_LOGIN_LABEL_CONTINUE_WIHTOUT_LOGIN' | translate }}
-    </b>
-  </p> -->
   <p text-center>
     <b class="esqueci-senha" [routerLink]="['/login/esqueci-senha']">
       {{ 'PAGE_LOGIN_FORGOT_PASS' | translate }}
     </b>
-  </p>
+  </p> -->
 </ion-content>
