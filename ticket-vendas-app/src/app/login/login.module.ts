@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: './criar-conta/criar-conta.module#CriarContaPageModule'
   },
   {
+    path: 'criar-senha',
+    loadChildren: './criar-senha/criar-senha.module#CriarSenhaModule'
+  },
+  {
     path: 'esqueci-senha',
     loadChildren: './esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule'
   }

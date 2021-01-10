@@ -12,11 +12,6 @@
 
 //@import '../node_modules/ionic4-auto-complete/auto-complete';
 
-ion-header {
-    // border-bottom: 3px solid rgb(231, 231, 231);
-    box-shadow: 1px 1px 30px #ccc;
-}
-
 .header-md:after,
 .header-ios:after {
     display: none;
@@ -45,7 +40,7 @@ ion-title {
         sans-serif;
     // font-weight: 200;
     text-align: center;
-    margin-right: 3rem !important;
+    margin-right: 3.5rem !important;
 }
 
 ion-item {
@@ -94,17 +89,17 @@ ion-button {
 
 // COLORS
 .color-primary {
-    color: #1A1D29 !important;
+    color: #1a1d29 !important;
 }
 .color-secondary {
-    color: #515C6F !important;
+    color: #515c6f !important;
 }
 .color-white {
     color: #ffffff !important;
 }
 
 .color-blue {
-    color: #1472d0 !important;
+    color: #0072D2 !important;
 }
 
 .color-blue-link {
@@ -161,39 +156,86 @@ ion-button {
     opacity: 1;
 }
 
+
 .input {
-    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box !important;
-    background: #ffffff 0% 0% no-repeat padding-box !important;
+    background: #ffffff!important;
     border-radius: 12px !important;
     opacity: 1 !important;
     color: #515c6f !important;
-    height: 48px !important;
+    height: 40px !important;
 
-    font: normal normal normal 16px/19px !important;
+    font-size: 14px !important;
     letter-spacing: 0px;
+
+    padding-left: 10px !important;
+    padding-right: 10px !important;
 }
 
+.input-error {
+    border-radius: 12px !important;
+    border: solid rgb(252, 127, 127) 2px !important;
+}
 
+.input-success {
+    border-radius: 12px !important;
+    border: solid rgb(140, 201, 140) 2px !important;
+}
 
+ion-title {
+    color: #ffffff !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    letter-spacing: 0px;
+    opacity: 1;
+}
 
-
-
-
-
+ion-back-button {
+    color: #ffffff !important;
+}
 
 // TEXT
 
 .txt {
-    font: normal normal normal 14px/17px;
+    font-size: 14px !important;
     letter-spacing: 0px;
 }
 
 .txt-bold {
-    font: normal normal bold 14px/17px;
     font-weight: 600 !important;
     letter-spacing: 0px;
 }
 
 .txt-center {
     text-align: center !important;
+}
+
+.box {
+    background: #31343e;
+    box-shadow: 0px 3px 50px #00000029;
+    border-radius: 16px;
+    opacity: 1;
+}
+
+
+
+// SIZE
+
+.txt-smaller {
+    font-size: smaller !important;
+}
+
+.txt-small {
+    font-size: small !important;
+}
+
+.txt-medium {
+    font-size: medium !important;
+}
+
+.txt-large {
+    font-size: large !important;
+}
+
+.txt-larger {
+    font-size: larger !important;
 }

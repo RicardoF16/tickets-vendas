@@ -5,24 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CriarContaPage } from './criar-conta.page';
-import { UserResolveGuard } from 'src/app/_guards/user-resolve.guard';
 import { LoadingModule } from 'src/app/modules/loading/loading.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { BrMaskerModule } from 'br-mask';
+import { CriarSenhaComponent } from './criar-senha.component';
 
 const routes: Routes = [
   {
-    path: 'termos-uso',
-    loadChildren: './termos-uso/termos-uso.module#TermosUsoPageModule'
+    path: '',
+    component: CriarSenhaComponent
   },
-  {
-    path: ':terms',
-    component: CriarContaPage,
-    resolve: {
-      terms: UserResolveGuard
-    }
-  }
 ];
 
 @NgModule({
@@ -31,10 +22,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     TranslateModule,
-    BrMaskerModule,
     LoadingModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CriarContaPage]
+  declarations: [CriarSenhaComponent]
 })
-export class CriarContaPageModule { }
+export class CriarSenhaModule { }

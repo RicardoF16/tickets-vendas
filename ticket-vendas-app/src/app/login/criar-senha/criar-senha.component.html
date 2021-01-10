@@ -1,0 +1,74 @@
+<app-loading></app-loading>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/login/criar-conta/true"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="txt">Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card padding class="box">
+
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <h4 class="color-white">Crie uma senha</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-no-padding" size="12">
+        <p class="txt-bold txt-smaller color-white">Criar Senha</p>
+      </ion-col>
+      <ion-col class="ion-no-padding" size="12">
+        <ion-row style="background: #ffffff!important; border-radius: 12px !important;">
+          <ion-col size="10">
+            <ion-input class="input" [type]="type" (keyup)="checkpassword($event.target.value)"
+              placeholder="Digite a senha"></ion-input>
+          </ion-col>
+          <ion-col size="2">
+            <img item-right src="assets/icon/ic_senha_off.png" *ngIf="!showPassword" (click)="ShowPassword()"
+              style="width: 24px !important; margin-top: 10px; height: 21px !important;">
+            <img item-right src="assets/icon/ic_senha_on.png" *ngIf="showPassword" (click)="ShowPassword()"
+              style="width: 24px !important; margin-top: 11px; height: 18px !important;">
+          </ion-col>
+        </ion-row>
+
+        <!-- <ion-input style="display: inline-block; vertical-align: top;" class="input" type="password" placeholder="Digite a senha"></ion-input>
+          <img style="display: inline-block; vertical-align: top;" src="assets/icon/ic_senha_off.png" style="width: 24px !important;" height="21px"> -->
+      </ion-col>
+      <ion-col size="12" padding-top>
+        <div id="divProgress" style="width: 0%;">
+          <ion-progress-bar [color]="colorProgress" value="100"></ion-progress-bar>
+          <div style="width: 100%; text-align: right;">
+            <ion-label class="txt-smaller" style="margin-top: 2px;" [color]="colorProgress">{{textProgress}}</ion-label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p class="txt-smaller color-secondary">Use no mínimo 6 caracteres (com distinção entre maisúsculas e minúsculas)
+          com pelo menos um número ou caractere especial</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="border-left: 2px solid #A4A0A0 !important; padding-top: 0px; padding-bottom: 0px;">
+        <p class="txt-small color-secondary" style="margin: 0px !important;">Você vai usar este e-mail para entrar:</p>
+        <p class="txt-medium color-white" style="margin: 4px !important;">email@email.com</p>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-row padding>
+    <ion-col size="12">
+      <button class="btn-white txt-medium txt-bold" [disabled]="isPasswordValid">Continuar</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

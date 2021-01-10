@@ -2,17 +2,13 @@ import { MeusTikets } from './meusTickets';
 export interface User {
     id?: string;
     nome: string;
+    dataNascimento?: string;
     email: string;
     senha?: string;
+    cpf?: string;
+    genero?: string;
     imagemURL?: string;
     meusTickets?: Array <MeusTikets>;
-}
-
-
-export interface UserTemp extends User {
-    confirmPassword: string;
-    confirmEmail: string;
-    terms: boolean;
 }
 
 export interface Planos {
