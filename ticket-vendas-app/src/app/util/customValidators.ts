@@ -182,9 +182,8 @@ import {
   
   
     static validarCPF(cpf) {
-  
-      if (cpf === '') {
-        
+      debugger;
+      if (cpf === '' || cpf == null || cpf == undefined) {
         return false;
       }
       else

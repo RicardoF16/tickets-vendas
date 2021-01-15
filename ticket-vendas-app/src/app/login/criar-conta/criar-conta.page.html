@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="form">
+  <form [formGroup]="form" *ngIf="form != null">
     <ion-card padding class="box">
 
       <ion-row>
@@ -23,7 +23,7 @@
           <p class="txt-bold txt-smaller color-white">Nome Completo</p>
         </ion-col>
         <ion-col class="ion-no-padding">
-          <ion-input class="input" type="text" placeholder="Digite seu nome" autocomplete="name" formControlName="name">
+          <ion-input class="input" type="text" placeholder="Digite seu nome" autocomplete="name" formControlName="nome">
           </ion-input>
         </ion-col>
       </ion-row>
@@ -35,7 +35,7 @@
               <p class="txt-bold txt-smaller color-white">CPF</p>
             </ion-col>
             <ion-col class="ion-no-padding">
-              <ion-input class="input" type="text" [brmasker]="{person: true}" formControlName="cpf"
+              <ion-input class="input" type="text" maxlength="14" [brmasker]="{person: true}" [ngClass]="{'input-error': form.get('cpf').value && form.get('cpf').errors}" formControlName="cpf"
                 placeholder="999.999.999-99"></ion-input>
             </ion-col>
           </ion-row>
@@ -46,7 +46,7 @@
               <p class="txt-bold txt-smaller color-white">Data de Nascimento</p>
             </ion-col>
             <ion-col class="ion-no-padding">
-              <ion-input class="input txt-small color-secondary" formControlName="dataNascimento" min="1900-01-01" max="2004-01-01" type="date">
+              <ion-input class="input txt-small color-secondary" min="1900-01-01" max="2004-01-01" type="date">
               </ion-input>
             </ion-col>
           </ion-row>
@@ -72,7 +72,7 @@
           <p class="txt-bold txt-smaller color-white">E-mail</p>
         </ion-col>
         <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email" formControlName="email" placeholder="email@email.com"></ion-input>
+          <ion-input class="input" type="email" [ngClass]="{'input-error': form.get('email').value && form.get('email').errors}" formControlName="email" placeholder="email@email.com"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -81,15 +81,16 @@
           <p class="txt-bold txt-smaller color-white">Confirmar e-mail</p>
         </ion-col>
         <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email" formControlName="email1" placeholder="email@email.com"></ion-input>
+          <ion-input class="input" type="email" [ngClass]="{'input-error': form.get('email1').value && form.get('email1').errors}" formControlName="email1" placeholder="email@email.com"></ion-input>
         </ion-col>
       </ion-row>
 
     </ion-card>
 
-    <ion-row padding>
+    <ion-row padding (click)="termCheck = !termCheck">
       <ion-col size="1">
-        <img src="assets/icon/ic_check_on.png" style="width: auto;" height="16px" />
+        <img src="assets/icon/ic_check_off.png" *ngIf="!termCheck" style="width: auto;" height="16px" />
+        <img src="assets/icon/ic_check_on.png" *ngIf="termCheck" style="width: auto;" height="16px" />
       </ion-col>
       <ion-col size="11">
         <p style="margin-top: 0px !important;" class="txt-smaller color-white">Ao se cadastrar, você concorda com os <a
@@ -100,8 +101,8 @@
 
     <ion-row padding>
       <ion-col size="12">
-        <button class="btn-white txt-medium txt-bold"  [disabled]="!form.valid" (click)="submit()" >Continuar</button>
-        <!-- [routerLink]="['/login/criar-senha']" -->
+        <button class="btn-white txt-medium txt-bold"  [disabled]="!form.valid && termCheck" (click)="submit()" >Continuar</button>
+        <!-- <button class="btn-white txt-medium txt-bold"  [routerLink]="['/login/criar-senha']" >Continuar</button> -->
       </ion-col>
     </ion-row>
 

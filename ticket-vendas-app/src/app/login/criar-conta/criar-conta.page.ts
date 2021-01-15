@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserResponse, User } from 'src/app/_models/user';
@@ -25,6 +25,8 @@ import { CustomValidators } from 'src/app/util/customValidators';
 export class CriarContaPage implements OnInit, OnDestroy {
 
   form: FormGroup;
+  termCheck: Boolean = false;
+
   private unsub = new Subject<any>();
   private user: UserResponse;
   msgLoading: string;
@@ -40,24 +42,34 @@ export class CriarContaPage implements OnInit, OnDestroy {
   constructor(
     private routeActive: ActivatedRoute,
     private route: Router,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private userService: UsersService,
     private authService: AuthService,
     private gAlert: GenericAlertService,
     private translate: TranslateService,
-    private userState: UserStateService) { }
+    private userState: UserStateService) {
+    this.form = this.formBuilder.group({
+      nome: ['', Validators.required],
+      dataNascimento: ['', Validators.required],
+      genero: ['', Validators.required],
+      cpf: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      email1: ['', [Validators.required, Validators.email, EmailValidator('email')]]
+    });
+  }
 
   ngOnInit() {
     const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : {};
-
-    this.form = this.fb.group({
-      nome: [user.nome, Validators.required],
-      dataNascimento: [user.dataNascimento, Validators.required],
-      genero: [user.genero, Validators.required],
-      cpf: [user.cpf, [Validators.required, CustomValidators.validarCPF('cpf')]],
-      email: [user.email, [Validators.required, Validators.email]],
-      email1: [null, [Validators.required, Validators.email, EmailValidator('email')]]
-    });
+    if (user) {
+      this.form = this.formBuilder.group({
+        nome: [user.nome, Validators.required],
+        dataNascimento: [user.dataNascimento, Validators.required],
+        genero: [user.genero, Validators.required],
+        cpf: [user.cpf, [Validators.required]],
+        email: [user.email, [Validators.required, Validators.email]],
+        email1: ['', [Validators.required, Validators.email, EmailValidator('email')]]
+      });
+    }
 
     this.userState.getUser$
       .pipe(takeUntil(this.unsub))
@@ -89,31 +101,36 @@ export class CriarContaPage implements OnInit, OnDestroy {
   submit() {
     const user: User = {
       nome: this.form.get('nome').value,
-      email: this.form.get('dataNascimento').value,
+      dataNascimento: this.form.get('dataNascimento').value,
+      email: this.form.get('email').value,
       cpf: this.form.get('cpf').value,
-      senha: this.form.get('email').value,
       genero: this.form.get('genero').value
     };
     this.saveUser(user);
   }
 
-  private async saveUser(user: User) {
-    await this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
-    this.userService.postUser(user)
-      .subscribe(async userResponse => {
-        await this.loading.dismissLoading();
-        this.userState.setUser(userResponse);
-        this.autenticate(user);
-      }, async err => {
-        //console.error(err);
-        await this.loading.dismissLoading();
-        if (err.code === 'auth/email-already-exists') {
-          this.feedBackUser(false, this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
-        } else {
-          this.feedBackUser(false);
-        }
-      });
+  private saveUser(user: User) {
+    localStorage.setItem('userTemp', JSON.stringify(user));
+    this.route.navigate(['/login/criar-senha']);
   }
+
+  // private async saveUser(user: User) {
+  //   await this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
+  //   this.userService.postUser(user)
+  //     .subscribe(async userResponse => {
+  //       await this.loading.dismissLoading();
+  //       this.userState.setUser(userResponse);
+  //       this.autenticate(user);
+  //     }, async err => {
+  //       //console.error(err);
+  //       await this.loading.dismissLoading();
+  //       if (err.code === 'auth/email-already-exists') {
+  //         this.feedBackUser(false, this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
+  //       } else {
+  //         this.feedBackUser(false);
+  //       }
+  //     });
+  // }
 
   private async autenticate(user: User) {
     await this.loading.showLoading();
@@ -127,22 +144,6 @@ export class CriarContaPage implements OnInit, OnDestroy {
         // console.log(err);
         this.userState.setUser(null);
         await this.loading.dismissLoading();
-      });
-  }
-
-  private async editUser(user: UserResponse) {
-    await this.loading.showLoading();
-    this.userService.putUser(user)
-      .subscribe(async userResponse => {
-        this.userState.setUser(userResponse);
-        this.feedBackUser(true);
-        await this.loading.dismissLoading();
-        this.route.navigate(['/home']);
-        // console.log('usuário criado e pronto para ser redirecionado para home');
-      }, async err => {
-        await this.loading.dismissLoading();
-        this.route.navigate(['/home']);
-        // console.error('erro ao editar usuário');
       });
   }
 
