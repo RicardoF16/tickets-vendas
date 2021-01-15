@@ -28,6 +28,8 @@ export class CriarContaPage implements OnInit, OnDestroy {
   termCheck: Boolean = false;
   maxDate: string = '2004-01-01';
 
+  private user: UserResponse;
+
   private unsub = new Subject<any>();
   msgLoading: string;
   @ViewChild(LoadingComponent) loading: LoadingComponent;

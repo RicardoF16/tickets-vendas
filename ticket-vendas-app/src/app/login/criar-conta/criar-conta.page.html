@@ -81,7 +81,7 @@
           <p class="txt-bold txt-smaller color-white">Confirmar e-mail</p>
         </ion-col>
         <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email" [ngClass]="{'input-error': form.get('email1').value && form.get('email1').errors}" formControlName="email1" placeholder="email@email.com"></ion-input>
+          <ion-input class="input" type="email" [ngClass]="{'input-error': (form.get('email').value || form.get('email1').value) && form.get('email1').errors}" formControlName="email1" placeholder="email@email.com"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -101,7 +101,7 @@
 
     <ion-row padding>
       <ion-col size="12">
-        <button class="btn-white txt-medium txt-bold"  [disabled]="!form.valid && termCheck" (click)="submit()" >Continuar</button>
+        <button class="btn-white txt-medium txt-bold"  [disabled]="!form.valid && !termCheck" (click)="submit()" >Continuar</button>
         <!-- <button class="btn-white txt-medium txt-bold"  [routerLink]="['/login/criar-senha']" >Continuar</button> -->
       </ion-col>
     </ion-row>

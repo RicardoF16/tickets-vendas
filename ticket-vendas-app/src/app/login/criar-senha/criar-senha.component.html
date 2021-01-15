@@ -25,7 +25,7 @@
       <ion-col class="ion-no-padding" size="12">
         <ion-row style="background: #ffffff!important; border-radius: 12px !important;">
           <ion-col size="10">
-            <ion-input class="input" [type]="type" (keyup)="checkpassword($event.target.value)"
+            <ion-input class="input" #inputSenha [type]="type" (keyup)="checkpassword($event.target.value)"
               placeholder="Digite a senha"></ion-input>
           </ion-col>
           <ion-col size="2">
@@ -59,7 +59,7 @@
     <ion-row>
       <ion-col style="border-left: 2px solid #A4A0A0 !important; padding-top: 0px; padding-bottom: 0px;">
         <p class="txt-small color-secondary" style="margin: 0px !important;">Você vai usar este e-mail para entrar:</p>
-        <p class="txt-medium color-white" style="margin: 4px !important;">email@email.com</p>
+        <p class="txt-medium color-white" style="margin: 4px !important;">{{user?.email}}</p>
       </ion-col>
     </ion-row>
 
@@ -67,7 +67,7 @@
 
   <ion-row padding>
     <ion-col size="12">
-      <button class="btn-white txt-medium txt-bold" [disabled]="isPasswordValid">Continuar</button>
+      <button class="btn-white txt-medium txt-bold" [disabled]="!isPasswordValid" (click)="saveUser(inputSenha.value)">Continuar</button>
     </ion-col>
   </ion-row>
 

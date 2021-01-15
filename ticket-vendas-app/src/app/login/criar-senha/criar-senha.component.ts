@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { User } from 'src/app/_models/user';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -19,6 +20,8 @@ export class CriarSenhaComponent implements OnInit {
   public colorProgress: string = "";
   public textProgress: string = "";
 
+  public user: User;
+
   @ViewChild(LoadingComponent) loading: LoadingComponent;
 
   public isPasswordValid: Boolean = false;
@@ -26,10 +29,17 @@ export class CriarSenhaComponent implements OnInit {
   constructor(private userService: UsersService,
     private userState: UserStateService,
     private authService: AuthService,
+    private translate: TranslateService,
     private gAlert: GenericAlertService,
     private route: Router) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : null;
+
+    this.translate.onLangChange.subscribe(() => {
+      this.getTranslations();
+    });
+    this.getTranslations();
   }
 
   ShowPassword() {
@@ -109,23 +119,39 @@ export class CriarSenhaComponent implements OnInit {
     PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409: string;
   };
 
-  private async saveUser(password: string) {
-    const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : null;
-    if (!user) {
-      this.gAlert.presentToastError('Erro ao carregar os dados.');
-      return false;
-    } else
-      user.senha = password;
+  private getTranslations() {
 
-    await this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
-    this.userService.postUser(user)
+    this.translate.get(
+      [
+        'PAGE_SIGNUP_LOADING_IMG',
+        'PAGE_SIGNUP_LOADING_SAVE_USER',
+        'PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS',
+        'PAGE_SIGNUP_TOAST_FEEDBACK_ERROR',
+        'PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409'
+      ])
+      .subscribe(translations => {
+        this.translations = {
+          ...translations
+        };
+      });
+  }
+
+  private saveUser(password: string) {
+    if (!this.user) {
+      this.gAlert.presentToastError('Erro ao carregar os dados.');
+      return;
+    } else
+      this.user.senha = password;
+
+    this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
+    this.userService.postUser(this.user)
       .subscribe(async userResponse => {
-        await this.loading.dismissLoading();
+        this.loading.dismissLoading();
         this.userState.setUser(userResponse);
-        this.autenticate(user);
+        this.autenticate(this.user);
       }, async err => {
         //console.error(err);
-        await this.loading.dismissLoading();
+        this.loading.dismissLoading();
         if (err.code === 'auth/email-already-exists') {
           this.feedBackUser(false, this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
         } else {
@@ -133,7 +159,6 @@ export class CriarSenhaComponent implements OnInit {
         }
       });
   }
-
 
   private async autenticate(user: User) {
     await this.loading.showLoading();

@@ -15,7 +15,6 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   postUser(user: User): Observable<UserResponse> {
-    debugger;
     if (!user.imagemURL) {
       user.imagemURL = '';
     }
