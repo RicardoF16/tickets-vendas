@@ -181,10 +181,12 @@ import {
   
   
   
-    static validarCPF(cpf) {
-      debugger;
+    static validarCPF(c: FormControl): ValidationErrors {
+      const cpf = c.value
+      let error = null;
+      
       if (cpf === '' || cpf == null || cpf == undefined) {
-        return false;
+        error = 'Campo nulo ou vazio';
       }
       else
       {
@@ -205,7 +207,7 @@ import {
           strCPF === '88888888888' ||
           strCPF === '99999999999'
         ) {
-          return false;
+          error = 'Campo não atende aos requisitos';
         }
         // Valida 1o digito
         let add = 0;
@@ -218,7 +220,7 @@ import {
         if (rev === 10 || rev === 11) rev = 0;
         // tslint:disable-next-line:radix
         if (rev !== parseInt(strCPF.charAt(9))) {
-          return false;
+          error = 'Campo não atende aos requisitos';
         }
         add = 0;
         // tslint:disable-next-line:curly
@@ -230,10 +232,11 @@ import {
         if (rev === 10 || rev === 11) rev = 0;
         // tslint:disable-next-line:radix
         if (rev !== parseInt(strCPF.charAt(10))) {
-          return false;
+          error = 'Campo não atende aos requisitos';
         }
-        return true;
       }
+
+      return error;
     }
   
   

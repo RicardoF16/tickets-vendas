@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoadingComponent } from 'src/app/modules/loading/loading.component';
+import { User } from 'src/app/_models/user';
+import { AuthService } from 'src/app/_services/auth.service';
+import { GenericAlertService } from 'src/app/_services/generic-alert.service';
+import { UserStateService } from 'src/app/_services/user-state.service';
+import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
   selector: 'app-criar-senha',
@@ -12,9 +19,15 @@ export class CriarSenhaComponent implements OnInit {
   public colorProgress: string = "";
   public textProgress: string = "";
 
+  @ViewChild(LoadingComponent) loading: LoadingComponent;
+
   public isPasswordValid: Boolean = false;
 
-  constructor() { }
+  constructor(private userService: UsersService,
+    private userState: UserStateService,
+    private authService: AuthService,
+    private gAlert: GenericAlertService,
+    private route: Router) { }
 
   ngOnInit() {
   }
@@ -86,5 +99,64 @@ export class CriarSenhaComponent implements OnInit {
         break;
     }
 
+  }
+
+  private translations: {
+    PAGE_SIGNUP_LOADING_IMG: string;
+    PAGE_SIGNUP_LOADING_SAVE_USER: string;
+    PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS: string;
+    PAGE_SIGNUP_TOAST_FEEDBACK_ERROR: string;
+    PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409: string;
+  };
+
+  private async saveUser(password: string) {
+    const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : null;
+    if (!user) {
+      this.gAlert.presentToastError('Erro ao carregar os dados.');
+      return false;
+    } else
+      user.senha = password;
+
+    await this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
+    this.userService.postUser(user)
+      .subscribe(async userResponse => {
+        await this.loading.dismissLoading();
+        this.userState.setUser(userResponse);
+        this.autenticate(user);
+      }, async err => {
+        //console.error(err);
+        await this.loading.dismissLoading();
+        if (err.code === 'auth/email-already-exists') {
+          this.feedBackUser(false, this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
+        } else {
+          this.feedBackUser(false);
+        }
+      });
+  }
+
+
+  private async autenticate(user: User) {
+    await this.loading.showLoading();
+    this.authService.login(user.email, user.senha)
+      .then(async userAutenicated => {
+        await this.loading.dismissLoading();
+        this.userState.setFbUser(userAutenicated.user);
+        this.route.navigate(['/home']);
+        //this.uploadImage(userAutenicated.user.uid);
+      }, async err => {
+        // console.log(err);
+        this.userState.setUser(null);
+        await this.loading.dismissLoading();
+      });
+  }
+
+  private async feedBackUser(success: boolean, msg?: string) {
+    if (success) {
+      await this.gAlert.presentToastSuccess(this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS);
+    } else {
+      await this.gAlert
+        .presentToastError
+        (msg ? this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR : this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
+    }
   }
 }

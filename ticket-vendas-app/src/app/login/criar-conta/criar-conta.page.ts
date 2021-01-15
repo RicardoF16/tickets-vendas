@@ -26,9 +26,9 @@ export class CriarContaPage implements OnInit, OnDestroy {
 
   form: FormGroup;
   termCheck: Boolean = false;
+  maxDate: string = '2004-01-01';
 
   private unsub = new Subject<any>();
-  private user: UserResponse;
   msgLoading: string;
   @ViewChild(LoadingComponent) loading: LoadingComponent;
   private translations: {
@@ -40,32 +40,29 @@ export class CriarContaPage implements OnInit, OnDestroy {
   };
 
   constructor(
-    private routeActive: ActivatedRoute,
     private route: Router,
     private formBuilder: FormBuilder,
-    private userService: UsersService,
-    private authService: AuthService,
-    private gAlert: GenericAlertService,
     private translate: TranslateService,
     private userState: UserStateService) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       genero: ['', Validators.required],
-      cpf: ['', [Validators.required]],
+      cpf: ['', [Validators.required, CustomValidators.validarCPF]],
       email: ['', [Validators.required, Validators.email]],
       email1: ['', [Validators.required, Validators.email, EmailValidator('email')]]
     });
   }
 
   ngOnInit() {
+    this.setMaxDate();
     const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : {};
     if (user) {
       this.form = this.formBuilder.group({
         nome: [user.nome, Validators.required],
         dataNascimento: [user.dataNascimento, Validators.required],
         genero: [user.genero, Validators.required],
-        cpf: [user.cpf, [Validators.required]],
+        cpf: [user.cpf, [Validators.required, CustomValidators.validarCPF]],
         email: [user.email, [Validators.required, Validators.email]],
         email1: ['', [Validators.required, Validators.email, EmailValidator('email')]]
       });
@@ -80,6 +77,26 @@ export class CriarContaPage implements OnInit, OnDestroy {
     });
     this.getTranslations();
   }
+
+  setMaxDate() {
+    var today = new Date()
+    var priorDate = new Date(new Date().setDate(today.getDate() - 5844));
+    this.maxDate = this.formatDate(priorDate);
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
   private getTranslations() {
 
@@ -112,49 +129,6 @@ export class CriarContaPage implements OnInit, OnDestroy {
   private saveUser(user: User) {
     localStorage.setItem('userTemp', JSON.stringify(user));
     this.route.navigate(['/login/criar-senha']);
-  }
-
-  // private async saveUser(user: User) {
-  //   await this.loading.showLoading(this.translations.PAGE_SIGNUP_LOADING_SAVE_USER);
-  //   this.userService.postUser(user)
-  //     .subscribe(async userResponse => {
-  //       await this.loading.dismissLoading();
-  //       this.userState.setUser(userResponse);
-  //       this.autenticate(user);
-  //     }, async err => {
-  //       //console.error(err);
-  //       await this.loading.dismissLoading();
-  //       if (err.code === 'auth/email-already-exists') {
-  //         this.feedBackUser(false, this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
-  //       } else {
-  //         this.feedBackUser(false);
-  //       }
-  //     });
-  // }
-
-  private async autenticate(user: User) {
-    await this.loading.showLoading();
-    this.authService.login(user.email, user.senha)
-      .then(async userAutenicated => {
-        await this.loading.dismissLoading();
-        this.userState.setFbUser(userAutenicated.user);
-        this.route.navigate(['/home']);
-        //this.uploadImage(userAutenicated.user.uid);
-      }, async err => {
-        // console.log(err);
-        this.userState.setUser(null);
-        await this.loading.dismissLoading();
-      });
-  }
-
-  private async feedBackUser(success: boolean, msg?: string) {
-    if (success) {
-      await this.gAlert.presentToastSuccess(this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS);
-    } else {
-      await this.gAlert
-        .presentToastError
-        (msg ? this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR : this.translations.PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409);
-    }
   }
 
   back() {
