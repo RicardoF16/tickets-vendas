@@ -1,49 +1,50 @@
 <app-loading></app-loading>
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Eventos</ion-title>
-    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+    <ion-img src="assets/icon/logo_navbar.png"
+      style="width: 62px !important; margin-top: 28px !important; margin-left: calc(50vw - 29px);"></ion-img>
   </ion-toolbar>
-
-  <ion-toolbar>
-      <ion-segment (ionChange)="segmentChanged($event)">
-        <ion-segment-button [value]="0" checked>
-          <ion-label>Destaque</ion-label>
-        </ion-segment-button>
-        <ion-segment-button [value]="1">
-          <ion-label>Todos</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar> 
-
 </ion-header>
 
-<ion-content >
-     
-     <ion-card *ngFor="let evento of eventos">
-       <ion-grid (click)="visaoEvento(evento)">
-         <ion-row class="ion-align-items-center">
-           <ion-col size="12" text-center>
-              <img [src]="evento.imagemUrl">
-           </ion-col>
-           <ion-col size="12" text-center>
-            {{evento.titulo}}
-         </ion-col>
-         </ion-row>
-       </ion-grid>
-     </ion-card>
 
-     <!--<ion-card>
-        <ion-grid>
-          <ion-row class="ion-align-items-center">
-            <ion-col size="12" text-center>
-                <img src="assets/imgs/offParaElas.jpg" (click)="visaoEvento()">
-            </ion-col>
-          </ion-row>
-        </ion-grid> 
-    </ion-card> !-->
-  
+<ion-content padding>
+
+  <ion-card class="box-evento" *ngFor="let evento of eventos">
+    <ion-row no-padding>
+      <ion-col size="5" no-padding>
+        <ion-row no-padding>
+          <ion-col size="12" no-padding>
+            <img class="img-row" [src]="evento.imagemUrl">
+          </ion-col>
+        </ion-row>
+        <ion-row no-padding class="text-align-center">
+          <img class="img-btn-options" src="assets/icon/ic_compartilhar.png" width="30" height="30">
+          <img class="img-btn-options" src="assets/icon/ic_curtir_on.png" width="30" height="30">
+        </ion-row>
+      </ion-col>
+      <ion-col size="7">
+        <p class="txt-smaller color-white">{{evento.titulo}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
 </ion-content>
+
+<!-- <ion-content>
+
+  <ion-card *ngFor="let evento of eventos">
+    <ion-grid (click)="visaoEvento(evento)">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" text-center>
+          <img [src]="evento.imagemUrl">
+        </ion-col>
+        <ion-col size="12" text-center>
+          {{evento.titulo}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content> -->

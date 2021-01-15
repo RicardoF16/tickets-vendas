@@ -47,8 +47,4 @@ export class HomePage {
     this.navCtrl.navigateRoot(['/detalhe-evento'], {queryParams: {id: evento.id}});
   }
 
-  segmentChanged(ev: any) {
-    //this.resetAll();
-  }
-
 }
