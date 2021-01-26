@@ -20,18 +20,44 @@
             <img class="img-row" [src]="evento.imagemUrl">
           </ion-col>
         </ion-row>
-        <ion-row no-padding class="text-align-center">
-          <img class="img-btn-options" src="assets/icon/ic_compartilhar.png" width="30" height="30">
-          <img class="img-btn-options" src="assets/icon/ic_curtir_on.png" width="30" height="30">
+        <ion-row class="text-align-center">
+          <img class="img-btn-options" style="margin-left: auto !important;" src="assets/icon/ic_compartilhar.png">
+          <img class="img-btn-options" style="margin-right: auto !important;" src="assets/icon/ic_curtir_on.png">
         </ion-row>
       </ion-col>
-      <ion-col size="7">
-        <p class="txt-smaller color-white">{{evento.titulo}}</p>
+      <ion-col size="7" no-padding>
+        <ion-row no-padding>
+          <p class="txt-smaller color-white date-card">08 JAN > 10 JAN 21:00</p>
+        </ion-row>
+        <ion-row no-padding>
+          <p class="txt-small txt-bold color-white title-card txt-bold">{{evento.titulo}}</p>
+        </ion-row>
+        <ion-row no-padding>
+          <p class="color-white subtitle-card">Lorem ipsum dolor sit amet, consectetur sit amet, consectetur sit amet,
+            consectetur adipiscing elit. Cras nonpretium nunc, at</p>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-card>
 
 </ion-content>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button>
+      <img class="tab-menu-img" src="assets/icon/ic_tab_home_on.png">
+      <ion-label class="color-white">Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/meus-tickets']">
+      <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_off.png">
+      <ion-label class="color-tab-menu-unfocus">Meus Tickets</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <img class="tab-menu-img" src="assets/icon/ic_tab_perfil_off.png">
+      <ion-label class="color-tab-menu-unfocus">Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
 
 <!-- <ion-content>
 

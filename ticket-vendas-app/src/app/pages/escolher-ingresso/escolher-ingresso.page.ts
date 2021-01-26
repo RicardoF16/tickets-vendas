@@ -75,7 +75,7 @@ export class EscolherIngressoPage implements OnInit {
     }
   }
 
-  concluirCompra(continuarComprando: false) {
+  concluirCompra(continuarComprando: Boolean) {
     let lotesSelecionados = this.lotes.filter(l => l.qtdeSelecionada > 0);
     if (lotesSelecionados && lotesSelecionados.length > 0) {
       let carrinho = new Carrinho()

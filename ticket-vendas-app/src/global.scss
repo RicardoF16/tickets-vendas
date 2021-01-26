@@ -73,6 +73,10 @@ ion-button {
     color: gray;
 }
 
+.tab-menu-img {
+    padding-bottom: 5px;
+}
+
 .pac-item {
     line-height: 37px;
 }
@@ -98,8 +102,12 @@ ion-button {
     color: #ffffff !important;
 }
 
+.color-tab-menu-unfocus {
+    color: #A4A0A0 !important;
+}
+
 .color-blue {
-    color: #0072D2 !important;
+    color: #0072d2 !important;
 }
 
 .color-blue-link {
@@ -156,9 +164,8 @@ ion-button {
     opacity: 1;
 }
 
-
 .input {
-    background: #ffffff!important;
+    background: #ffffff !important;
     border-radius: 12px !important;
     opacity: 1 !important;
     color: #515c6f !important;
@@ -215,8 +222,6 @@ ion-back-button {
     border-radius: 16px;
     opacity: 1;
 }
-
-
 
 // SIZE
 

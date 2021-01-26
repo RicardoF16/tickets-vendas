@@ -6,6 +6,9 @@ export class EventoResponse {
     dataFim: string;
     imagemURL: string;
     tipo: number;
+    censura: string;
+    local: any;
+    pontosVenda: any;
     diasEvento?: Array<DiasEventoResponse>;
 }
 

@@ -136,7 +136,7 @@ export class CriarSenhaComponent implements OnInit {
       });
   }
 
-  private saveUser(password: string) {
+  saveUser(password: string) {
     if (!this.user) {
       this.gAlert.presentToastError('Erro ao carregar os dados.');
       return;
