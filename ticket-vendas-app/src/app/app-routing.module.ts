@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
+    path: 'perfil',
+    loadChildren: './perfil/perfil.module#PerfilModule'
+  },
+  {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
   },

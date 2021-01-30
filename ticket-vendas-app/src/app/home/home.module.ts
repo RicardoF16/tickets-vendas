@@ -9,6 +9,7 @@ import { LoadingModule } from '../modules/loading/loading.module';
 
 
 import { HomePage } from './home.page';
+import { TabMenuModule } from '../modules/tab-menu/tab-menu.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { HomePage } from './home.page';
     IonicModule,
     LoadingModule,
     TranslateModule,
+    TabMenuModule,
     RouterModule.forChild([
       {
         path: '',

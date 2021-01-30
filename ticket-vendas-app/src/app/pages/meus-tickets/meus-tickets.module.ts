@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MeusTicketsPage } from './meus-tickets.page';
 import { LoadingModule } from '../../modules/loading/loading.module';
+import { TabMenuModule } from 'src/app/modules/tab-menu/tab-menu.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     LoadingModule,
+    TabMenuModule,
     RouterModule.forChild(routes)
   ],
   declarations: [MeusTicketsPage]

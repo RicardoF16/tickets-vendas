@@ -1,9 +1,9 @@
 <app-loading></app-loading>
 <ion-header>
   <ion-toolbar class="ion-text-center">
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-img src="assets/icon/logo_navbar.png"
       style="width: 62px !important; margin-top: 28px !important; margin-left: calc(50vw - 29px);"></ion-img>
   </ion-toolbar>
@@ -42,35 +42,4 @@
 
 </ion-content>
 
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button>
-      <img class="tab-menu-img" src="assets/icon/ic_tab_home_on.png">
-      <ion-label class="color-white">Home</ion-label>
-    </ion-tab-button>
-    <ion-tab-button [routerLink]="['/meus-tickets']">
-      <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_off.png">
-      <ion-label class="color-tab-menu-unfocus">Meus Tickets</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="profile">
-      <img class="tab-menu-img" src="assets/icon/ic_tab_perfil_off.png">
-      <ion-label class="color-tab-menu-unfocus">Perfil</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
-
-<!-- <ion-content>
-
-  <ion-card *ngFor="let evento of eventos">
-    <ion-grid (click)="visaoEvento(evento)">
-      <ion-row class="ion-align-items-center">
-        <ion-col size="12" text-center>
-          <img [src]="evento.imagemUrl">
-        </ion-col>
-        <ion-col size="12" text-center>
-          {{evento.titulo}}
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-</ion-content> -->
+<app-tab-menu></app-tab-menu>
