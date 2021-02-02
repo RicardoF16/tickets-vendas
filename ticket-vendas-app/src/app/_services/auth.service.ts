@@ -101,11 +101,10 @@ export class AuthService {
                 }, err => {
                   if (err.error === 'user not found') {
                     const user: User = {
-                      id: resp.user.uid,
+                      uid: resp.user.uid,
                       email: resp.user.email,
                       imagemURL: resp.user.photoURL,
-                      nome: resp.user.displayName,
-                      
+                      nome: resp.user.displayName,                      
                     };
                     this.userService
                       .postUserSocial(user)

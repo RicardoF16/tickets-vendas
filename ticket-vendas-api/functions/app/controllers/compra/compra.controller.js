@@ -39,9 +39,7 @@ class CompraController {
     }
 
     getMe(req, res) {
-        const idUsuario = req.params.idUsuario;
-
-        CompraService.getMe(idUsuario)
+        CompraService.getMe(req.usuario.uid)
             .then(result => {
                 if (result) {
                     res.send(result)

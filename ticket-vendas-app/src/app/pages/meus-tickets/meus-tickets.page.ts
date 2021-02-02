@@ -17,27 +17,29 @@ export class MeusTicketsPage implements OnInit {
 
   private user: UserResponse;
   private uns = new Subject<any>();
-  meustickets:Array<MeusTikets>
+  meustickets: Array<MeusTikets>
   @ViewChild(LoadingComponent) loading: LoadingComponent;
-  
+
   constructor(private meusTicketsService: MeusTicketsService,
-              private userState: UserStateService) { }
+    private userState: UserStateService) { }
 
   ngOnInit() {
     this.userState.getUser$
-    .pipe(takeUntil(this.uns))
-    .subscribe(user => this.user = user);
+      .pipe(takeUntil(this.uns))
+      .subscribe(user => this.user = user);
 
     this.getMeusTickets();
   }
 
-  async getMeusTickets(){
+  async getMeusTickets() {
 
     await this.loading.showLoading();
-    this.meusTicketsService.getMeusTickets(this.user.id).subscribe(
+    this.meusTicketsService.getMeusTickets().subscribe(
       async meusTickets => {
-        this.meustickets = meusTickets.list;
-        console.log('meusTickets >>', this.meustickets);
+        if (meusTickets) {
+          this.meustickets = meusTickets.list;
+          console.log('meusTickets >>', this.meustickets);
+        }
         await this.loading.dismissLoading();
       },
       async () => await this.loading.dismissLoading()

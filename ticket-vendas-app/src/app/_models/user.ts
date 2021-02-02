@@ -1,6 +1,7 @@
 import { MeusTikets } from './meusTickets';
 export interface User {
-    id?: string;
+    uid?: string;
+    key?: string;
     nome: string;
     dataNascimento?: string;
     email: string;

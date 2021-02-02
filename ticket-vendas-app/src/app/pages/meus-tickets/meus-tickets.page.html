@@ -16,7 +16,7 @@
 
   <ion-card>
     <div id="container">
-      <ion-list>
+      <ion-list *ngIf="meustickets && meustickets.length > 0">
 
         <ion-item *ngFor="let ticket of meustickets">
           <ion-avatar slot="start">
