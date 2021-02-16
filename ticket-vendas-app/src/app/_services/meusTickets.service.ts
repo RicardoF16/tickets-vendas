@@ -21,7 +21,7 @@ export class MeusTicketsService {
   }
 
   getMeusTickets(): Observable<MeusTiketsListResponse> {
-    return this.http.get<MeusTiketsListResponse>(`${this.endpoint}/me`).pipe(take(1));
+    return this.http.get<any>(`${this.endpoint}/me`).pipe(take(1));
   }
 
 }

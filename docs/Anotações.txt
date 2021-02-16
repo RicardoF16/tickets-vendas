@@ -1,9 +1,13 @@
 PROJETO TICKETS
 
-FLUXO DE COMPRA
--Alterar para que o usuário consiga comprar ingresso para mais de 1 dia de evento
+LINK DO BOARD DE TAREFAS
+API
+https://github.com/RicardoF16/tickets-vendas/projects/2
+
+APP
+https://github.com/RicardoF16/tickets-vendas/projects/1
 
 
 
-CUPONS DESCONTO
--Analisar todos os possíveis casos para implementar a estrutura
+LINK PROTÓTIPO
+https://xd.adobe.com/view/31b8c616-aa81-4979-808c-efa648a5c1e9-64eb/screen/1184f36a-604b-4a13-b449-5f2c3a1c9f7a/

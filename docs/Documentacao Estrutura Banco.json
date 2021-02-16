@@ -18,7 +18,15 @@
         "idDiaEvento" : {
           "dataFim" : "data",
           "dataInicio" : "data",
+		  "idadeMinima" : 16,
+		  "horaAbertura" : "16:00",
+          "horaShow" : "18:00",	
           "id" : "",
+		  "atracoes" : {
+          "imageURL" : " ",
+          "link" : "http://www.nomeatracao.com.br",
+          "nome" : "DJ Japa"
+          },
           "lotes" : {
             "idLote" : {
               "cortesia" : "true / false",

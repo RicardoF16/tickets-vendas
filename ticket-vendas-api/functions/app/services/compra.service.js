@@ -32,7 +32,6 @@ class CompraService extends BaseService {
     }
 
     getMe(idUsuario) {
-        console.log("bl3>>", idUsuario);
         return new Promise((resolve, reject) => {
             this.database.ref('compras')
                 .orderByChild('idUsuario')
@@ -40,7 +39,7 @@ class CompraService extends BaseService {
                 .once('value', snap => {
                     const value = snap.val();
                     if (value) {
-                        resolve(value);
+                        resolve(Object.values(value));
                     } else {
                         resolve()
                     }
@@ -106,7 +105,7 @@ class CompraService extends BaseService {
 
     update(id, exemplo) {
         return new Promise((resolve, reject) => {
-            this.database.ref('compras/' + id).set(exemplo);
+            this.database.ref('compras/' + id).update(exemplo);
             resolve();
         });
     }
