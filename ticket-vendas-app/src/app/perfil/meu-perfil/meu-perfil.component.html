@@ -48,9 +48,11 @@
               <p class="txt-bold txt-smaller color-white">Data de Nascimento</p>
             </ion-col>
             <ion-col class="ion-no-padding">
-              <ion-input class="input txt-small color-secondary" type="text" maxlength="10" [brmasker]="{mask: '00/00/0000', type:'num'}" placeholder="dd/MM/yyyy"
-              formControlName="dataNascimento" [ngClass]="{'input-error': form.get('dataNascimento').value && form.get('dataNascimento').errors}">
+              <ion-input class="input txt-small color-secondary" min="1940-01-01" [max]="maxDate" type="date">
               </ion-input>
+              <!-- <ion-input class="input txt-small color-secondary" type="text" maxlength="10" [brmasker]="{mask: '00/00/0000', type:'num'}" placeholder="dd/MM/yyyy"
+              formControlName="dataNascimento" [ngClass]="{'input-error': form.get('dataNascimento').value && form.get('dataNascimento').errors}">
+              </ion-input> -->
             </ion-col>
           </ion-row>
         </ion-col>

@@ -62,6 +62,19 @@ class UsuarioController {
       });
   }
 
+  verify(req, res) {
+    const params = req.body;
+    UsuarioService.verify(params).then(result => {
+      if (result != '') {
+        res.status(409).send(result);
+      } else {
+        res.status(200);
+      }
+    }).catch(err => {
+      res.status(500);
+    });
+  }
+
   post(req, res) {
     const usuario = req.body;
     UsuarioService.create(usuario)

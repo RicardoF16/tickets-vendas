@@ -19,7 +19,7 @@ export class MeuPerfilComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
-      dataNascimento: ['', [Validators.required, CustomValidators.validarData]],
+      dataNascimento: ['', Validators.required],
       genero: ['', Validators.required],
       cpf: ['', [Validators.required, CustomValidators.validarCPF]],
       email: ['', [Validators.required, Validators.email]],

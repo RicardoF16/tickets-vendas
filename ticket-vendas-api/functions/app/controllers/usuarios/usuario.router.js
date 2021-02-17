@@ -10,9 +10,12 @@ module.exports = Router
   .get('/me',  controller.getMe)
   .put('/me',  controller.putMe)
   .get('/:uid', controller.getById)
+
   .post('/',  controller.post)
+  .post('/verify', controller.verify)
   .post('/admin',  controller.admin)
   .post('/social',  controller.postSocial)
+
   .put('/:uid', permissoes(99), controller.put)
   .delete('/:uid', permissoes(99),controller.delete)
 

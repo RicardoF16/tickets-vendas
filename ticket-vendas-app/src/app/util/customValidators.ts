@@ -193,7 +193,7 @@ export class CustomValidators {
       error = 'Data inválida';
     }
 
-    const data = new Date(`${arr[1]}/${arr[0]}/${arr[2]}`);
+    const data = new Date(`${arr[0]}/${arr[1]}/${arr[2]}`);
 
     try {
       if (!isNaN(data.getTime()))

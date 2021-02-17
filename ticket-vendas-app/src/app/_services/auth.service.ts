@@ -124,7 +124,7 @@ export class AuthService {
                 });
             } else {
               const user: User = {
-                id: resp.user.uid,
+                uid: resp.user.uid,
                 email: resp.user.email,
                 imagemURL: resp.user.photoURL,
                 nome: resp.user.displayName ? resp.user.displayName : ((resp.user.email).split('@'))[0]
@@ -159,7 +159,6 @@ export class AuthService {
     });
 
   }
-
   
   facebookLogin(): Promise<any> {    
     return new Promise<any>((resolve, reject) => {
@@ -189,7 +188,7 @@ export class AuthService {
                     });
                 } else {
                   const user: User = {
-                    id: resp.user.uid,
+                    uid: resp.user.uid,
                     email: resp.user.email,
                     imagemURL: resp.user.photoURL,
                     nome: resp.user.displayName

@@ -1,3 +1,4 @@
+const { user } = require('firebase-functions/lib/providers/auth');
 let BaseService = require('./base.service');
 
 class UsuarioService extends BaseService {
@@ -24,13 +25,15 @@ class UsuarioService extends BaseService {
     });
   }
 
-  getByUid(uid) {
+  getByColumn(columnName, value) {
     return new Promise((resolve, reject) => {
-      this.database.ref('/usuarios/' + uid)
+      this.database.ref('/usuarios/')
+        .orderByChild(columnName)
+        .equalTo(value)
         .once('value', usuarioSnap => {
           const usuario = usuarioSnap.val();
           if (usuario) {
-            resolve(usuario);
+            resolve(Object.values(usuario)[0]);
           } else {
             resolve(null);
           }
@@ -38,6 +41,55 @@ class UsuarioService extends BaseService {
           reject(err);
         });
     });
+  }
+
+  getByUid(uid) {
+    return new Promise((resolve, reject) => {
+      this.database.ref('/usuarios/' + uid)
+        .once('value', usuarioSnap => {
+          const usuario = usuarioSnap.val();
+          if (usuario) {
+            resolve(Object.values(usuario)[0]);
+          } else {
+            resolve(null);
+          }
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  getByCpf(cpf) {
+    let cpfClean = cpf.replace('.', '').replace('.', '').replace('-', '');
+    return this.getByColumn('cpf', cpfClean);
+  }
+
+  getByEmail(email) {
+    return this.getByColumn('email', email);
+  }
+
+  async verify(params) {
+    let result = '';
+
+    if (params && params.email && params.cpf) {
+      const userEmail = await this.getByEmail(params.email);
+      if (userEmail && userEmail.uid) {
+        result = 'Email já cadastrado.';
+      }
+
+      const userCpf = await this.getByCpf(params.cpf);
+      if (userCpf && userCpf.uid) {
+        if (result != '') {
+          result = "Email e CPF já cadastrados.";
+        } else {
+          result = 'CPF já cadastrado.';
+        }
+      }
+    } else {
+      result = "Favor informar o CPF e o Email a ser verificado.";
+    }
+
+    return result;
   }
 
   create(usuario) {

@@ -1,21 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserResponse, User } from 'src/app/_models/user';
-import { UsersService } from 'src/app/_services/users.service';
-import { AuthService } from 'src/app/_services/auth.service';
-import { ImagePickerService } from 'src/app/_services/image-picker.service';
 import { UserStateService } from 'src/app/_services/user-state.service';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { EmailValidator } from 'src/app/_validators/email-validator';
-import { PasswordValidator } from 'src/app/_validators/password-validator';
-import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomValidators } from 'src/app/util/customValidators';
+import { UsersService } from 'src/app/_services/users.service';
+import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 
 @Component({
   selector: 'app-criar-conta',
@@ -33,18 +30,12 @@ export class CriarContaPage implements OnInit, OnDestroy {
   private unsub = new Subject<any>();
   msgLoading: string;
   @ViewChild(LoadingComponent) loading: LoadingComponent;
-  private translations: {
-    PAGE_SIGNUP_LOADING_IMG: string;
-    PAGE_SIGNUP_LOADING_SAVE_USER: string;
-    PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS: string;
-    PAGE_SIGNUP_TOAST_FEEDBACK_ERROR: string;
-    PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409: string;
-  };
 
   constructor(
     private route: Router,
     private formBuilder: FormBuilder,
-    private translate: TranslateService,
+    private userService: UsersService,
+    private gAlert: GenericAlertService,
     private userState: UserStateService) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -58,7 +49,7 @@ export class CriarContaPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setMaxDate();
-    const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : {};
+    const user: User = JSON.parse(localStorage.getItem('userTemp')) ? JSON.parse(localStorage.getItem('userTemp')) : null;
     if (user) {
       this.form = this.formBuilder.group({
         nome: [user.nome, Validators.required],
@@ -73,11 +64,6 @@ export class CriarContaPage implements OnInit, OnDestroy {
     this.userState.getUser$
       .pipe(takeUntil(this.unsub))
       .subscribe(userState => this.user = userState);
-
-    this.translate.onLangChange.subscribe(() => {
-      this.getTranslations();
-    });
-    this.getTranslations();
   }
 
   setMaxDate() {
@@ -100,24 +86,9 @@ export class CriarContaPage implements OnInit, OnDestroy {
     return [year, month, day].join('-');
 }
 
-  private getTranslations() {
-
-    this.translate.get(
-      [
-        'PAGE_SIGNUP_LOADING_IMG',
-        'PAGE_SIGNUP_LOADING_SAVE_USER',
-        'PAGE_SIGNUP_TOAST_FEEDBACK_SUCCESS',
-        'PAGE_SIGNUP_TOAST_FEEDBACK_ERROR',
-        'PAGE_SIGNUP_TOAST_FEEDBACK_ERROR_409'
-      ])
-      .subscribe(translations => {
-        this.translations = {
-          ...translations
-        };
-      });
-  }
-
   submit() {
+    this.loading.showLoading('Verificando CPF e Email...');
+
     const user: User = {
       nome: this.form.get('nome').value,
       dataNascimento: this.form.get('dataNascimento').value,
@@ -125,7 +96,14 @@ export class CriarContaPage implements OnInit, OnDestroy {
       cpf: this.form.get('cpf').value,
       genero: this.form.get('genero').value
     };
-    this.saveUser(user);
+
+    this.userService.verifyUser(user.cpf, user.email).toPromise().then(result => {
+      this.saveUser(user);
+      this.loading.dismissLoading();
+    }).catch(err => {
+      this.loading.dismissLoading();
+      this.gAlert.presentToastError(err.error);
+    });
   }
 
   private saveUser(user: User) {
