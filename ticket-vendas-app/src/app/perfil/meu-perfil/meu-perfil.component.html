@@ -1,4 +1,4 @@
-<!-- <app-loading></app-loading> -->
+<app-loading></app-loading>
 <ion-header>
   <ion-toolbar class="ion-text-center">
     <ion-buttons slot="end">
@@ -36,9 +36,8 @@
               <p class="txt-bold txt-smaller color-white">CPF</p>
             </ion-col>
             <ion-col class="ion-no-padding">
-              <ion-input class="input" type="text" maxlength="14" [brmasker]="{person: true}"
-                [ngClass]="{'input-error': form.get('cpf').value && form.get('cpf').errors}" formControlName="cpf"
-                placeholder="999.999.999-99"></ion-input>
+              <ion-input class="input" type="text" maxlength="14" [brmasker]="{person: true}" [ngClass]="{'input-error': form.get('cpf').value && form.get('cpf').errors}" formControlName="cpf"
+                placeholder="999.999.999-99" [disabled]="true"></ion-input>
             </ion-col>
           </ion-row>
         </ion-col>
@@ -48,11 +47,8 @@
               <p class="txt-bold txt-smaller color-white">Data de Nascimento</p>
             </ion-col>
             <ion-col class="ion-no-padding">
-              <ion-input class="input txt-small color-secondary" min="1940-01-01" [max]="maxDate" type="date">
+              <ion-input class="input txt-small color-secondary" formControlName="dataNascimento" min="1940-01-01" [max]="maxDate" type="date">
               </ion-input>
-              <!-- <ion-input class="input txt-small color-secondary" type="text" maxlength="10" [brmasker]="{mask: '00/00/0000', type:'num'}" placeholder="dd/MM/yyyy"
-              formControlName="dataNascimento" [ngClass]="{'input-error': form.get('dataNascimento').value && form.get('dataNascimento').errors}">
-              </ion-input> -->
             </ion-col>
           </ion-row>
         </ion-col>
@@ -78,20 +74,8 @@
           <p class="txt-bold txt-smaller color-white">E-mail</p>
         </ion-col>
         <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email"
-            [ngClass]="{'input-error': form.get('email').value && form.get('email').errors}" formControlName="email"
-            placeholder="email@email.com"></ion-input>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col class="ion-no-padding" size="12">
-          <p class="txt-bold txt-smaller color-white">Confirmar e-mail</p>
-        </ion-col>
-        <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email"
-            [ngClass]="{'input-error': (form.get('email').value || form.get('email1').value) && form.get('email1').errors}"
-            formControlName="email1" placeholder="email@email.com"></ion-input>
+          <ion-input class="input" type="email" formControlName="email"
+            placeholder="email@email.com" [disabled]="true"></ion-input>
         </ion-col>
       </ion-row>
     </ion-card>

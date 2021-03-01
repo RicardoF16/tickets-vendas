@@ -36,6 +36,10 @@ export class UsersService {
     return this.http.get<UserResponse>(`${this.endpoint}/${userId}`).pipe(take(1));
   }
 
+  getMe(): Observable<User> {
+    return this.http.get<User>(`${this.endpoint}/me`).pipe(take(1));
+  }
+
   verifyUser(cpf: string, email: string): Observable<string> {
     return this.http.post<string>(`${this.endpoint}/verify`, { cpf: cpf, email: email }).pipe(take(1));
   }

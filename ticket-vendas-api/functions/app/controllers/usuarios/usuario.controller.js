@@ -70,8 +70,8 @@ class UsuarioController {
       } else {
         res.status(200);
       }
-    }).catch(err => {
-      res.status(500);
+    }).catch(ex => {
+      res.status(500).send(ex);
     });
   }
 

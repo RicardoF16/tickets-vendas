@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserResponse, User } from 'src/app/_models/user';
@@ -74,20 +74,20 @@ export class CriarContaPage implements OnInit, OnDestroy {
 
   formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
 
     return [year, month, day].join('-');
-}
+  }
 
   submit() {
-    this.loading.showLoading('Verificando CPF e Email...');
+    // this.loading.showLoading('Verificando CPF e Email...');
 
     const user: User = {
       nome: this.form.get('nome').value,
@@ -97,13 +97,13 @@ export class CriarContaPage implements OnInit, OnDestroy {
       genero: this.form.get('genero').value
     };
 
-    this.userService.verifyUser(user.cpf, user.email).toPromise().then(result => {
-      this.saveUser(user);
-      this.loading.dismissLoading();
-    }).catch(err => {
-      this.loading.dismissLoading();
-      this.gAlert.presentToastError(err.error);
-    });
+    // this.userService.verifyUser(user.cpf, user.email).toPromise().then(result => {
+    this.saveUser(user);
+    //   this.loading.dismissLoading();
+    // }).catch(err => {
+    //   this.loading.dismissLoading();
+    //   this.gAlert.presentToastError(err.error);
+    // });
   }
 
   private saveUser(user: User) {

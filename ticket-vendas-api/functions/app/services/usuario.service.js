@@ -1,4 +1,3 @@
-const { user } = require('firebase-functions/lib/providers/auth');
 let BaseService = require('./base.service');
 
 class UsuarioService extends BaseService {
@@ -6,6 +5,7 @@ class UsuarioService extends BaseService {
   getAll() {
     return new Promise((resolve, reject) => {
       this.database.ref('usuarios')
+        .orderByChild('nome')
         .once('value', usuarioSnap => {
           const usuarios = usuarioSnap.val();
           let lista = [];
@@ -14,32 +14,10 @@ class UsuarioService extends BaseService {
             Object.keys(usuarios).forEach(key => {
               lista.push(usuarios[key]);
             });
-
-            lista.sort(function (a, b) {
-              return (a.nome).localeCompare(b.nome);
-            })
           }
 
           resolve(lista);
         }).catch(err => reject(err));
-    });
-  }
-
-  getByColumn(columnName, value) {
-    return new Promise((resolve, reject) => {
-      this.database.ref('/usuarios/')
-        .orderByChild(columnName)
-        .equalTo(value)
-        .once('value', usuarioSnap => {
-          const usuario = usuarioSnap.val();
-          if (usuario) {
-            resolve(Object.values(usuario)[0]);
-          } else {
-            resolve(null);
-          }
-        }).catch(err => {
-          reject(err);
-        });
     });
   }
 
@@ -59,41 +37,50 @@ class UsuarioService extends BaseService {
     });
   }
 
-  getByCpf(cpf) {
-    let cpfClean = cpf.replace('.', '').replace('.', '').replace('-', '');
-    return this.getByColumn('cpf', cpfClean);
+  verify(params) {
+    return new Promise((resolve, reject) => {
+      if (params && params.email && params.cpf) {
+        const cpfClean = params.cpf.replace('.', '').replace('.', '').replace('-', '');
+        this.getAll().then(users => {
+          if (users && users.length > 0) {
+            users.forEach(u => {
+              if (u.cpf === cpfClean) {
+                resolve('CPF já cadastrado.');
+              } else if (u.email === params.email) {
+                resolve('Email já cadastrado.');
+              }
+            });
+          }
+          resolve('');
+        });
+      } else resolve('Favor informar o CPF e o Email a ser verificado.');
+    });
   }
 
-  getByEmail(email) {
-    return this.getByColumn('email', email);
-  }
-
-  async verify(params) {
-    let result = '';
-
-    if (params && params.email && params.cpf) {
-      const userEmail = await this.getByEmail(params.email);
-      if (userEmail && userEmail.uid) {
-        result = 'Email já cadastrado.';
-      }
-
-      const userCpf = await this.getByCpf(params.cpf);
-      if (userCpf && userCpf.uid) {
-        if (result != '') {
-          result = "Email e CPF já cadastrados.";
-        } else {
-          result = 'CPF já cadastrado.';
-        }
+  ajustFields(usuario) {
+    if (usuario && usuario.cpf) {
+      try {
+        do {
+          usuario.cpf = usuario.cpf.replace('.', '');
+        } while (usuario.cpf.indexOf('.') != -1);
+        usuario.cpf = usuario.cpf.replace('-', '');
+      } catch (ex) {
+        return null;
       }
     } else {
-      result = "Favor informar o CPF e o Email a ser verificado.";
+      return null;
     }
 
-    return result;
+    return usuario;
   }
 
   create(usuario) {
     return new Promise((resolve, reject) => {
+      usuario = this.ajustFields(usuario);
+      if (usuario == null) {
+        reject('Campos inválidos.');
+      }
+
       this.authorization.createUser({
         email: usuario.email,
         password: usuario.senha,
@@ -136,6 +123,11 @@ class UsuarioService extends BaseService {
 
   update(uid, usuario) {
     return new Promise((resolve, reject) => {
+      usuario = this.ajustFields(usuario);
+      if (usuario == null) {
+        reject('Campos inválidos.');
+      }
+
       if (usuario.senha) {
         let requisicao = { password: usuario.senha };
         this.authorization.updateUser(uid, requisicao)
