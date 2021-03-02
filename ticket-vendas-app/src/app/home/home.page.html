@@ -10,7 +10,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide style="padding: 5px !important;"
+      *ngFor="let url of ['http://placehold.it/400x200.png', 'http://placehold.it/400x200.png', 'http://placehold.it/400x200.png']">
+      <img [src]="url" style="padding: 5px !important;" />
+    </ion-slide>
+  </ion-slides>
 
   <ion-card class="box-evento" *ngFor="let evento of eventos">
     <ion-row no-padding>

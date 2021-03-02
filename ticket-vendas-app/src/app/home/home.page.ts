@@ -26,6 +26,13 @@ export class HomePage {
   };
   eventos: EventoResponse;
 
+  slideOpts = {
+    initialSlide: 1,
+    slidesPerView: 2,
+    speed: 400,
+    pagination: true
+  };
+
   constructor(public navCtrl: NavController,
               private eventoService: EventoService,
               private gAlert: GenericAlertService,
