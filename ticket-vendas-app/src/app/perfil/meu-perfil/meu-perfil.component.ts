@@ -33,7 +33,7 @@ export class MeuPerfilComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
-      genero: ['', Validators.required],
+      genero: [''],
       cpf: ['', Validators.required],
       email: ['', Validators.required]
     });
@@ -44,8 +44,8 @@ export class MeuPerfilComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: [this.user ? this.user.nome : '', Validators.required],
       dataNascimento: [this.user ? this.user.dataNascimento : '', Validators.required],
-      genero: [this.user ? this.user.genero : '', Validators.required],
-      cpf: [this.user ? this.user.cpf : '', Validators.required],
+      genero: [this.user ? this.user.genero : ''],
+      cpf: [this.user ? this.formatCPF(this.user.cpf) : '', Validators.required],
       email: [this.user ? this.user.email : '', Validators.required]
     });
   }
@@ -70,15 +70,23 @@ export class MeuPerfilComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
+  formatCPF(value: string): string {
+    try {
+      return `${value.substr(0, 3)}.${value.substr(3, 3)}.${value.substr(6, 3)}-${value.substr(9, 2)}`;
+    } catch (ex) {
+      return '';
+    }
+  }
+
   getUser() {
-    this.loading.showLoading('Carregando as informações...');
+    // this.loading.showLoading('Carregando as informações...');
     this.userService.getMe().toPromise().then(result => {
       this.user = result;
       this.setForm();
-      this.loading.dismissLoading();
     }).catch(ex => {
-      this.loading.dismissLoading();
       this.gAlert.presentToastError('Ocorreu uma falha, tente novamente!');
+    }).finally(() => {
+      this.loading.dismissLoading();
     });
   }
 

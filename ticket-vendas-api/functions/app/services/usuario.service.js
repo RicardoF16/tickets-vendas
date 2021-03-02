@@ -27,7 +27,7 @@ class UsuarioService extends BaseService {
         .once('value', usuarioSnap => {
           const usuario = usuarioSnap.val();
           if (usuario) {
-            resolve(Object.values(usuario)[0]);
+            resolve(usuario);
           } else {
             resolve(null);
           }
