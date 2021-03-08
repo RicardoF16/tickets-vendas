@@ -28,7 +28,7 @@ export class HomePage {
 
   slideOpts = {
     initialSlide: 1,
-    slidesPerView: 2,
+    slidesPerView: 1,
     speed: 400,
     pagination: true
   };

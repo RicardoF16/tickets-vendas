@@ -13,9 +13,12 @@
 <ion-content>
 
   <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide style="padding: 5px !important;"
+    <!-- <ion-slide style="padding: 5px !important;"
       *ngFor="let url of ['http://placehold.it/400x200.png', 'http://placehold.it/400x200.png', 'http://placehold.it/400x200.png']">
       <img [src]="url" style="padding: 5px !important;" />
+    </ion-slide> -->
+    <ion-slide style="padding: 5px !important;" *ngFor="let item of [0,1,2]">
+      <img src="assets/unnamed.jpg" style="padding: 5px !important;" />
     </ion-slide>
   </ion-slides>
 
