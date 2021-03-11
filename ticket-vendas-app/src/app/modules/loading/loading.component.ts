@@ -17,9 +17,9 @@ export class LoadingComponent {
   /**
    * `msgLoading` optional, default value 'Carregando...'
    */
-  async showLoading(msgLoading?: string) {
+  showLoading(msgLoading?: string) {
     this.cont++;
-    await this.beforePresentLoading(msgLoading);
+    this.beforePresentLoading(msgLoading);
   }
 
   dismissLoading() {
@@ -31,20 +31,33 @@ export class LoadingComponent {
     }
   }
 
-  private async beforePresentLoading(msgLoading: string) {
+  dismissAll() {
     if (this.loadingRef) {
-      this.loadingRef.message = msgLoading;
+      this.loadingRef.dismiss();
+      this.loadingRef = undefined;
     } else {
-      await this.presentLoadingWithOptions(msgLoading);
+      setTimeout(() => {
+        this.dismissAll();
+      }, 1000);
     }
   }
 
-  private async presentLoadingWithOptions(msgLoading?: string) {
-    this.loadingRef = await this.loadingController.create({
+  private beforePresentLoading(msgLoading: string) {
+    if (this.loadingRef) {
+      this.loadingRef.message = msgLoading;
+    } else {
+      this.presentLoadingWithOptions(msgLoading);
+    }
+  }
+
+  private presentLoadingWithOptions(msgLoading?: string) {
+    this.loadingController.create({
       message: msgLoading ? msgLoading : 'Carregando...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
+    }).then(result => {
+      this.loadingRef = result;
+      this.loadingRef.present();
     });
-    return await this.loadingRef.present();
   }
 }

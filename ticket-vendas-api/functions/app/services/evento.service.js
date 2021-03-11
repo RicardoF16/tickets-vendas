@@ -64,6 +64,27 @@ class EventoService extends BaseService {
     });
   }
 
+  getDestaques() {
+    return new Promise((resolve, reject) => {
+      this.database.ref('destaques')
+        .once('value', snap => {
+          const value = snap.val();
+          let list = [];
+          if (value) {
+            const dateNow = new Date();
+            Object.values(value).forEach(destaque => {
+              if (destaque && destaque.dataFimExibicao) {
+                const dateFimExib = new Date(destaque.dataFimExibicao);
+                if (dateNow <= dateFimExib)
+                  list.push(destaque);
+              }
+            });
+          }
+          resolve(list);
+        }).catch(() => reject());
+    });
+  }
+
   create(exemplo) {
     return new Promise((resolve, reject) => {
       let myRef = this.database.ref().push();

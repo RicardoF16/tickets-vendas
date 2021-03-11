@@ -76,6 +76,24 @@ class EventoController {
         }
       });
   }
+
+  getDestaques(req, res) {
+    EventoService.getDestaques()
+      .then(destaques => {
+        console.log("bla >>", destaques);
+        if (destaques) {
+          res.send(destaques)
+        } else {
+          res.sendStatus(204);
+        }
+      }).catch(err => {
+        if (err && err.hasError) {
+          res.status(400).send(err);
+        } else {
+          res.sendStatus(500);
+        }
+      });
+  }
 }
 
 module.exports = new EventoController();

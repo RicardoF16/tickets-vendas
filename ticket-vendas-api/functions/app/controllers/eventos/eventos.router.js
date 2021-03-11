@@ -8,6 +8,7 @@ module.exports = Router
 
 .get('/', controller.getAll) //Retorna todos os eventos com informações de exibição
 
+.get('/destaques', controller.getDestaques) //Retorna eventos em destaque
 .get('/:id', controller.getById) //Retorna evento pelo id
 .get('/:idEvento/datas', auth, controller.getDias) //Retorna dias de evento
 .get('/:idEvento/:idDiaEvento/lotes', auth, controller.getLotes) //Retorna lotes do evento
