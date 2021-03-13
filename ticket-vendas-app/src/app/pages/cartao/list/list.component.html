@@ -1,0 +1,29 @@
+<app-loading></app-loading>
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons> -->
+    <ion-title>Selecione o Cartão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-card class="box-list-cartao" *ngFor="let evento of [0,1,2,3]">
+    <ion-row no-padding>
+      <ion-col size="3"></ion-col>
+      <ion-col size="7">
+        <p class="txt-medium txt-bold color-white title-card txt-bold">**** **** **** 9999</p>
+      </ion-col>
+      <ion-col size="2">
+        <img class="img-btn-trash" src="assets/icon/ic_lixeira.png">
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

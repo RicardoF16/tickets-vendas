@@ -22,9 +22,10 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 // ROUTES
 app.use('/exemplos', require('./controllers/exemplo/exemplo.router'));
 
-app.use('/usuarios', require('./controllers/usuarios/usuario.router'));
-app.use('/eventos', require('./controllers/eventos/eventos.router'));
+app.use('/usuario', require('./controllers/usuarios/usuario.router'));
+app.use('/evento', require('./controllers/eventos/eventos.router'));
 app.use('/compra', auth, require('./controllers/compra/compra.router'));
+app.use('/cartao', auth, require('./controllers/cartao/cartao.router'));
 
 
 

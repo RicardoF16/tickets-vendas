@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../_services/auth.service';
-import { LoadingComponent } from '../modules/loading/loading.component';
-import { GenericAlertService } from '../_services/generic-alert.service';
-import { UserStateService } from '../_services/user-state.service';
-import { UsersService } from '../_services/users.service';
+import { AuthService } from '../../_services/auth.service';
+import { LoadingComponent } from '../../modules/loading/loading.component';
+import { GenericAlertService } from '../../_services/generic-alert.service';
+import { UserStateService } from '../../_services/user-state.service';
+import { UsersService } from '../../_services/users.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PushService } from '../_services/push.service';
-import { TypeUser } from '../_models/enums';
+import { PushService } from '../../_services/push.service';
+import { TypeUser } from '../../_models/enums';
 
 @Component({
   selector: 'app-login',

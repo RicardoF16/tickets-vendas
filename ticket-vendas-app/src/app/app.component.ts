@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import{} from './pages/comprar-creditos/comprar-creditos.page'
-import{} from './login/login.page'
+import{} from './pages/login/login.page'
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './_services/language.service';
 import { AuthService } from 'src/app/_services/auth.service';

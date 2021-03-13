@@ -5,11 +5,11 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LoadingModule } from '../modules/loading/loading.module';
+import { LoadingModule } from '../../modules/loading/loading.module';
 
 
 import { HomePage } from './home.page';
-import { TabMenuModule } from '../modules/tab-menu/tab-menu.module';
+import { TabMenuModule } from '../../modules/tab-menu/tab-menu.module';
 
 @NgModule({
   imports: [

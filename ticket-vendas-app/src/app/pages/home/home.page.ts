@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
-import { GenericAlertService } from '../_services/generic-alert.service';
-import { EventoService } from '../_services/evento.service'
-import { EventoResponse } from '../_models/eventoModel';
-import { DestaqueResponse } from '../_models/destaqueModel';
+import { GenericAlertService } from '../../_services/generic-alert.service';
+import { EventoService } from '../../_services/evento.service'
+import { EventoResponse } from '../../_models/eventoModel';
+import { DestaqueResponse } from '../../_models/destaqueModel';
 
 @Component({
   selector: 'app-home',

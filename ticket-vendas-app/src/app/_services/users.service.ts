@@ -11,7 +11,7 @@ import { UserResponse, User } from '../_models/user';
 })
 export class UsersService {
 
-  private readonly endpoint = `${environment.urlService}usuarios`;
+  private readonly endpoint = `${environment.urlService}usuario`;
   constructor(private http: HttpClient) { }
 
   postUser(user: User): Observable<UserResponse> {

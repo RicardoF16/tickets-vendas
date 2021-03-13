@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,16 +10,22 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    loadChildren: './pages/home/home.module#HomePageModule'
   },
   {
     path: 'perfil',
-    loadChildren: './perfil/perfil.module#PerfilModule'
+    loadChildren: './pages/perfil/perfil.module#PerfilModule',
+    canActivate: [AuthGuard]
   },
   {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    path: 'cartao',
+    loadChildren: './pages/cartao/cartao.module#CartaoModule',
+    canActivate: [AuthGuard]
   },
+
+
+
+
   { 
     path: 'comprar-creditos', 
     loadChildren: './pages/comprar-creditos/comprar-creditos.module#ComprarCreditosPageModule' 
@@ -43,9 +50,10 @@ const routes: Routes = [
     loadChildren: './pages/feed-redes-sociais/feed-redes-sociais.module#FeedRedesSociaisPageModule'
   },
   
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'esqueci-senha', loadChildren: './login/esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule' },
-  { path: 'criar-conta', loadChildren: './login/criar-conta/criar-conta.module#CriarContaPageModule' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'esqueci-senha', loadChildren: './pages/login/esqueci-senha/esqueci-senha.module#EsqueciSenhaPageModule' },
+  { path: 'criar-conta', loadChildren: './pages/login/criar-conta/criar-conta.module#CriarContaPageModule' },
+
   { path: 'cadastrar-evento', loadChildren: './pages/cadastrar-evento/cadastrar-evento.module#CadastrarEventoPageModule' },
   { path: 'comprar-bilhete', loadChildren: './pages/comprar-bilhete/comprar-bilhete.module#ComprarBilhetePageModule' },
   { path: 'detalhe-evento', loadChildren: './pages/detalhe-evento/detalhe-evento.module#DetalheEventoPageModule' },

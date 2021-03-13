@@ -105,7 +105,7 @@ export class GenericAlertService {
     const options: ToastOptions = {
       message: msg,
       duration: 3000,
-      color: 'dark'
+      color: 'light'
     };
     if (withButton) {
       options.showCloseButton = true;

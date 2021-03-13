@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
-import { LoadingModule } from '../modules/loading/loading.module';
+import { LoadingModule } from '../../modules/loading/loading.module';
 
 const routes: Routes = [
   {

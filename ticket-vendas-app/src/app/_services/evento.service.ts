@@ -13,7 +13,7 @@ import { DestaqueResponse } from '../_models/destaqueModel';
 })
 export class EventoService {
 
-  private readonly endpoint = `${environment.urlService}eventos`;
+  private readonly endpoint = `${environment.urlService}evento`;
   constructor(private http: HttpClient) { }
 
   /*postUserSocial(user: User): Observable<UserResponse> {
