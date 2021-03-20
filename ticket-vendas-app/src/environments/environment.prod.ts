@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   // urlService: 'http://localhost:5000/tickets-vendas-65715/us-central1/api/',
   urlService:'https://us-central1-tickets-vendas-65715.cloudfunctions.net/api/',
   firebase: {
@@ -13,4 +13,3 @@ export const environment = {
     measurementId: "G-H0K8KGKTNC"
   }
 };
-
