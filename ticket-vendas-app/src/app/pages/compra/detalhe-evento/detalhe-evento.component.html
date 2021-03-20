@@ -28,8 +28,16 @@
             <img src="assets/icon/ic_calendario.png">
           </ion-col>
           <ion-col size="9">
-            <p class="txt-smaller color-white" no-margin>08 de janeiro a 10 de janeiro</p>
-            <p class="txt-smaller txt-bold color-white" no-margin>Sexta à Domingo das 16:00 às 22:30</p>
+            <p class="txt-smaller color-white" no-margin>
+              {{ getDateFormated(dadosEvento?.dataInicio, 'DD [de] MMMM') }} à 
+              {{ getDateFormated(dadosEvento?.dataFim, 'DD [de] MMMM') }}
+            </p>
+            <p class="txt-smaller txt-bold color-white" no-margin>
+              {{ getDateFormated(dadosEvento?.dataInicio, 'dddd') }} à
+              {{ getDateFormated(dadosEvento?.dataFim, 'dddd') }} das 
+              {{ getDateFormated(dadosEvento?.dataInicio, 'hh:mm') }} às
+              {{ getDateFormated(dadosEvento?.dataFim, 'hh:mm') }}
+            </p>
           </ion-col>
         </ion-row>
 
@@ -38,15 +46,49 @@
             <img src="assets/icon/ic_endereco.png">
           </ion-col>
           <ion-col size="9">
-            <p class="txt-smaller txt-bold color-white">Nome do Local</p>
-            <p class="txt-smaller color-white">R. Timbira, S/N - Centro - Várzea da Palma / MG</p>
+            <p class="txt-smaller txt-bold color-white">{{ dadosEvento?.nomeLocal }}</p>
+            <p class="txt-smaller color-white">{{ dadosEvento?.local }}</p>
             <p class="txt-smaller color-white" style="width: 100%; text-align: right;">ver Mapa</p>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
-  </div>
 
+    <ion-card class="box">
+      <ion-row padding>
+        <ion-col>
+          <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">Descrição</p>
+        </ion-col>
+        <ion-col size="2" style="text-align: right;">
+          <img class="img-expand-card" src="assets/icon/ic_novo.png" *ngIf="!divDescricaoEnabled"
+            (click)="divDescricaoEnabled = true">
+          <img class="img-expand-card" src="assets/icon/ic_minimizar.png" *ngIf="divDescricaoEnabled"
+            (click)="divDescricaoEnabled = false">
+        </ion-col>
+        <ion-col size="12" *ngIf="divDescricaoEnabled" style="height: 300px !important;">
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <p class="txt-large txt-bold color-white" padding>Dias do Evento</p>
+
+    <ion-card class="box" *ngFor="let dia of dadosEvento?.diasEvento">
+      <ion-row padding>
+        <ion-col>
+          <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">{{ getDateFormated(dia?.dataInicio, '[Dia] DD/MM[,] dddd') }}</p>
+        </ion-col>
+        <ion-col size="2" style="text-align: right;">
+          <img class="img-expand-card" src="assets/icon/ic_novo.png" *ngIf="!dia?.divEnabled"
+            (click)="dia.divEnabled = true">
+          <img class="img-expand-card" src="assets/icon/ic_minimizar.png" *ngIf="dia?.divEnabled"
+            (click)="dia.divEnabled = false">
+        </ion-col>
+        <ion-col size="12" *ngIf="dia?.divEnabled" style="height: 300px !important;">
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+  </div>
 </ion-content>
 
 <!-- <ion-header>

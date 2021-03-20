@@ -7,7 +7,8 @@ export class EventoResponse {
     imagemUrl: string;
     tipo: number;
     censura: string;
-    local: any;
+    local: string;
+    nomeLocal: string;
     pontosVenda: any;
     diasEvento?: Array<DiasEventoResponse>;
 }
@@ -17,6 +18,7 @@ export class DiasEventoResponse {
     dataInicio: string;
     dataFim: string;
     lotes: Array<LoteResponse>;
+    divEnabled: Boolean = false;
 }
 
 

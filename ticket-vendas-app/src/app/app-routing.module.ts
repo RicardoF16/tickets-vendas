@@ -63,7 +63,6 @@ const routes: Routes = [
 
   { path: 'cadastrar-evento', loadChildren: './pages/cadastrar-evento/cadastrar-evento.module#CadastrarEventoPageModule' },
   { path: 'comprar-bilhete', loadChildren: './pages/comprar-bilhete/comprar-bilhete.module#ComprarBilhetePageModule' },
-  { path: 'detalhe-evento', loadChildren: './pages/detalhe-evento/detalhe-evento.module#DetalheEventoPageModule' },
   { path: 'escolher-ingresso', loadChildren: './pages/escolher-ingresso/escolher-ingresso.module#EscolherIngressoPageModule' },
   { path: 'meu-carrinho', loadChildren: './pages/meu-carrinho/meu-carrinho.module#MeuCarrinhoPageModule' },
   { path: 'pagamento-cartao', loadChildren: './pages/pagamento-cartao/pagamento-cartao.module#PagamentoCartaoPageModule' },

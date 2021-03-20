@@ -5,6 +5,7 @@ import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { EventoResponse } from 'src/app/_models/eventoModel';
 import { EventoService } from 'src/app/_services/evento.service';
 import { GenericAlertService } from 'src/app/_services/generic-alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-detalhe-evento',
@@ -15,6 +16,8 @@ export class DetalheEventoComponent implements OnInit {
 
   idEvento: string = '';
   dadosEvento: EventoResponse;
+
+  divDescricaoEnabled: Boolean = false;
 
   @ViewChild(LoadingComponent) loading: LoadingComponent;
 
@@ -37,11 +40,16 @@ export class DetalheEventoComponent implements OnInit {
   getDados() {
     this.eventoService.getEventoById(this.idEvento).toPromise().then(result => {
       this.dadosEvento = result;
+      console.log("bla", this.dadosEvento);
       this.loading.dismissAll();
     }).catch(err => {
       this.loading.dismissAll();
       this.gAlert.presentToastError('Erro ao carregar os dados, tente novamente.');
     });
+  }
+
+  getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
+    return moment(date).locale('pt-br').format(format);
   }
 
   escolherIngresso() {
