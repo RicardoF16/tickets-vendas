@@ -13,7 +13,6 @@ import { DestaqueResponse } from '../../_models/destaqueModel';
 })
 export class HomePage {
 
-  msgLoading: string;
   @ViewChild(LoadingComponent) loading: LoadingComponent;
   eventos: EventoResponse;
   destaques: Array<DestaqueResponse> = [];
@@ -65,7 +64,8 @@ export class HomePage {
   }
 
   visaoEvento(id: string) {
-    this.navCtrl.navigateRoot(['/detalhe-evento'], { queryParams: { id: id } });
+    // this.navCtrl.navigateRoot(['/detalhe-evento'], { queryParams: { id: id } });
+    this.navCtrl.navigateRoot(['/evento'], { queryParams: { id: id } });
   }
 
 }

@@ -22,7 +22,14 @@ const routes: Routes = [
     loadChildren: './pages/cartao/cartao.module#CartaoModule',
     canActivate: [AuthGuard]
   },
-
+  { 
+    path: 'minhas-compras', 
+    loadChildren: './pages/minha-compra/minha-compra.module#MinhaCompraModule'
+  },
+  {
+    path: 'evento',
+    loadChildren: './pages/compra/compra.module#CompraModule'
+  },
 
 
 
@@ -62,7 +69,6 @@ const routes: Routes = [
   { path: 'pagamento-cartao', loadChildren: './pages/pagamento-cartao/pagamento-cartao.module#PagamentoCartaoPageModule' },
   { path: 'selecionar-data-evento', loadChildren: './pages/selecionar-data-evento/selecionar-data-evento.module#SelecionarDataEventoPageModule' },
   { path: 'meus-tickets', loadChildren: './pages/meus-tickets/meus-tickets.module#MeusTicketsPageModule' },
-  { path: 'compras', loadChildren: './pages/compra/compra.module#CompraModule'}
 
 
 ];

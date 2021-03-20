@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
   ngOnInit() { }
 
   onClick(id) {
-    this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: id } });
+    this.navCtrl.navigateRoot(['minhas-compras/detalhe'], { queryParams: { id: id } });
   }
 
 }

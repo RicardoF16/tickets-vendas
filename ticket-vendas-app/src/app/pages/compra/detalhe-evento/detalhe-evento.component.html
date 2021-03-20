@@ -1,0 +1,172 @@
+<app-loading></app-loading>
+<ion-header>
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col size="2" class="toolbar-buttons">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-col>
+      <ion-col size="8" class="toolbar-icon">
+        <img src="assets/icon/logo_navbar.png">
+      </ion-col>
+      <ion-col size="2" class="toolbar-buttons">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img [src]="dadosEvento?.imagemUrl" style="width: 100% !important;" />
+
+  <div padding>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>Título do Evento</p>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_calendario.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller color-white" no-margin>08 de janeiro a 10 de janeiro</p>
+            <p class="txt-smaller txt-bold color-white" no-margin>Sexta à Domingo das 16:00 às 22:30</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_endereco.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller txt-bold color-white">Nome do Local</p>
+            <p class="txt-smaller color-white">R. Timbira, S/N - Centro - Várzea da Palma / MG</p>
+            <p class="txt-smaller color-white" style="width: 100%; text-align: right;">ver Mapa</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>
+
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhe Evento</ion-title>
+    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" text-center>
+          <img [src]="dadosEvento?.imagemURL">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card>
+    <div id="container">
+      <ion-list>
+        <ion-item>
+          <ion-row>
+            <ion-col>
+              <h1 class="color-blue" style="font-weight: 550;">{{dadosEvento?.titulo}}</h1>
+              <p>{{dadosEvento?.descricao}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+          </ion-avatar>
+          <ion-label>
+            <ion-row>
+              <ion-col>
+                <h2>Data</h2>
+                <p>{{dadosEvento?.dataInicio}}</p>
+                <p>Abertura: 23:00</p>
+                <p>Show: 00:00</p>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
+          </ion-avatar>
+          <ion-label>
+            <ion-row>
+              <ion-col>
+                <h2>Censura</h2>
+                <p>{{dadosEvento?.censura}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+          </ion-avatar>
+          <ion-label>
+            <ion-row>
+              <ion-col>
+                <h2>Local</h2>
+                <p>{{dadosEvento?.local}}</p>
+                <p class="color-blue-link" style="font-size: 11px;">Mostrar no mapa</p>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+          </ion-avatar>
+          <ion-label>
+            <ion-row>
+              <ion-col>
+                <h2>Postos de Vendas</h2>
+                <p *ngFor="let item of dadosEvento?.pontosVenda">{{item.nome}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+          </ion-avatar>
+          <ion-label>
+            <ion-row>
+              <ion-col>
+                <h2>Galerias</h2>
+                <p>Fotos</p>
+              </ion-col>
+            </ion-row>
+          </ion-label>
+        </ion-item>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="primary" (click)="escolherIngresso()">
+              COMPRAR AGORA
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-list>
+    </div>
+  </ion-card>
+
+</ion-content> -->

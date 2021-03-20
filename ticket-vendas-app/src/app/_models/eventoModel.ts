@@ -4,7 +4,7 @@ export class EventoResponse {
     descricao: string;
     dataInicio: string;
     dataFim: string;
-    imagemURL: string;
+    imagemUrl: string;
     tipo: number;
     censura: string;
     local: any;
