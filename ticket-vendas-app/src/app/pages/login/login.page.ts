@@ -101,8 +101,8 @@ export class LoginPage implements OnInit {
       .login(this.aux('user'), this.aux('password'))
       .then(async user => {
         await this.loading.showLoading(this.translations.PAGE_LOGIN_LOADING_CONFIG);
-        if ((user.user as any).xa)
-          localStorage.setItem('token', (user.user as any).xa)
+        if ((user.user as any).ya)
+          localStorage.setItem('token', (user.user as any).ya)
         this.getUserInfo(user.user.uid);
       },
         async e => {
