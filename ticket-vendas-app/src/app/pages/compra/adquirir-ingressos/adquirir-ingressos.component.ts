@@ -9,6 +9,9 @@ export class AdquirirIngressosComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
- 
+  ngOnInit() { }
+
+  back() {
+    window.history.back();
+  }
 }

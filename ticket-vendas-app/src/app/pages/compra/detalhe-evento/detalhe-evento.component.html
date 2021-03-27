@@ -3,7 +3,7 @@
   <ion-toolbar class="text-center">
     <ion-row>
       <ion-col size="2" class="toolbar-buttons">
-        <ion-back-button defaultHref="/home"></ion-back-button>
+        <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
       </ion-col>
       <ion-col size="8" class="toolbar-icon">
         <img src="assets/icon/logo_navbar.png">
@@ -29,12 +29,12 @@
           </ion-col>
           <ion-col size="9">
             <p class="txt-smaller color-white" no-margin>
-              {{ getDateFormated(dadosEvento?.dataInicio, 'DD [de] MMMM') }} à 
+              {{ getDateFormated(dadosEvento?.dataInicio, 'DD [de] MMMM') }} à
               {{ getDateFormated(dadosEvento?.dataFim, 'DD [de] MMMM') }}
             </p>
             <p class="txt-smaller txt-bold color-white" no-margin>
               {{ getDateFormated(dadosEvento?.dataInicio, 'dddd') }} à
-              {{ getDateFormated(dadosEvento?.dataFim, 'dddd') }} das 
+              {{ getDateFormated(dadosEvento?.dataFim, 'dddd') }} das
               {{ getDateFormated(dadosEvento?.dataInicio, 'hh:mm') }} às
               {{ getDateFormated(dadosEvento?.dataFim, 'hh:mm') }}
             </p>
@@ -65,7 +65,8 @@
           <img class="img-expand-card" src="assets/icon/ic_minimizar.png" *ngIf="divDescricaoEnabled"
             (click)="divDescricaoEnabled = false">
         </ion-col>
-        <ion-col size="12" *ngIf="divDescricaoEnabled" style="height: 300px !important;">
+        <ion-col size="12" *ngIf="divDescricaoEnabled" padding>
+          <p class="txt-smaller color-white">{{ dadosEvento?.descricao }}</p>
         </ion-col>
       </ion-row>
     </ion-card>
@@ -75,7 +76,9 @@
     <ion-card class="box" *ngFor="let dia of dadosEvento?.diasEvento">
       <ion-row padding>
         <ion-col>
-          <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">{{ getDateFormated(dia?.dataInicio, '[Dia] DD/MM[,] dddd') }}</p>
+          <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">
+            {{ getDateFormated(dia?.dataInicio, '[Dia] DD/MM[,] dddd') }}
+          </p>
         </ion-col>
         <ion-col size="2" style="text-align: right;">
           <img class="img-expand-card" src="assets/icon/ic_novo.png" *ngIf="!dia?.divEnabled"
@@ -83,17 +86,36 @@
           <img class="img-expand-card" src="assets/icon/ic_minimizar.png" *ngIf="dia?.divEnabled"
             (click)="dia.divEnabled = false">
         </ion-col>
-        <ion-col size="12" *ngIf="dia?.divEnabled" style="height: 300px !important;">
+        <ion-col size="12" *ngIf="dia?.divEnabled">
+
+          <ion-row margin-top>
+            <ion-col size="12">
+              <p class="txt-smaller color-white">Abertura: {{ dia?.horaAbertura }}</p>
+              <p class="txt-smaller color-white">Show: {{ dia?.horaShow }}</p>
+              <p class="txt-smaller color-white">Censura: {{ dia?.censura }}</p>
+            </ion-col>
+            <ion-col size="12">
+              <p class="txt-smaller color-white">Atrações:</p>
+              <ion-row *ngFor="let atracao of dia?.atracoes">
+                <ion-col size="2">
+                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site.png">
+                </ion-col>
+                <ion-col>
+                  <p class="txt-smaller color-white">{{ atracao?.nome }}</p>
+                  <a class="txt-smaller" [href]="atracao?.link" target="_blank">Contato da atração</a>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="12">
+              <button margin-top class="btn-white txt-small txt-bold" (click)="adquirirIngressos()">
+                Adquirir Ingressos para o dia {{ getDateFormated(dia?.dataInicio, 'DD/MM') }}
+              </button>
+            </ion-col>
+          </ion-row>
+
         </ion-col>
-
       </ion-row>
-
-      <ion-row padding>
-        <ion-col size="12">
-          <button class="btn-white txt-medium txt-bold" (click)="adquirirIngressos()" >Adquirir Ingressos para o dia ...</button>
-        </ion-col>
-      </ion-row>
-
     </ion-card>
 
   </div>

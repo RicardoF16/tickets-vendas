@@ -40,7 +40,8 @@ export class DetalheEventoComponent implements OnInit {
   getDados() {
     this.eventoService.getEventoById(this.idEvento).toPromise().then(result => {
       this.dadosEvento = result;
-      console.log("bla", this.dadosEvento);
+      console.log('bla', this.dadosEvento);
+      
       this.loading.dismissAll();
     }).catch(err => {
       this.loading.dismissAll();
@@ -49,15 +50,22 @@ export class DetalheEventoComponent implements OnInit {
   }
 
   getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
-    return moment(date).locale('pt-br').format(format);
+    if (date)
+      return moment(date).locale('pt-br').format(format);
+    else
+      return '';
+  }
+
+  back() {
+    this.navCtrl.navigateRoot(['/home']);
   }
 
   escolherIngresso() {
     this.navCtrl.navigateRoot(['/selecionar-data-evento'], { queryParams: { id: this.idEvento } });
   }
 
-  adquirirIngressos(){
-    this.navCtrl.navigateRoot(['/evento/adquirir-ingressos']);
+  adquirirIngressos() {
+    this.navCtrl.navigateRoot(['/evento/adquirir-ingressos'], { queryParams: { id: this.idEvento } });
   }
 
 }

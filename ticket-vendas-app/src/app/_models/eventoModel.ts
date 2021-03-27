@@ -17,10 +17,20 @@ export class DiasEventoResponse {
     id: string;
     dataInicio: string;
     dataFim: string;
+    horaAbertura: string;
+    horaShow: string;
     lotes: Array<LoteResponse>;
+    idadeMinima: Number;
+    censura: string;
+    atracoes: Array<AtracaoResponse>;
     divEnabled: Boolean = false;
 }
 
+
+export class AtracaoResponse {
+    link: string;
+    nome: string;
+}
 
 export class LoteResponse {
     id: string;
