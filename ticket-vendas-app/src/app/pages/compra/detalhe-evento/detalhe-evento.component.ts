@@ -55,4 +55,9 @@ export class DetalheEventoComponent implements OnInit {
   escolherIngresso() {
     this.navCtrl.navigateRoot(['/selecionar-data-evento'], { queryParams: { id: this.idEvento } });
   }
+
+  adquirirIngressos(){
+    this.navCtrl.navigateRoot(['/evento/adquirir-ingressos']);
+  }
+
 }

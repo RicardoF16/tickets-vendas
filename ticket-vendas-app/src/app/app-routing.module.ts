@@ -30,8 +30,7 @@ const routes: Routes = [
     path: 'evento',
     loadChildren: './pages/compra/compra.module#CompraModule'
   },
-
-
+ 
 
   { 
     path: 'comprar-creditos', 
