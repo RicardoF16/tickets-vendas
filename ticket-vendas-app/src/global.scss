@@ -39,16 +39,6 @@ p {
     text-align: center !important;
 }
 
-ion-title {
-    color: #1472d0;
-    font-size: 20px;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
-        sans-serif;
-    // font-weight: 200;
-    text-align: center;
-    margin-right: 3.5rem !important;
-}
-
 ion-item {
     color: black;
 }
@@ -201,6 +191,8 @@ ion-title {
     font-size: 14px !important;
     letter-spacing: 0px;
     opacity: 1;
+    font-weight: 600 !important;
+    margin-top: 15px !important;
 }
 
 ion-back-button {

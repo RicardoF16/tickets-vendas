@@ -9,6 +9,9 @@ export class ActionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
+  back() {
+    window.history.back();
+  }
 }

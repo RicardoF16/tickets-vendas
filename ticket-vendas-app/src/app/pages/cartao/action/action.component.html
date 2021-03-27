@@ -1,3 +1,71 @@
-<p>
-  action works!
-</p>
+<app-loading></app-loading>
+<ion-header>
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col size="2" class="toolbar-buttons">
+        <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
+      </ion-col>
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Selecione o Cartão</ion-title>
+      </ion-col>
+      <ion-col size="2" class="toolbar-buttons">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content style="padding-top: 15px;" padding>
+
+  <ion-card class="box-cartao">
+    <ion-row padding style="padding-bottom: 0px;">
+      <ion-col class="ion-no-padding" size="12">
+        <p class="txt-bold txt-medium color-white">Cartão</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row padding>
+      <ion-col size="12">
+        <ion-col class="ion-no-padding" size="12">
+          <p class="txt-bold txt-smaller color-white">Número do cartão</p>
+        </ion-col>
+        <ion-col class="ion-no-padding">
+          <ion-input class="input" type="text" maxlength="19" [brmasker]="{mask: '0000 0000 0000 0000', type: 'num'}"
+            placeholder="Nº do cartão"></ion-input>
+        </ion-col>
+      </ion-col>
+      <ion-col size="6">
+        <ion-row>
+          <ion-col class="ion-no-padding" size="12">
+            <p class="txt-bold txt-smaller color-white">Validade</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-input class="input" type="text" maxlength="5" [brmasker]="{mask: '00/00', type: 'num'}"
+              placeholder="DD/MM"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="6">
+        <ion-row>
+          <ion-col class="ion-no-padding" size="12">
+            <p class="txt-bold txt-smaller color-white">CVV</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-input class="input" type="text" maxlength="4" [brmasker]="{mask: '0000', type: 'num'}"
+              placeholder="CVV"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-row padding>
+    <ion-col>
+      <button class="btn-primary txt" (click)="back()">Cancelar</button>
+    </ion-col>
+    <ion-col>
+      <button class="btn-white txt txt-bold" (click)="back()">Salvar</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

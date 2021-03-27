@@ -1,29 +1,44 @@
 <app-loading></app-loading>
 <ion-header>
-  <ion-toolbar class="ion-text-center">
-    <ion-buttons slot="start">
-      <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
-    </ion-buttons>
-    <!-- <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons> -->
-    <ion-title>Selecione o Cartão</ion-title>
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col size="2" class="toolbar-buttons">
+        <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
+      </ion-col>
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Selecione o Cartão</ion-title>
+      </ion-col>
+      <ion-col size="2" class="toolbar-buttons">
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content style="padding-top: 15px;">
 
-  <ion-card class="box-list-cartao" *ngFor="let evento of [0,1,2,3]">
-    <ion-row no-padding>
-      <ion-col size="3"></ion-col>
-      <ion-col size="7">
-        <p class="txt-medium txt-bold color-white title-card txt-bold">**** **** **** 9999</p>
+  <ion-card class="box-list-cartao" [ngClass]="{'cart-selected': cart === cartSelected}" *ngFor="let cart of [0,1,2,3]">
+    <ion-row padding (click)="cartSelected = cart">
+      <ion-col size="3">
+        <i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
       </ion-col>
-      <ion-col size="2">
-        <img class="img-btn-trash" src="assets/icon/ic_lixeira.png">
+      <ion-col size="7" style="padding-top: 12px;">
+        <p class="txt-medium txt-bold title-card txt-bold">**** **** **** 9999</p>
+      </ion-col>
+      <ion-col size="2" style="padding-top: 10px; text-align: right;">
+        <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="cartSelected != null" color="light" (click)="navigate()"
+      style="margin-bottom: 8px; margin-right: 13px;">
+      <i class="fa fa-pencil-square-o" style="font-size: 20px;" aria-hidden="true"></i>
+    </ion-fab-button>
+    <ion-fab-button color="light" (click)="navigate()" style="margin-bottom: 30px; margin-right: 13px;">
+      <ion-icon name="add" style="font-size: 26px;"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -7,12 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  cartSelected: any = null;
+
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 
   back() {
     window.history.back();
+  }
+
+  navigate() {
+    this.router.navigate(['/cartao/action']);
   }
 
 }
