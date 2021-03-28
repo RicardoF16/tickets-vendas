@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 
 @Component({
   selector: 'app-adquirir-ingressos',
@@ -7,11 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdquirirIngressosComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private navCtrl: NavController,
+    private gAlert: GenericAlertService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() { }
+
+  concluirCompra() {
+    this.navCtrl.navigateRoot(['/evento/meu-carrinho']);
+  }
+
+  adcionarCarrinho() {
+    this.navCtrl.navigateRoot(['/home']);
+  }
 
   back() {
     window.history.back();
   }
+
 }

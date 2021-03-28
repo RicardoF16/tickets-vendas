@@ -6,11 +6,13 @@ import { CompraRoutingModule } from './compra-routing.module';
 import { LoadingModule } from 'src/app/modules/loading/loading.module';
 import { DetalheEventoComponent } from './detalhe-evento/detalhe-evento.component';
 import { AdquirirIngressosComponent } from './adquirir-ingressos/adquirir-ingressos.component';
+import { MeuCarrinhoComponent } from './meu-carrinho/meu-carrinho.component';
 
 @NgModule({
   declarations: [
     DetalheEventoComponent,
-    AdquirirIngressosComponent
+    AdquirirIngressosComponent,
+    MeuCarrinhoComponent
   ],
   imports: [
     CommonModule,
