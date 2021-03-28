@@ -1,3 +1,4 @@
+import { Carrinho } from './../../../_models/carrinho';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -18,11 +19,13 @@ export class AdquirirIngressosComponent implements OnInit {
   ngOnInit() { }
 
   concluirCompra() {
-    this.navCtrl.navigateRoot(['/evento/meu-carrinho']);
+    /*Vamos smepre passar pela a tela que faz a pergunta se é menor de idade, antes de chamar
+    a tela meu-Carrinho*/
+    this.navCtrl.navigateRoot(['./perfil/menor-idade']);
   }
 
   adcionarCarrinho() {
-    this.navCtrl.navigateRoot(['/home']);
+    //this.navCtrl.navigateRoot(['/evento/']);
   }
 
   back() {
