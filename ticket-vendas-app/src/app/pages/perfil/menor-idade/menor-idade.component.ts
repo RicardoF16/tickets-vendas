@@ -25,5 +25,7 @@ export class MenorIdadeComponent implements OnInit {
   menorIdade(){
     this.navCtrl.navigateRoot(['/evento/meu-carrinho']);
   }
-  maiorIdade(){}
+  maiorIdade(){
+    this.navCtrl.navigateRoot(['/perfil/autorizacao-menor-idade']);
+  }
 }
