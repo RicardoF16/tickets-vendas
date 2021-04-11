@@ -25,6 +25,20 @@ export class CarrinhoService {
       return null;
   }
 
+  // Retorna carrinho salvo se for válido
+  public getCarrinho(): Carrinho {
+    let carrinhoStr = localStorage.getItem('carrinho');
+    if (carrinhoStr) {
+      const carrinho: Carrinho = JSON.parse(carrinhoStr);
+      if (new Date().getTime() - carrinho.timestamp > 1054140000) {
+        localStorage.removeItem('carrinho');
+        return null;
+      } else
+        return carrinho;
+    } else
+      return null;
+  }
+
   public clear() {
     localStorage.removeItem('carrinho');
   }
