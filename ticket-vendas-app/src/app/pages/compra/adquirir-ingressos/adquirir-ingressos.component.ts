@@ -65,7 +65,7 @@ export class AdquirirIngressosComponent implements OnInit {
     const carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
     if (carrinho && carrinho.ingressos && carrinho.ingressos.length > 0) {
       carrinho.ingressos.forEach(i => {
-        if (i.qtdeSelecionada > 0 && i.valor) {
+        if (i.idDataEvento == this.idDataEvento && i.qtdeSelecionada > 0 && i.valor) {
           total += Number(i.valor) * Number(i.qtdeSelecionada);
         }
       });
@@ -90,9 +90,9 @@ export class AdquirirIngressosComponent implements OnInit {
     const carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
     if (carrinho) {
       this.listaLotes.forEach(l => {
-        const ingresso = carrinho.ingressos.find(i => i.id == l.id && i.idDataEvento == l.idDataEvento);
-        if (ingresso) {
-          l.qtdeSelecionada = ingresso.qtdeSelecionada;
+        const ingressos = carrinho.ingressos.find(i => i.id == l.id && i.idDataEvento == l.idDataEvento);
+        if (ingressos) {
+          l.qtdeSelecionada = ingressos.qtdeSelecionada;
         }
       })
     }
@@ -116,16 +116,30 @@ export class AdquirirIngressosComponent implements OnInit {
 
   private atualizaCarrinho() {
     let lotesSelecionados = this.listaLotes.filter(l => l.qtdeSelecionada > 0);
-    let carrinho = new Carrinho()
+    let carrinho: Carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
+
+    if (!carrinho)
+      carrinho = new Carrinho();
+
     carrinho.idEvento = this.idEvento;
-    carrinho.ingressos = lotesSelecionados;
+    if (carrinho.ingressos && carrinho.ingressos.length > 0) {
+      lotesSelecionados.forEach(ls => {
+        const indexInCarrinho = carrinho.ingressos.findIndex(i => i.idDataEvento == ls.idDataEvento && i.id == ls.id);
+        if (indexInCarrinho != -1) {
+          carrinho.ingressos[indexInCarrinho] = ls;
+        } else {
+          carrinho.ingressos.push(ls);
+        }
+      });
+    } else {
+      carrinho.ingressos = lotesSelecionados;
+    }
     this.carrinhoService.setDadosCarrinho(carrinho);
   }
 
   concluirCompra(continuarComprando = false) {
     /*Vamos smepre passar pela a tela que faz a pergunta se é menor de idade, antes de chamar
     a tela meu-Carrinho*/
-    this.atualizaCarrinho();
 
     let lotesSelecionados = this.listaLotes.filter(l => l.qtdeSelecionada > 0);
     if (lotesSelecionados && lotesSelecionados.length > 0) {
