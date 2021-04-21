@@ -88,13 +88,15 @@ export class AdquirirIngressosComponent implements OnInit {
 
   getDadosCarrinho() {
     const carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
-    if (carrinho) {
+    if (carrinho && carrinho.idEvento == this.idEvento) {
       this.listaLotes.forEach(l => {
         const ingressos = carrinho.ingressos.find(i => i.id == l.id && i.idDataEvento == l.idDataEvento);
         if (ingressos) {
           l.qtdeSelecionada = ingressos.qtdeSelecionada;
         }
       })
+    } else {
+      this.carrinhoService.clear();
     }
   }
 
@@ -115,7 +117,6 @@ export class AdquirirIngressosComponent implements OnInit {
   }
 
   private atualizaCarrinho() {
-    let lotesSelecionados = this.listaLotes.filter(l => l.qtdeSelecionada > 0);
     let carrinho: Carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
 
     if (!carrinho)
@@ -123,16 +124,31 @@ export class AdquirirIngressosComponent implements OnInit {
 
     carrinho.idEvento = this.idEvento;
     if (carrinho.ingressos && carrinho.ingressos.length > 0) {
-      lotesSelecionados.forEach(ls => {
-        const indexInCarrinho = carrinho.ingressos.findIndex(i => i.idDataEvento == ls.idDataEvento && i.id == ls.id);
+      this.listaLotes.forEach(lt => {
+        const indexInCarrinho =
+          carrinho.ingressos.findIndex(i => i.idDataEvento == lt.idDataEvento && i.id == lt.id);
         if (indexInCarrinho != -1) {
-          carrinho.ingressos[indexInCarrinho] = ls;
+          if (lt.qtdeSelecionada > 0) {
+            carrinho.ingressos[indexInCarrinho] = lt;
+          } else {
+            carrinho.ingressos = carrinho.ingressos.splice(indexInCarrinho, 1);
+          }
         } else {
-          carrinho.ingressos.push(ls);
+          if (lt.qtdeSelecionada > 0) {
+            carrinho.ingressos.push(lt);
+          } else {
+            carrinho.ingressos.splice(indexInCarrinho, 1);
+          }
         }
       });
     } else {
-      carrinho.ingressos = lotesSelecionados;
+      carrinho.ingressos = [];
+
+      this.listaLotes.forEach(lt => {
+        if (lt.qtdeSelecionada > 0) {
+          carrinho.ingressos.push(lt);
+        }
+      });
     }
     this.carrinhoService.setDadosCarrinho(carrinho);
   }

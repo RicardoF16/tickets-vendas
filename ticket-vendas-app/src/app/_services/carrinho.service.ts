@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Carrinho } from '../_models/carrinho';
+import { CartaoResponse } from '../_models/cartaoResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,12 @@ export class CarrinhoService {
         return carrinho;
     } else
       return null;
+  }
+
+  public setCreditCard(cart: CartaoResponse) {
+    let carrinho = this.getCarrinho();
+    carrinho.cardSelected = cart;
+    this.setDadosCarrinho(carrinho);
   }
 
   public clear() {

@@ -10,6 +10,7 @@ import { CarrinhoService } from 'src/app/_services/carrinho.service';
 import { EventoService } from 'src/app/_services/evento.service';
 import { IngressoModel } from 'src/app/_models/IngressoModel';
 import { SetorEnum } from 'src/app/_models/enums';
+import { CompraService } from 'src/app/_services/compra.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class MeuCarrinhoComponent implements OnInit {
     private navCtrl: NavController,
     private gAlert: GenericAlertService,
     private eventoService: EventoService,
+    private compraService: CompraService,
     private carrinhoService: CarrinhoService) { }
 
   ngOnInit() {
@@ -93,11 +95,35 @@ export class MeuCarrinhoComponent implements OnInit {
   }
 
   avancar() {
-    this.navCtrl.navigateRoot(['/cartao']);
+    if (this.carrinho.cardSelected) {
+      this.concluirCompra();
+    } else {
+      this.selecionarPagamento();
+    }
+  }
+
+  concluirCompra() {
+    // this.compraService.post(this.carrinho).toPromise().then(result => {
+    //   this.carrinhoService.clear();
+      // this.navCtrl.navigateRoot([`/compras/compra?id=${(result as any).id}`]);
+      // this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: '5f8b10068e0acc1cf86ca396' } });
+      this.gAlert.presentToastSuccess('Sua compra foi realizada com sucesso!');
+    // }).catch(err => {
+    //   this.carrinhoService.clear();
+    //   this.gAlert.presentToastError('Não foi possível registrar a compra, tente novamente mais tarde!');
+      this.navCtrl.navigateRoot(['/']);
+    // });
+  }
+
+  selecionarPagamento() {
+    this.navCtrl.navigateRoot(['/cartao/selection']);
   }
 
   back() {
-    window.history.back();
+    this.navCtrl.navigateRoot(['/evento'], {
+      queryParams:
+        { id: this.carrinho.idEvento }
+    });
   }
 
 }

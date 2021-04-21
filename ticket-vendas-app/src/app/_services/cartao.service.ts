@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { CartaoResponse } from '../_models/cartaoModel';
+import { CartaoResponse } from '../_models/cartaoResponse';
 
 
 @Injectable({

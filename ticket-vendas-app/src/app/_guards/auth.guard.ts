@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
         if (user) {
             return true;
         } else {
+            localStorage.clear();
             this.navCtrl.navigateRoot(['login']);
             this.gAlert.presentToastInfo('Para executar essa ação, é necessário que faça o login.');
             return false;
