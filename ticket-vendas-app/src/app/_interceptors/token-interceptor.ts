@@ -4,7 +4,6 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -13,12 +12,14 @@ import {
   Router
 } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { GenericAlertService } from '../_services/generic-alert.service';
 // import { AuthenticationService } from '../services/authentication.service';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private gAlert: GenericAlertService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = "Bearer " + localStorage.getItem('token');
@@ -49,11 +50,12 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401 || error.status === 403) {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
+          localStorage.clear();
           this.router.navigate(['login']);
-        }
-        return throwError(error);
+          this.gAlert.presentToastError('Para executar essa ação, é necessário que faça o login.');
+          return throwError(null);
+        } else
+          return throwError(error);
       }));
   }
 }

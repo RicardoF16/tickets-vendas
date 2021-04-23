@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { EventoResponse } from 'src/app/_models/eventoModel';
 import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 import * as moment from 'moment';
@@ -11,6 +11,7 @@ import { EventoService } from 'src/app/_services/evento.service';
 import { IngressoModel } from 'src/app/_models/IngressoModel';
 import { SetorEnum } from 'src/app/_models/enums';
 import { CompraService } from 'src/app/_services/compra.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class MeuCarrinhoComponent implements OnInit {
     private gAlert: GenericAlertService,
     private eventoService: EventoService,
     private compraService: CompraService,
+    public alertController: AlertController,
     private carrinhoService: CarrinhoService) { }
 
   ngOnInit() {
@@ -50,7 +52,8 @@ export class MeuCarrinhoComponent implements OnInit {
       this.loading.dismissAll();
     }).catch(err => {
       this.loading.dismissAll();
-      this.gAlert.presentToastError('Erro ao carregar os dados, tente novamente.');
+      if (err != null)
+        this.gAlert.presentToastError('Erro ao carregar os dados, tente novamente.');
     });
   }
 
@@ -75,6 +78,15 @@ export class MeuCarrinhoComponent implements OnInit {
       return '';
   }
 
+  getDateIngresso(id: string): string {
+    if (this.dadosEvento && this.dadosEvento.diasEvento) {
+      const diaEvento = this.dadosEvento.diasEvento.find(dE => dE.id == id);
+      if (diaEvento)
+        return this.getDateFormated(diaEvento.dataInicio);
+      else return '';
+    } else return '';
+  }
+
   formatMoneyToString(valor: number): string {
     try {
       return valor.toLocaleString('pt-BR', {
@@ -94,9 +106,43 @@ export class MeuCarrinhoComponent implements OnInit {
     }
   }
 
+  async presentAlertConfirm(index) {
+    const alert = await this.alertController.create({
+      header: 'Excluir Ingresso(s)',
+      message: 'Deseja excluír esse(s) ingresso(s) do seu pedido?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            this.excluirDoCarrinho(index);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  excluirDoCarrinho(index: number) {
+    this.loading.showLoading('Processando...');
+    this.carrinho.ingressos.splice(index, 1);
+    this.carrinhoService.setDadosCarrinho(this.carrinho);
+    setTimeout(() => {
+      this.loading.dismissAll();
+    }, 500);
+  }
+
   avancar() {
     if (this.carrinho.cardSelected) {
-      this.concluirCompra();
+      if (this.carrinho.ingressos.length > 0)
+        this.concluirCompra();
+      else
+        this.gAlert.presentToastInfo('Não exite nenhum item no seu carrinho!');
     } else {
       this.selecionarPagamento();
     }
@@ -105,13 +151,14 @@ export class MeuCarrinhoComponent implements OnInit {
   concluirCompra() {
     // this.compraService.post(this.carrinho).toPromise().then(result => {
     //   this.carrinhoService.clear();
-      // this.navCtrl.navigateRoot([`/compras/compra?id=${(result as any).id}`]);
-      // this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: '5f8b10068e0acc1cf86ca396' } });
-      this.gAlert.presentToastSuccess('Sua compra foi realizada com sucesso!');
+    // this.navCtrl.navigateRoot([`/compras/compra?id=${(result as any).id}`]);
+    // this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: '5f8b10068e0acc1cf86ca396' } });
+    this.carrinhoService.clear();
+    this.gAlert.presentToastSuccess('Sua compra foi realizada com sucesso!');
     // }).catch(err => {
     //   this.carrinhoService.clear();
     //   this.gAlert.presentToastError('Não foi possível registrar a compra, tente novamente mais tarde!');
-      this.navCtrl.navigateRoot(['/']);
+    this.navCtrl.navigateRoot(['/']);
     // });
   }
 
@@ -125,5 +172,4 @@ export class MeuCarrinhoComponent implements OnInit {
         { id: this.carrinho.idEvento }
     });
   }
-
 }

@@ -52,7 +52,8 @@ export class AdquirirIngressosComponent implements OnInit {
       this.loading.dismissAll();
     }).catch(err => {
       this.loading.dismissAll();
-      this.gAlert.presentToastInfo('Não foi possível carregar as informações.');
+      if (err != null)
+        this.gAlert.presentToastInfo('Não foi possível carregar as informações.');
     });
   }
 
@@ -136,8 +137,6 @@ export class AdquirirIngressosComponent implements OnInit {
         } else {
           if (lt.qtdeSelecionada > 0) {
             carrinho.ingressos.push(lt);
-          } else {
-            carrinho.ingressos.splice(indexInCarrinho, 1);
           }
         }
       });
