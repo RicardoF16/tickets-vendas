@@ -37,14 +37,15 @@
       </ion-col>
       <ion-col size="7" no-padding>
         <ion-row no-padding>
-          <p class="txt-smaller color-white date-card">08 JAN > 10 JAN 21:00</p>
+          <p class="txt-smaller color-white date-card">
+            {{ getDateFormated(evento?.dataInicio, 'DD MMM') }}  >  {{ getDateFormated(evento?.dataFim, 'DD MMM') }} {{ getDateFormated(evento?.dataInicio, 'hh:mm') }}
+          </p>
         </ion-row>
         <ion-row no-padding>
-          <p class="txt-small txt-bold color-white title-card txt-bold">{{evento.titulo}}</p>
+          <p class="color-white title-card txt-bold">{{evento.titulo}}</p>
         </ion-row>
         <ion-row no-padding>
-          <p class="color-white subtitle-card">Lorem ipsum dolor sit amet, consectetur sit amet, consectetur sit amet,
-            consectetur adipiscing elit. Cras nonpretium nunc, at</p>
+          <p class="color-white subtitle-card">{{evento.descricao}}</p>
         </ion-row>
       </ion-col>
     </ion-row>

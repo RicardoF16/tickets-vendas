@@ -5,6 +5,7 @@ import { GenericAlertService } from '../../_services/generic-alert.service';
 import { EventoService } from '../../_services/evento.service'
 import { EventoResponse } from '../../_models/eventoModel';
 import { DestaqueResponse } from '../../_models/destaqueModel';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,13 @@ export class HomePage {
       this.loading.dismissAll();
       this.gAlert.presentToastError('Não foi possível carregar os eventos.');
     });
+  }
+
+  getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
+    if (date)
+      return moment(date).locale('pt-br').format(format).toLocaleLowerCase();
+    else
+      return '';
   }
 
   openLink(destaque: DestaqueResponse) {

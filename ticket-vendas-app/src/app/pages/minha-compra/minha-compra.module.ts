@@ -9,6 +9,7 @@ import { ListComponent } from './list/list.component';
 import { MeuIngressoComponent } from './meu-ingresso/meu-ingresso.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { LoadingModule } from 'src/app/modules/loading/loading.module';
+import { TabMenuModule } from 'src/app/modules/tab-menu/tab-menu.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoadingModule } from 'src/app/modules/loading/loading.module';
     FormsModule,
     IonicModule,
     LoadingModule,
+    TabMenuModule,
     NgxQRCodeModule
   ]
 })

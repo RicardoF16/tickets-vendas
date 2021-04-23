@@ -1,4 +1,5 @@
 const CompraService = require('../../services/compra.service');
+const EventoService = require('../../services/evento.service');
 
 class CompraController {
 
@@ -38,21 +39,28 @@ class CompraController {
             });
     }
 
-    getMe(req, res) {
-        CompraService.getMe(req.usuario.uid)
-            .then(result => {
-                if (result) {
-                    res.send(result)
-                } else {
-                    res.sendStatus(204);
+    async getMe(req, res) {
+        console.log("bla1");
+        const compras = await CompraService.getMe(req.usuario.uid);
+        console.log("bla2");
+        if (compras) {
+            console.log("bla3");
+            const eventos = await EventoService.getAll();
+            if (eventos) {
+                for (let c of compras) {
+                    const evento = eventos.find(e => e.id == c.idEvento);
+                    if (evento) {
+                        c.evento = evento;
+                    }
                 }
-            }).catch(err => {
-                if (err && err.hasError) {
-                    res.status(400).send(err);
-                } else {
-                    res.sendStatus(500);
-                }
-            });
+            }
+
+            console.log("bla4", compras);
+            res.send(compras);
+        } else {
+            console.log("bla7");
+            res.sendStatus(204);
+        }
     }
 
     post(req, res) {

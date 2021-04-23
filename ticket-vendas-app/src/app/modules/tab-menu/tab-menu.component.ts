@@ -17,7 +17,7 @@ export class TabMenuComponent implements OnInit {
       this.menuSelected = 'home';
     } else if (url.indexOf('perfil') != -1) {
       this.menuSelected = 'perfil';
-    } else if (url.indexOf('meus-tickets') != -1) {
+    } else if (url.indexOf('minhas-compras') != -1) {
       this.menuSelected = 'tickets';
     } else {
       this.menuSelected = '';

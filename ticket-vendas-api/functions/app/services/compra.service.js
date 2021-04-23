@@ -41,7 +41,7 @@ class CompraService extends BaseService {
                     if (value) {
                         resolve(Object.values(value));
                     } else {
-                        resolve()
+                        resolve(null);
                     }
                 }).catch(() => reject());
         });
