@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
 
   getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
     if (date)
-      return moment(date).locale('pt-br').format(format);
+      return moment(date).locale('pt-br').format(format).toLocaleUpperCase();
     else
       return '';
   }

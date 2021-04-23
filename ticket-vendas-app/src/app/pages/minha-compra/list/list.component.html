@@ -35,8 +35,10 @@
           <p class="minha-compra-title-card txt-bold color-white txt-bold">{{compra.evento.titulo}}</p>
         </ion-row>
         <ion-row no-padding>
-          <p class="txt-smaller title-card color-secondar txt-bold">Data Compra</p>
-          <p class="txt-small title-card color-white">{{ getDateFormated(compra?.dataCompra, 'DD/MM/YYYY hh:mm') }}</p>
+          <p class="txt-smaller minha-compra-subtitle-card color-secondar txt-bold" style="margin-top: 15px !important;">Data Compra</p>
+          <p class="txt-small minha-compra-subtitle-card color-white">
+            {{ getDateFormated(compra?.dataCompra, 'DD/MM/YYYY hh:mm a') }}
+          </p>
         </ion-row>
       </ion-col>
       <ion-col size="1" no-padding text-right>

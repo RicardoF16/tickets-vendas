@@ -40,11 +40,8 @@ class CompraController {
     }
 
     async getMe(req, res) {
-        console.log("bla1");
         const compras = await CompraService.getMe(req.usuario.uid);
-        console.log("bla2");
         if (compras) {
-            console.log("bla3");
             const eventos = await EventoService.getAll();
             if (eventos) {
                 for (let c of compras) {
@@ -54,11 +51,8 @@ class CompraController {
                     }
                 }
             }
-
-            console.log("bla4", compras);
             res.send(compras);
         } else {
-            console.log("bla7");
             res.sendStatus(204);
         }
     }
