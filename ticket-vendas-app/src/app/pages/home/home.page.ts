@@ -58,7 +58,7 @@ export class HomePage {
 
   getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
     if (date)
-      return moment(date).locale('pt-br').format(format).toLocaleLowerCase();
+      return moment(date).locale('pt-br').format(format).toLocaleUpperCase();
     else
       return '';
   }
