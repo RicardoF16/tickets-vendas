@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import{} from './pages/comprar-creditos/comprar-creditos.page'
 import{} from './pages/login/login.page'
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './_services/language.service';
@@ -17,29 +16,6 @@ import { MenuController, Platform } from '@ionic/angular';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public appPages = [
-    {
-      title: 'Eventos',
-      url: '/home',
-      icon: 'fa fa-home'
-    },
-    {
-      title: 'Minhas Compras',
-      url: '/compras',
-      icon: 'fa fa-shopping-cart'
-    },
-    // {
-    //   title: 'Meus Tickets',
-    //   url: '/meus-tickets',
-    //   icon: 'home'
-    // },
-    {
-      title: 'Sair',
-      url: '/login',
-      icon: 'fa fa-sign-out'
-    }
-  ];
-
   constructor(
     private auth: AuthService,
     private router: Router,
