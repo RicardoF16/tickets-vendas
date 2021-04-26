@@ -31,7 +31,7 @@ class TicketService extends BaseService {
 
   getByIdCompra(idCompra) {
     return new Promise((resolve, reject) => {
-      this.database.ref('tickets').orderByChild('idCompra').equalTo(idEvento).once('value', snap => {
+      this.database.ref('tickets').orderByChild('idCompra').equalTo(idCompra).once('value', snap => {
         const value = snap.val();
         if (value)
           resolve(Object.values(value));

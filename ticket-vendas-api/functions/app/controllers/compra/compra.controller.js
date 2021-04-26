@@ -27,7 +27,7 @@ class CompraController {
         let compra = await CompraService.getById(id);
         if (compra) {
             compra.evento = await EventoService.getById(compra.idEvento);
-            compra.tickets = await TicketService.getByIdEvento(compra.idEvento);
+            compra.tickets = await TicketService.getByIdCompra(id);
             res.send(compra);
         } else {
             res.sendStatus(204);
