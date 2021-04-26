@@ -54,7 +54,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-card class="box" *ngFor="let dia of dadosCompra.evento?.diasEvento">
+    <ion-card class="box">
       <ion-row padding>
         <ion-col>
           <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">
@@ -65,15 +65,15 @@
 
           <ion-row>
             <ion-col size="12">
-              <p class="txt-smaller color-white">Abertura: {{ dia?.horaAbertura }}</p>
-              <p class="txt-smaller color-white">Show: {{ dia?.horaShow }}</p>
-              <p class="txt-smaller color-white">Censura: {{ dia?.censura }}</p>
+              <p class="txt-smaller color-white">Abertura: {{ dadosCompra.evento?.diasEvento[0]?.horaAbertura }}</p>
+              <p class="txt-smaller color-white">Show: {{ dadosCompra.evento?.diasEvento[0]?.horaShow }}</p>
+              <p class="txt-smaller color-white">Censura: {{ dadosCompra.evento?.diasEvento[0]?.censura }}</p>
             </ion-col>
             <ion-col size="12">
               <p class="txt-smaller color-white">Atrações:</p>
-              <ion-row *ngFor="let atracao of dia?.atracoes">
+              <ion-row *ngFor="let atracao of dadosCompra.evento?.diasEvento[0]?.atracoes">
                 <ion-col size="2">
-                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site@2x.png">
+                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site@3x.png">
                 </ion-col>
                 <ion-col>
                   <p class="txt-smaller color-white">{{ atracao?.nome }}</p>
@@ -86,7 +86,8 @@
               <button class="btn-white">
                 <ion-row>
                   <ion-col size="2" style="text-align: center;">
-                    <img src="assets/icon/ic_compartilhar_com_amigos.png" style="text-align: center; margin-top: -1px;" />
+                    <img src="assets/icon/ic_compartilhar_com_amigos@2x.png"
+                      style="text-align: center; margin-top: -1px;" />
                   </ion-col>
                   <ion-col size="9" style="margin-top: 8px;">
                     <p class="txt-smaller txt-bold color-black" style="text-align: center;">
@@ -102,27 +103,24 @@
       </ion-row>
     </ion-card>
 
-    <ion-card>
-      <div id="container">
-        <ion-list>
-          <ion-item>
-            <ion-col text-center>
-              <p>Ingressos</p>
-            </ion-col>
-          </ion-item>
 
-          <ion-item class="container" *ngFor="let item of [1,2,3,4,5]" (click)="onClick(item)">
-            <ion-col size="9">
-              <p>Ingresso Nº {{item}}</p>
-            </ion-col>
-            <ion-col size="3" text-right>
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </ion-col>
-          </ion-item>
-        </ion-list>
-      </div>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>Ingressos</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-card class="box" *ngFor="let ticket of dadosCompra?.tickets; let i = index">
+      <ion-row padding>
+        <ion-col size="9">
+          <p class="txt-medium color-white">Ingresso Nº {{i + 1}}</p>
+          <p class="txt-smaller color-white">Código: {{ticket.id}}</p>
+        </ion-col>
+        <ion-col size="3" text-right>
+          <i class="fa fa-angle-right color-white" style="margin-top: 12px !important;" aria-hidden="true"></i>
+        </ion-col>
+      </ion-row>
     </ion-card>
-
 
   </div>
 </ion-content>

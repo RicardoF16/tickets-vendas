@@ -1,6 +1,6 @@
 const CompraService = require('../../services/compra.service');
 const EventoService = require('../../services/evento.service');
-const ticketService = require('../../services/ticket.service');
+const TicketService = require('../../services/ticket.service');
 
 class CompraController {
 
@@ -27,7 +27,7 @@ class CompraController {
         let compra = await CompraService.getById(id);
         if (compra) {
             compra.evento = await EventoService.getById(compra.idEvento);
-            compra.tickets = await ticketService.getByIdEvento(compra.idEvento);
+            compra.tickets = await TicketService.getByIdEvento(compra.idEvento);
             res.send(compra);
         } else {
             res.sendStatus(204);

@@ -29,28 +29,28 @@ class TicketService extends BaseService {
   //     });
   //   }
 
-  getByIdEvento(idEvento) {
+  getByIdCompra(idCompra) {
     return new Promise((resolve, reject) => {
-      this.database.ref('tickets').orderByChild('idEvento').equalTo(idEvento).once('value', snap => {
+      this.database.ref('tickets').orderByChild('idCompra').equalTo(idEvento).once('value', snap => {
         const value = snap.val();
         if (value)
-          resolve(value);
+          resolve(Object.values(value));
         else
           resolve();
       }).catch((err) => reject(err));
     });
   }
 
-  create(idUser, idEvento, obj) {
+  create(idUser, idEvento, idCompra, obj) {
     return new Promise((resolve, reject) => {
       let myRef = this.database.ref().push();
       let key = myRef.key;
       let newObj = {};
       newObj.id = key;
+      newObj.idCompra = idCompra;
       newObj.idUsuario = idUser;
       newObj.idEvento = idEvento;
       newObj.dataCriacao = new Date().toISOString();
-      // newObj.dataValidacao = null;
       newObj.setor = obj.setor;
       newObj.tipo = 1;
       if (obj.cortesia == true) {

@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="dadosEvento">
   <img [src]="dadosEvento?.imagemUrl" style="width: 100% !important;" />
 
   <div padding>

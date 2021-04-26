@@ -150,7 +150,6 @@ export class MeuCarrinhoComponent implements OnInit {
 
   concluirCompra() {
     this.compraService.post(this.carrinho).toPromise().then(result => {
-      debugger;
       this.carrinhoService.clear();
       this.carrinhoService.clear();
       this.navCtrl.navigateRoot(['/minhas-compras/detalhe'], { queryParams: { id: (result as any).id } });

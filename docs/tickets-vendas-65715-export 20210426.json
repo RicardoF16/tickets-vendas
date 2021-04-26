@@ -1,0 +1,148 @@
+{
+  "destaques" : {
+    "LIIWAZ88764" : {
+      "dataCadastro" : "2020-12-31T23:26:10.999Z",
+      "dataFimExibicao" : "2021-12-31T23:26:10.999Z",
+      "id" : "LIIWAZ88764",
+      "imagemUrl" : "https://1075koolfm.com/wp-content/uploads/2020/03/tiktok-400x200.png",
+      "link" : "https://www.tiktok.com/pt-BR/"
+    },
+    "LJIsldkf65" : {
+      "dataCadastro" : "2021-03-11T18:26:10.999Z",
+      "dataFimExibicao" : "2021-12-31T23:26:10.999Z",
+      "id" : "LJIsldkf65",
+      "imagemUrl" : "https://geek360.com.br/wp-content/uploads/2018/11/capa-youtuber-400x200.jpg",
+      "link" : "https://facebook.com"
+    },
+    "UhhsYjsskao2355" : {
+      "dataCadastro" : "2021-03-11T18:26:10.999Z",
+      "dataFimExibicao" : "2021-12-31T23:59:59.999Z",
+      "id" : "UhhsYjsskao2355",
+      "idEvento" : "5f8b10068e0acc1cf86ca396",
+      "imagemUrl" : "https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png",
+      "link" : "http://www.youtube.com"
+    }
+  },
+  "eventos" : {
+    "5f8b10068e0acc1cf86ca396" : {
+      "dataFim" : "2020-12-25T23:59:59.999Z",
+      "dataInicio" : "2020-12-24T19:00:00.000Z",
+      "descricao" : "Teste de carga Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida laoreet varius. Nunc in feugiat dolor. Vestibulum tincidunt mauris sit amet viverra malesuada. Vestibulum sollicitudin eget risus sit amet tempus. Fusce sit amet aliquam purus, non euismod dui. Nunc ut sapien pulvinar, suscipit sapien eu, ornare diam. Mauris cursus, est nec sodales lacinia, mi sapien molestie augue, sed tincidunt tortor ex eu tellus. Duis id ex posuere, luctus ligula ac, efficitur enim. Quisque vel consectetur orci, id porta neque.",
+      "diasEvento" : [ {
+        "atracoes" : [ {
+          "link" : "http://www.nomeatracao.com.br",
+          "nome" : "DJ Japa"
+        } ],
+        "censura" : "16 anos (e menores de 16 anos acompanhado de pais ou responsável)",
+        "dataFim" : "2020-12-24T23:59:59.999Z",
+        "dataInicio" : "2020-12-24T19:00:00.000Z",
+        "horaAbertura" : "16:00",
+        "horaShow" : "18:00",
+        "id" : 0,
+        "idadeMinima" : 16,
+        "lotes" : [ {
+          "ativo" : true,
+          "cortesia" : false,
+          "descricao" : "1º Lote",
+          "id" : 0,
+          "qtdeTicketsVendidos" : 0,
+          "qtdeTotalTickets" : 50,
+          "setor" : 1,
+          "valor" : 30
+        }, {
+          "ativo" : true,
+          "cortesia" : false,
+          "descricao" : "1º Lote",
+          "id" : 1,
+          "qtdeTicketsVendidos" : 0,
+          "qtdeTotalTickets" : 50,
+          "setor" : 2,
+          "valor" : 40
+        } ]
+      }, {
+        "atracoes" : [ {
+          "link" : "http://www.nomeatracao.com.br",
+          "nome" : "DJ Japa"
+        } ],
+        "censura" : "16 anos (e menores de 16 anos acompanhado de pais ou responsável)",
+        "dataFim" : "2020-12-25T23:59:59.999Z",
+        "dataInicio" : "2020-12-25T19:00:00.000Z",
+        "horaAbertura" : "16:00",
+        "horaShow" : "18:00",
+        "id" : 1,
+        "idadeMinima" : 16,
+        "lotes" : [ {
+          "ativo" : true,
+          "cortesia" : false,
+          "descricao" : "1º Lote",
+          "id" : 0,
+          "qtdeTicketsVendidos" : 0,
+          "qtdeTotalTickets" : 50,
+          "setor" : 1,
+          "valor" : 30
+        }, {
+          "ativo" : true,
+          "cortesia" : false,
+          "descricao" : "1º Lote",
+          "id" : 1,
+          "qtdeTicketsVendidos" : 0,
+          "qtdeTotalTickets" : 50,
+          "setor" : 2,
+          "valor" : 40
+        } ]
+      } ],
+      "id" : "5f8b10068e0acc1cf86ca396",
+      "imagemUrl" : "https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png",
+      "local" : "R. Timbira, S/N - Centro - Várzea da Palma-MG",
+      "nomeLocal" : "Kintal Club",
+      "pontosVenda" : [ {
+        "nome" : "Várzea da Palma"
+      }, {
+        "nome" : "Pirapora"
+      }, {
+        "nome" : "Lassance"
+      }, {
+        "nome" : "Ibirité"
+      }, {
+        "nome" : "Teste"
+      } ],
+      "tipo" : 1,
+      "titulo" : "Evento Mock Evento Mock Evento Mock"
+    }
+  },
+  "usuarios" : {
+    "9w76O8K5EPQBCldYKjbch3UjXIg2" : {
+      "cpf" : "06549156017",
+      "dataNascimento" : "1994-07-29",
+      "email" : "lucas@henkoti.com.br",
+      "genero" : "N",
+      "imagemURL" : "",
+      "key" : "9w76O8K5EPQBCldYKjbch3UjXIg2",
+      "nome" : "R S OLIVEIRA",
+      "role" : 1,
+      "uid" : "9w76O8K5EPQBCldYKjbch3UjXIg2"
+    },
+    "GeZXIvNDVBfEDoZzYDOFnai00Xd2" : {
+      "cpf" : "03896853643",
+      "dataNascimento" : "1979-07-25",
+      "email" : "ricardo.f16@hotmail.com",
+      "genero" : "M",
+      "imagemURL" : "",
+      "key" : "GeZXIvNDVBfEDoZzYDOFnai00Xd2",
+      "nome" : "Ricardo Aguiar Ferreira",
+      "role" : 1,
+      "uid" : "GeZXIvNDVBfEDoZzYDOFnai00Xd2"
+    },
+    "wrhotZfmJlVkRQxoA030VVg1z0l1" : {
+      "cpf" : "12051759626",
+      "dataNascimento" : "1994-07-29",
+      "email" : "lucas.nicodemoss@gmail.com",
+      "genero" : "M",
+      "imagemURL" : "",
+      "key" : "wrhotZfmJlVkRQxoA030VVg1z0l1",
+      "nome" : "Lucas Nicodemos",
+      "role" : 99,
+      "uid" : "wrhotZfmJlVkRQxoA030VVg1z0l1"
+    }
+  }
+}

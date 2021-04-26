@@ -72,7 +72,7 @@ class CompraService extends BaseService {
 
                     while (index < t.qtdeSelecionada) {
                         index++;
-                        ticketService.create(obj.idEvento, req.usuario.uid, t).then(resultT => {
+                        ticketService.create(req.usuario.uid, obj.idEvento, key, t).then(resultT => {
                             if (resultT) {
                                 newObj.valorTotal = parseFloat(newObj.valorTotal) + parseFloat(resultT.valor);
                                 newObj.tickets.push(resultT.id);

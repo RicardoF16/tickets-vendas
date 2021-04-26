@@ -19,9 +19,9 @@ export class HomePage {
   destaques: Array<DestaqueResponse> = [];
 
   slideOpts: any = {
-    initialSlide: 1,
     slidesPerView: 1,
-    speed: 400,
+    speed: 300,
+    autoplay:true,
     pagination: true
   };
 
@@ -64,7 +64,7 @@ export class HomePage {
   }
 
   openLink(destaque: DestaqueResponse) {
-    if (destaque.idEvento != '') {
+    if (destaque.idEvento && destaque.idEvento != '') {
       this.visaoEvento(destaque.idEvento);
     } else {
       window.open(destaque.link, '_blank');

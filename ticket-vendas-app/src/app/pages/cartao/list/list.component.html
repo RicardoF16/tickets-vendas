@@ -32,7 +32,7 @@
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button *ngIf="cartSelected != null" color="light" (click)="selectCard()"
+    <ion-fab-button *ngIf="isSelection && cartSelected != null" color="light" (click)="selectCard()"
       style="margin-bottom: 8px; margin-right: 13px;">
       <i class="fa fa-check" style="font-size: 20px;" aria-hidden="true"></i>
     </ion-fab-button>
