@@ -5,8 +5,8 @@
       <ion-col size="2" class="toolbar-buttons">
         <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
       </ion-col>
-      <ion-col size="8" class="toolbar-icon">
-        <img src="assets/icon/logo_navbar.png">
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Adquirir ingresso</ion-title>
       </ion-col>
       <ion-col size="2" class="toolbar-buttons">
       </ion-col>
@@ -15,87 +15,79 @@
 </ion-header>
 
 <ion-content>
+  <ion-card class="box">
+    <ion-row class="header-card" padding>
+      <ion-col>
+        <p class="txt-small color-white">Ingresso(s)</p>
+      </ion-col>
+      <ion-col size="1" style="text-align: right;">
+        <img class="img-expand-card" src="assets/icon/ic_carrinho.png" style="width: 20px">
+      </ion-col>
+      <ion-col size="3" style="text-align: right;">
+        <p class="txt-smaller color-white" style="text-align: right; margin-top: 2px !important;">
+          {{ formatMoneyToString(valorTotal) }} </p>
+      </ion-col>
+    </ion-row>
+    <div padding>
+      <ion-row *ngFor="let item of listaLotes; let i = index" style="padding-top: 10px;">
+        <ion-col size="7">
+          <p class="txt-small color-white" style="text-align: left;">SETOR {{ getSetorName(item.setor) }}:</p>
+          <p class="txt-smaller color-white" style="text-align: left;">{{ item.descricao }} - {{
+            formatMoneyToString(item.valor) }}</p>
+        </ion-col>
+        <ion-col size="5">
+          <ion-row>
+            <ion-col>
+              <img class="img-expand-card" (click)="removeItem(item)" src="assets/icon/ic_minimizar.png"
+                style="width: 70%;">
+            </ion-col>
+            <ion-col>
+              <p class="txt-smaller color-white" style="padding-top: 5px; text-align: center;">{{ item.qtdeSelecionada
+                }}</p>
+            </ion-col>
+            <ion-col>
+              <img class="img-expand-card" (click)="addItem(item)" src="assets/icon/ic_expandir.png"
+                style="width: 70%; margin-left: 7px;">
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <hr style="background-color: white; width: 100% !important; margin-top: 18px;"
+          *ngIf="i < listaLotes.length - 1">
+      </ion-row>
+      <br />
+    </div>
+
+  </ion-card>
+
   <div padding>
-
-    <ion-card class="box">
-      <ion-row padding>
-        <ion-col>
-          <p class="txt-large color-white" style="margin: 0px; padding-top: 5px;">ingressos</p>
-        </ion-col>
-        <ion-col size="2" style="text-align: right;">
-          <img class="img-expand-card" src="assets/icon/ic_carrinho.png" style="width: 50%">
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <ion-card>
-      <ion-row padding>
-        <ion-col size="7">
-          <p class="txt-smaller color-white" style="text-align: left;">SETOR PISTA:</p>
-          <p class="txt-smaller color-white" style="text-align: left;">1º Lote - R$30,00</p>
-        </ion-col>
-        <ion-col size="2">
-          <img class="img-expand-card" src="assets/icon/ic_novo.png" style="width: 65%;">
-        </ion-col>
-        <ion-col size="1" class="txt-large color-white">
-          <p class="txt-large color-white" style="padding-top: 5px;">1</p>
-        </ion-col>
-        <ion-col size="2">
-          <img class="img-expand-card" src="assets/icon/ic_minimizar.png" style="width: 65%; margin-left: 7px;">
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <hr _ngcontent-thm-c0="" style="background-color: white;">
-
-    <ion-card>
-      <ion-row padding>
-        <ion-col size="7">
-          <p class="txt-smaller color-white" style="text-align: left;">SETOR CAMAROTE:</p>
-          <p class="txt-smaller color-white" style="text-align: left;">1º Lote - R$50,00</p>
-        </ion-col>
-        <ion-col size="2">
-          <img class="img-expand-card" src="assets/icon/ic_novo.png" style="width: 65%;">
-        </ion-col>
-        <ion-col size="1" class="txt-large color-white">
-          <p class="txt-large color-white" style="padding-top: 5px;">1</p>
-        </ion-col>
-        <ion-col size="2">
-          <img class="img-expand-card" src="assets/icon/ic_minimizar.png" style="width: 65%; margin-left: 7px;">
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
-    <ion-card>
-      <ion-row>
-        <ion-col size="12">
-          <button class="btn-white txt-medium txt-bold" (click)="concluirCompra()">
-            <ion-row>
-              <ion-col size="2" style="text-align: center;">
-                <img src="assets/icon/ic_concluir_compra.png" style="text-align: left; width: 80%;" />
-              </ion-col>
-              <ion-col size="9" style="margin-top: 5px;">
-                <p class="txt-smaller color-black" style="text-align: center;">CONCLUIR COMPRA</p>
-              </ion-col>
-            </ion-row>
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <button class="btn-primary txt">
-            <ion-row>
-              <ion-col size="2" style="text-align: center;">
-                <img src="assets/icon/ic_carrinho.png" style="text-align: left;width: 75%;" />
-              </ion-col>
-              <ion-col size="9" style="margin-top: 5px;">
-                <p class="txt-smaller color-black" style="text-align: center;" (click)="adcionarCarrinho()">ADICIONAR AO CARRINHO</p>
-              </ion-col>
-            </ion-row>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-
+    <ion-row padding>
+      <ion-col size="12">
+        <button class="btn-white txt-medium txt-bold" [class.button-disabled]="true" (click)="concluirCompra()">
+          <ion-row>
+            <ion-col size="2" style="text-align: center;">
+              <img src="assets/icon/ic_concluir_compra.png" style="text-align: left;" />
+            </ion-col>
+            <ion-col size="9" style="margin-top: 5px;">
+              <p class="txt-smaller color-black" style="text-align: center;">CONCLUIR COMPRA</p>
+            </ion-col>
+          </ion-row>
+        </button>
+      </ion-col>
+      <br />
+      <ion-col size="12">
+        <button class="btn-primary txt">
+          <ion-row>
+            <ion-col size="2" style="text-align: center;">
+              <img src="assets/icon/ic_carrinho.png" style="text-align: left;" />
+            </ion-col>
+            <ion-col size="9" style="margin-top: 5px;">
+              <p class="txt-smaller color-black" style="text-align: center;" (click)="adcionarCarrinho()">ADICIONAR AO
+                CARRINHO</p>
+            </ion-col>
+          </ion-row>
+        </button>
+      </ion-col>
+    </ion-row>
   </div>
+
 </ion-content>

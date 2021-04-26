@@ -1,6 +1,8 @@
 export class IngressoModel{
     id: number;
     idDataEvento: string;
+    idLote: string;
+    dataEvento: string;
     cortesia: Boolean;
     descricao: string;
     qtdeTicketsVendidos: number;

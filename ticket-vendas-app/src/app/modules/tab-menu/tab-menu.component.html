@@ -9,11 +9,11 @@
       <ion-label class="color-tab-menu-unfocus">Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button *ngIf="menuSelected === 'tickets'" (click)="navigate('meus-tickets')">
+    <ion-tab-button *ngIf="menuSelected === 'tickets'" (click)="navigate('minhas-compras')">
       <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_on.png">
       <ion-label class="color-white">Meus Tickets</ion-label>
     </ion-tab-button>
-    <ion-tab-button *ngIf="menuSelected !== 'tickets'" (click)="navigate('meus-tickets')">
+    <ion-tab-button *ngIf="menuSelected !== 'tickets'" (click)="navigate('minhas-compras')">
       <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_off.png">
       <ion-label class="color-tab-menu-unfocus">Meus Tickets</ion-label>
     </ion-tab-button>

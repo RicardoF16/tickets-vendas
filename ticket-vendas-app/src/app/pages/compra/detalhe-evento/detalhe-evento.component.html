@@ -14,13 +14,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="dadosEvento">
   <img [src]="dadosEvento?.imagemUrl" style="width: 100% !important;" />
 
   <div padding>
     <ion-row no-padding>
       <ion-col size="12">
-        <p class="txt-medium txt-bold color-white" no-margin>Título do Evento</p>
+        <p class="txt-medium txt-bold color-white" no-margin>{{ dadosEvento?.titulo }}</p>
       </ion-col>
       <ion-col size="12">
         <ion-row>
@@ -108,7 +108,7 @@
             </ion-col>
 
             <ion-col size="12">
-              <button margin-top class="btn-white txt-small txt-bold" (click)="adquirirIngressos()">
+              <button margin-top class="btn-white txt-small txt-bold" (click)="adquirirIngressos(dia)">
                 Adquirir Ingressos para o dia {{ getDateFormated(dia?.dataInicio, 'DD/MM') }}
               </button>
             </ion-col>

@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ListComponent
   },
   {
+    path: 'selection',
+    component: ListComponent
+  },
+  {
     path: 'action',
     component: ActionComponent
   }

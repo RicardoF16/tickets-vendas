@@ -1,4 +1,6 @@
 const CompraService = require('../../services/compra.service');
+const EventoService = require('../../services/evento.service');
+const TicketService = require('../../services/ticket.service');
 
 class CompraController {
 
@@ -19,40 +21,35 @@ class CompraController {
             });
     }
 
-    getById(req, res) {
+    async getById(req, res) {
         const id = req.params.id;
 
-        CompraService.getById(id)
-            .then(evento => {
-                if (evento) {
-                    res.send(evento)
-                } else {
-                    res.sendStatus(204);
-                }
-            }).catch(err => {
-                if (err && err.hasError) {
-                    res.status(400).send(err);
-                } else {
-                    res.sendStatus(500);
-                }
-            });
+        let compra = await CompraService.getById(id);
+        if (compra) {
+            compra.evento = await EventoService.getById(compra.idEvento);
+            compra.tickets = await TicketService.getByIdCompra(id);
+            res.send(compra);
+        } else {
+            res.sendStatus(204);
+        }
     }
 
-    getMe(req, res) {
-        CompraService.getMe(req.usuario.uid)
-            .then(result => {
-                if (result) {
-                    res.send(result)
-                } else {
-                    res.sendStatus(204);
+    async getMe(req, res) {
+        const compras = await CompraService.getMe(req.usuario.uid);
+        if (compras) {
+            const eventos = await EventoService.getAll();
+            if (eventos) {
+                for (let c of compras) {
+                    const evento = eventos.find(e => e.id == c.idEvento);
+                    if (evento) {
+                        c.evento = evento;
+                    }
                 }
-            }).catch(err => {
-                if (err && err.hasError) {
-                    res.status(400).send(err);
-                } else {
-                    res.sendStatus(500);
-                }
-            });
+            }
+            res.send(compras);
+        } else {
+            res.sendStatus(204);
+        }
     }
 
     post(req, res) {

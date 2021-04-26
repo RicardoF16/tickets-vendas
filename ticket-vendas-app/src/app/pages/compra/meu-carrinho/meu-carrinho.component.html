@@ -5,8 +5,8 @@
       <ion-col size="2" class="toolbar-buttons">
         <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
       </ion-col>
-      <ion-col size="8" class="toolbar-icon">
-        <img src="assets/icon/logo_navbar.png">
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Meu carrinho</ion-title>
       </ion-col>
       <ion-col size="2" class="toolbar-buttons">
       </ion-col>
@@ -14,11 +14,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="dadosEvento">
   <div padding>
     <ion-row no-padding>
       <ion-col size="12">
-        <p class="txt-medium txt-bold color-white" no-margin>Título do Evento</p>
+        <p class="txt-medium txt-bold color-white" no-margin>{{ dadosEvento?.titulo }}</p>
       </ion-col>
       <ion-col size="12">
         <ion-row>
@@ -27,63 +27,117 @@
           </ion-col>
           <ion-col size="9">
             <p class="txt-smaller color-white" no-margin>
-              24 de dezembro à 25 de dezembro quinta-feria a sexta-feira das 23:00 as 06:00
+              {{ getDateFormated(dadosEvento?.dataInicio, 'DD [de] MMMM') }} à
+              {{ getDateFormated(dadosEvento?.dataFim, 'DD [de] MMMM') }}
+            </p>
+            <p class="txt-smaller txt-bold color-white" no-margin>
+              {{ getDateFormated(dadosEvento?.dataInicio, 'dddd') }} à
+              {{ getDateFormated(dadosEvento?.dataFim, 'dddd') }} das
+              {{ getDateFormated(dadosEvento?.dataInicio, 'hh:mm') }} às
+              {{ getDateFormated(dadosEvento?.dataFim, 'hh:mm') }}
             </p>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col size="2" class="img-btn-icon">
             <img src="assets/icon/ic_endereco.png">
           </ion-col>
           <ion-col size="9">
-            <p class="txt-smaller txt-bold color-white">Kinal Club</p>
-            <p class="txt-smaller color-white">R. Timbiras, S/N - Várzea da Palma / MG </p>
+            <p class="txt-smaller txt-bold color-white">{{ dadosEvento?.nomeLocal }}</p>
+            <p class="txt-smaller color-white">{{ dadosEvento?.local }}</p>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
+  </div>
 
-    <ion-card class="box">
-      <ion-row >
-        <ion-col size=10>
-          <p class="txt-medium txt-bold color-white" style="margin: 0px; padding-top: 6px;">Ticket</p>
-          <p class="txt-smaller color-white" style="margin: 0px; padding-top: 6px;">Dia 08/01/2021</p>
-          <p class="txt-smaller color-white" style="margin: 0px; padding-top: 6px;">1º lote - Pista - R$ 30,00</p>
-          <p class="txt-smaller color-white" style="margin: 0px; padding-top: 6px;">Taxa de Serviço - R$  0,00 </p>
-        </ion-col>
-        <ion-col size=1>
-          <img src="assets/icon/ic_lixeira.png" style="    margin-left: 29px;">
-        </ion-col>
-      </ion-row>
-    </ion-card>
+  <ion-row padding style="padding-bottom: 0px !important;">
+    <ion-col size="12">
+      <p class="txt-medium txt-bold color-white" no-margin>Ingresso(s)</p>
+    </ion-col>
+  </ion-row>
 
+  <ion-row *ngIf="!carrinho.ingressos || carrinho.ingressos.length === 0">
+    <ion-col padding style="text-align: center;">
+      <p class="txt-smaller color-tab-menu-unfocus">Não há ingresso(s) no carrinho</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-card class="box" *ngFor="let ingresso of carrinho?.ingressos; let i  = index">
     <ion-row padding>
-      <ion-col size="8">
-        <p class="txt-smaller color-white">Subtotal</p>
-        <p class="txt-smaller color-white">Taxa de Serviço</p>
+      <ion-col size="11" no-padding>
+        <p class="txt-smaller color-white" style="margin: 0px; padding-top: 6px;">{{ getDescricaoIngresso(ingresso) }}
+        </p>
       </ion-col>
-      <ion-col size="4">
-        <p class="txt-smaller color-white">R$ 30,00</p>
-        <p class="txt-smaller color-white">R$ 0,00</p>
+      <ion-col size="1" no-padding style="text-align: right;" (click)="presentAlertConfirm(i)">
+        <i class="fa fa-trash fa-lg color-white" aria-hidden="true"></i>
+      </ion-col>
+      <ion-col size="6" no-padding style="margin-top: 10px;">
+        <p class="txt-smaller color-white" style="width: 60% !important; margin: 0px; padding-top: 6px;">
+          Dia {{ getDateIngresso(ingresso?.idDataEvento) }}
+        </p>
+      </ion-col>
+      <ion-col size="6" no-padding style="text-align: right; margin-top: 10px;">
+        <p class="txt-smaller color-white" style="margin: 0px; padding-top: 6px;"><b>Quantidade:</b> {{
+          ingresso.qtdeSelecionada }} </p>
       </ion-col>
     </ion-row>
-    
-    <hr _ngcontent-thm-c0="" style="background-color: white;">
+  </ion-card>
 
-    <ion-row padding>
-      <ion-col size="8">
-        <p class="txt-smaller color-white">Total</p>
-      </ion-col>
-      <ion-col size="4">
-        <p class="txt-smaller color-white">R$ 30,00</p>
-      </ion-col>
+  <ion-row padding>
+    <ion-col size="8">
+      <p class="txt-smaller color-white">Subtotal</p>
+      <p class="txt-smaller color-white">Taxa de Serviço</p>
+    </ion-col>
+    <ion-col size="4" style="text-align: right;">
+      <p class="txt-smaller color-white">{{ getValorTotal() }}</p>
+      <p class="txt-smaller color-white">R$ 0,00</p>
+    </ion-col>
+  </ion-row>
+
+  <hr _ngcontent-thm-c0="" style="background-color: white; margin-left: 8px; margin-right: 8px;">
+
+  <div *ngIf="carrinho.cardSelected">
+    <ion-row padding style="padding-bottom: 0px !important;">
       <ion-col size="12">
-        <button margin-top class="btn-white txt-small txt-bold" (click)="avancar()">
-          Avançar
-        </button>
+        <p class="txt-medium txt-bold color-white" no-margin>Dados de pagamento</p>
       </ion-col>
-    </ion-row>  
+    </ion-row>
 
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="box-list-cartao">
+          <ion-row>
+            <ion-col size="3" style="text-align: center; z-index: 999 !important;">
+              <i class="fa fa-credit-card fa-1x" aria-hidden="true"></i>
+            </ion-col>
+            <ion-col size="9" style="padding-top: 7px;">
+              <p class="txt-smaller txt-bold cartao-title-card txt-bold">Cartão Nº {{ carrinho.cardSelected.cart_number }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <hr _ngcontent-thm-c0="" style="background-color: white; margin-left: 8px; margin-right: 8px;">
   </div>
+
+  <ion-row padding>
+    <ion-col size="8">
+      <p class="txt-smaller color-white">Total</p>
+    </ion-col>
+    <ion-col size="4" style="text-align: right;">
+      <p class="txt-smaller color-white">{{ getValorTotal() }}</p>
+    </ion-col>
+    <ion-col size="12">
+      <button margin-top class="btn-white txt-small txt-bold" (click)="avancar()">
+        Avançar
+      </button>
+    </ion-col>
+    <ion-col size="12" *ngIf="carrinho.cardSelected">
+      <button class="btn-primary txt-small txt-bold" (click)="selecionarPagamento()">
+        Alterar Cartão
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

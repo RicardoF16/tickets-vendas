@@ -12,22 +12,18 @@ import { Carrinho } from '../_models/carrinho';
 export class CompraService {
 
   private readonly endpoint = `${environment.urlService}compra`;
-  constructor(private http: HttpClient) { }  
-
-  /*postUserSocial(user: User): Observable<UserResponse> {
-    if (!user.imagemURL) {
-      user.imagemURL = '';
-    }
-    return this.http.post<UserResponse>(`${this.endpoint}/social`, user).pipe(take(1));
-  }*/
- 
+  constructor(private http: HttpClient) { }
 
   get(): Observable<any> {
     return this.http.get<any>(`${this.endpoint}`).pipe(take(1));
   }
 
+  getMe(): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/me`).pipe(take(1));
+  }
+
   getById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.endpoint}/${id}`, ).pipe(take(1));
+    return this.http.get<any>(`${this.endpoint}/${id}`,).pipe(take(1));
   }
 
   post(body: Carrinho): Observable<Array<any>> {

@@ -87,7 +87,10 @@ export class CriarContaPage implements OnInit, OnDestroy {
   }
 
   submit() {
-    // this.loading.showLoading('Verificando CPF e Email...');
+    if (!this.termCheck) {
+      this.gAlert.presentToastInfo('Para continuar você precisa aceitar os termos de uso');
+      return;
+    }
 
     const user: User = {
       nome: this.form.get('nome').value,
@@ -97,13 +100,7 @@ export class CriarContaPage implements OnInit, OnDestroy {
       genero: this.form.get('genero').value
     };
 
-    // this.userService.verifyUser(user.cpf, user.email).toPromise().then(result => {
     this.saveUser(user);
-    //   this.loading.dismissLoading();
-    // }).catch(err => {
-    //   this.loading.dismissLoading();
-    //   this.gAlert.presentToastError(err.error);
-    // });
   }
 
   private saveUser(user: User) {

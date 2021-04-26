@@ -5,6 +5,7 @@ import { GenericAlertService } from '../../_services/generic-alert.service';
 import { EventoService } from '../../_services/evento.service'
 import { EventoResponse } from '../../_models/eventoModel';
 import { DestaqueResponse } from '../../_models/destaqueModel';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -18,9 +19,9 @@ export class HomePage {
   destaques: Array<DestaqueResponse> = [];
 
   slideOpts: any = {
-    initialSlide: 1,
     slidesPerView: 1,
-    speed: 400,
+    speed: 300,
+    autoplay:true,
     pagination: true
   };
 
@@ -55,8 +56,15 @@ export class HomePage {
     });
   }
 
+  getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
+    if (date)
+      return moment(date).locale('pt-br').format(format).toLocaleUpperCase();
+    else
+      return '';
+  }
+
   openLink(destaque: DestaqueResponse) {
-    if (destaque.idEvento != '') {
+    if (destaque.idEvento && destaque.idEvento != '') {
       this.visaoEvento(destaque.idEvento);
     } else {
       window.open(destaque.link, '_blank');

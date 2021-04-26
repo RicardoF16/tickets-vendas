@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
-import { EventoResponse } from 'src/app/_models/eventoModel';
+import { DiasEventoResponse, EventoResponse } from 'src/app/_models/eventoModel';
 import { EventoService } from 'src/app/_services/evento.service';
 import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 import * as moment from 'moment';
@@ -40,8 +40,6 @@ export class DetalheEventoComponent implements OnInit {
   getDados() {
     this.eventoService.getEventoById(this.idEvento).toPromise().then(result => {
       this.dadosEvento = result;
-      console.log('bla', this.dadosEvento);
-      
       this.loading.dismissAll();
     }).catch(err => {
       this.loading.dismissAll();
@@ -64,7 +62,10 @@ export class DetalheEventoComponent implements OnInit {
     this.navCtrl.navigateRoot(['/selecionar-data-evento'], { queryParams: { id: this.idEvento } });
   }
 
-  adquirirIngressos() {
-    this.navCtrl.navigateRoot(['/evento/adquirir-ingressos'], { queryParams: { id: this.idEvento } });
+  adquirirIngressos(dia: DiasEventoResponse) {
+    this.navCtrl.navigateRoot(['/evento/adquirir-ingressos'], {
+      queryParams:
+        { id: this.idEvento, idDataEvento: dia.id }
+    });
   }
 }

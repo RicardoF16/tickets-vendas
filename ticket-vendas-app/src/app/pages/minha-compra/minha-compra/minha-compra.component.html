@@ -1,122 +1,126 @@
+<app-loading></app-loading>
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Detalhes da Compra</ion-title>
-    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col size="2" class="toolbar-buttons">
+        <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
+      </ion-col>
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Meu ticket</ion-title>
+      </ion-col>
+      <ion-col size="2" class="toolbar-buttons">
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="dadosCompra">
+  <img [src]="dadosCompra.evento?.imagemUrl" style="width: 100% !important;" />
 
-  <ion-card>
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="12" text-center>
-          <img [src]="dadosEvento?.imagemUrl">
+  <div padding>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>{{ dadosCompra.evento?.titulo }}</p>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_calendario.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller color-white" no-margin>
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'DD [de] MMMM') }} à
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'DD [de] MMMM') }}
+            </p>
+            <p class="txt-smaller txt-bold color-white" no-margin>
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'dddd') }} à
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'dddd') }} das
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'hh:mm') }} às
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'hh:mm') }}
+            </p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_endereco.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller txt-bold color-white">{{ dadosCompra.evento?.nomeLocal }}</p>
+            <p class="txt-smaller color-white">{{ dadosCompra.evento?.local }}</p>
+            <p class="txt-smaller color-white" style="width: 100%; text-align: right;">ver Mapa</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-card class="box">
+      <ion-row padding>
+        <ion-col>
+          <p class="txt-large color-white" style="margin: 0px; padding-top: 6px;">
+            Detalhes da compra
+          </p>
+        </ion-col>
+        <ion-col size="12">
+
+          <ion-row>
+            <ion-col size="12">
+              <p class="txt-smaller color-white">Abertura: {{ dadosCompra.evento?.diasEvento[0]?.horaAbertura }}</p>
+              <p class="txt-smaller color-white">Show: {{ dadosCompra.evento?.diasEvento[0]?.horaShow }}</p>
+              <p class="txt-smaller color-white">Censura: {{ dadosCompra.evento?.diasEvento[0]?.censura }}</p>
+            </ion-col>
+            <ion-col size="12">
+              <p class="txt-smaller color-white">Atrações:</p>
+              <ion-row *ngFor="let atracao of dadosCompra.evento?.diasEvento[0]?.atracoes">
+                <ion-col size="2">
+                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site@3x.png">
+                </ion-col>
+                <ion-col>
+                  <p class="txt-smaller color-white">{{ atracao?.nome }}</p>
+                  <a class="txt-smaller" [href]="atracao?.link" target="_blank">Contato da atração</a>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="12">
+              <button class="btn-white">
+                <ion-row>
+                  <ion-col size="2" style="text-align: center;">
+                    <img src="assets/icon/ic_compartilhar_com_amigos@2x.png"
+                      style="text-align: center; margin-top: -1px;" />
+                  </ion-col>
+                  <ion-col size="9" style="margin-top: 8px;">
+                    <p class="txt-smaller txt-bold color-black" style="text-align: center;">
+                      Compartilhe com seus amigos
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </button>
+            </ion-col>
+          </ion-row>
+
         </ion-col>
       </ion-row>
-    </ion-grid>
-  </ion-card>
+    </ion-card>
 
-  <ion-card>
-    <div id="container">
-      <ion-list>
-        <ion-item>
-          <ion-row>
-            <ion-col>
-              <h1 class="color-blue" style="font-weight: 550;">{{dadosEvento?.titulo}}</h1>
-              <p>{{dadosEvento?.descricao}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
 
-        <ion-item>
-          <ion-avatar slot="start">
-            <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
-          </ion-avatar>
-          <ion-label>
-            <ion-row>
-              <ion-col>
-                <h2>Data</h2>
-                <p>{{dadosEvento?.dataInicio}}</p>
-                <p>Abertura: 23:00</p>
-                <p>Show: 00:00</p>
-              </ion-col>
-            </ion-row>
-          </ion-label>
-        </ion-item>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>Ingressos</p>
+      </ion-col>
+    </ion-row>
 
-        <ion-item>
-          <ion-avatar slot="start">
-            <i class="fa fa-ban fa-2x" aria-hidden="true"></i>
-          </ion-avatar>
-          <ion-label>
-            <ion-row>
-              <ion-col>
-                <h2>Censura</h2>
-                <p>{{dadosEvento?.censura}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-label>
-        </ion-item>
+    <ion-card class="box" *ngFor="let ticket of dadosCompra?.tickets; let i = index">
+      <ion-row padding>
+        <ion-col size="9">
+          <p class="txt-medium color-white">Ingresso Nº {{i + 1}}</p>
+          <p class="txt-smaller color-white">Código: {{ticket.id}}</p>
+        </ion-col>
+        <ion-col size="3" text-right>
+          <i class="fa fa-angle-right color-white" style="margin-top: 12px !important;" aria-hidden="true"></i>
+        </ion-col>
+      </ion-row>
+    </ion-card>
 
-        <ion-item>
-          <ion-avatar slot="start">
-            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-          </ion-avatar>
-          <ion-label>
-            <ion-row>
-              <ion-col>
-                <h2>Local</h2>
-                <p>{{dadosEvento?.local}}</p>
-                <p class="color-blue-link" style="font-size: 11px;">Mostrar no mapa</p>
-              </ion-col>
-            </ion-row>
-          </ion-label>
-        </ion-item>
-
-      </ion-list>
-    </div>
-  </ion-card>
-
-  <ion-card>
-    <div id="container">
-      <ion-list>
-        <ion-item>
-          <ion-row>
-            <ion-col>
-              <p>Detalhes da compra</p>
-              <p>-------------------</p>
-              <p>-------------------</p>
-              <p>-------------------</p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-card>
-
-  <ion-card>
-    <div id="container">
-      <ion-list>
-        <ion-item>
-            <ion-col text-center>
-              <p>Ingressos</p>
-            </ion-col>
-        </ion-item>
-
-        <ion-item class="container" *ngFor="let item of [1,2,3,4,5]" (click)="onClick(item)">
-            <ion-col size="9">
-              <p>Ingresso Nº {{item}}</p>
-            </ion-col>
-            <ion-col size="3" text-right>
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </ion-col>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-card>
-
+  </div>
 </ion-content>

@@ -17,13 +17,13 @@
 
 <ion-content style="padding-top: 15px;">
 
-  <ion-card class="box-list-cartao" [ngClass]="{'cart-selected': cart === cartSelected}" *ngFor="let cart of [0,1,2,3]">
+  <ion-card class="box-list-cartao" [ngClass]="{'cart-selected': cart === cartSelected}" *ngFor="let cart of cartoes">
     <ion-row padding (click)="cartSelected = cart">
       <ion-col size="3">
         <i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
       </ion-col>
       <ion-col size="7" style="padding-top: 12px;">
-        <p class="txt-medium txt-bold title-card txt-bold">**** **** **** 9999</p>
+        <p class="txt-medium txt-bold cartao-title-card txt-bold">{{ cart.cart_number }}</p>
       </ion-col>
       <ion-col size="2" style="padding-top: 10px; text-align: right;">
         <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
@@ -32,6 +32,10 @@
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="isSelection && cartSelected != null" color="light" (click)="selectCard()"
+      style="margin-bottom: 8px; margin-right: 13px;">
+      <i class="fa fa-check" style="font-size: 20px;" aria-hidden="true"></i>
+    </ion-fab-button>
     <ion-fab-button *ngIf="cartSelected != null" color="light" (click)="navigate()"
       style="margin-bottom: 8px; margin-right: 13px;">
       <i class="fa fa-pencil-square-o" style="font-size: 20px;" aria-hidden="true"></i>
