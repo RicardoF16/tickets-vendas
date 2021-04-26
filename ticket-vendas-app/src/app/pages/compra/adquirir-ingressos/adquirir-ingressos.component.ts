@@ -19,6 +19,8 @@ export class AdquirirIngressosComponent implements OnInit {
   idDataEvento: string = '';
   listaLotes: Array<IngressoModel> = new Array();
 
+  valorTotal: number = 0;
+
   @ViewChild(LoadingComponent) loading: LoadingComponent;
 
   constructor(
@@ -61,21 +63,6 @@ export class AdquirirIngressosComponent implements OnInit {
     return SetorEnum[setor];
   }
 
-  getValorTotal(): string {
-    let total = 0;
-    const carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
-    if (carrinho && carrinho.ingressos && carrinho.ingressos.length > 0) {
-      carrinho.ingressos.forEach(i => {
-        if (i.idDataEvento == this.idDataEvento && i.qtdeSelecionada > 0 && i.valor) {
-          total += Number(i.valor) * Number(i.qtdeSelecionada);
-        }
-      });
-      return this.formatMoneyToString(total);
-    } else {
-      return 'R$ 0,00';
-    }
-  }
-
   formatMoneyToString(valor: number): string {
     try {
       return valor.toLocaleString('pt-BR', {
@@ -95,7 +82,8 @@ export class AdquirirIngressosComponent implements OnInit {
         if (ingressos) {
           l.qtdeSelecionada = ingressos.qtdeSelecionada;
         }
-      })
+      });
+      this.valorTotal = this.carrinhoService.getValorTotal();
     } else {
       this.carrinhoService.clear();
     }
@@ -118,6 +106,7 @@ export class AdquirirIngressosComponent implements OnInit {
   }
 
   private atualizaCarrinho() {
+    this.loading.showLoading('Processando...');
     let carrinho: Carrinho = this.carrinhoService.getDadosCarrinho(this.idEvento);
 
     if (!carrinho)
@@ -132,7 +121,7 @@ export class AdquirirIngressosComponent implements OnInit {
           if (lt.qtdeSelecionada > 0) {
             carrinho.ingressos[indexInCarrinho] = lt;
           } else {
-            carrinho.ingressos = carrinho.ingressos.splice(indexInCarrinho, 1);
+            carrinho.ingressos.splice(indexInCarrinho, 1);
           }
         } else {
           if (lt.qtdeSelecionada > 0) {
@@ -150,6 +139,8 @@ export class AdquirirIngressosComponent implements OnInit {
       });
     }
     this.carrinhoService.setDadosCarrinho(carrinho);
+    this.valorTotal = this.carrinhoService.getValorTotal();
+    this.loading.dismissAll();
   }
 
   concluirCompra(continuarComprando = false) {

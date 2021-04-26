@@ -1,5 +1,6 @@
 const CompraService = require('../../services/compra.service');
 const EventoService = require('../../services/evento.service');
+const ticketService = require('../../services/ticket.service');
 
 class CompraController {
 
@@ -20,23 +21,17 @@ class CompraController {
             });
     }
 
-    getById(req, res) {
+    async getById(req, res) {
         const id = req.params.id;
 
-        CompraService.getById(id)
-            .then(evento => {
-                if (evento) {
-                    res.send(evento)
-                } else {
-                    res.sendStatus(204);
-                }
-            }).catch(err => {
-                if (err && err.hasError) {
-                    res.status(400).send(err);
-                } else {
-                    res.sendStatus(500);
-                }
-            });
+        let compra = await CompraService.getById(id);
+        if (compra) {
+            compra.evento = await EventoService.getById(compra.idEvento);
+            compra.tickets = await ticketService.getByIdEvento(compra.idEvento);
+            res.send(compra);
+        } else {
+            res.sendStatus(204);
+        }
     }
 
     async getMe(req, res) {

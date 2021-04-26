@@ -14,14 +14,6 @@ export class CompraService {
   private readonly endpoint = `${environment.urlService}compra`;
   constructor(private http: HttpClient) { }
 
-  /*postUserSocial(user: User): Observable<UserResponse> {
-    if (!user.imagemURL) {
-      user.imagemURL = '';
-    }
-    return this.http.post<UserResponse>(`${this.endpoint}/social`, user).pipe(take(1));
-  }*/
-
-
   get(): Observable<any> {
     return this.http.get<any>(`${this.endpoint}`).pipe(take(1));
   }

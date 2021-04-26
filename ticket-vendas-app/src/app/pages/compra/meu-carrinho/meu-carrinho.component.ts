@@ -149,17 +149,17 @@ export class MeuCarrinhoComponent implements OnInit {
   }
 
   concluirCompra() {
-    // this.compraService.post(this.carrinho).toPromise().then(result => {
-    //   this.carrinhoService.clear();
-    // this.navCtrl.navigateRoot([`/compras/compra?id=${(result as any).id}`]);
-    // this.navCtrl.navigateRoot(['compras/compra'], { queryParams: { id: '5f8b10068e0acc1cf86ca396' } });
-    this.carrinhoService.clear();
-    this.gAlert.presentToastSuccess('Sua compra foi realizada com sucesso!');
-    // }).catch(err => {
-    //   this.carrinhoService.clear();
-    //   this.gAlert.presentToastError('Não foi possível registrar a compra, tente novamente mais tarde!');
-    this.navCtrl.navigateRoot(['/']);
-    // });
+    this.compraService.post(this.carrinho).toPromise().then(result => {
+      debugger;
+      this.carrinhoService.clear();
+      this.carrinhoService.clear();
+      this.navCtrl.navigateRoot(['/minhas-compras/detalhe'], { queryParams: { id: (result as any).id } });
+      this.gAlert.presentToastSuccess('Sua compra foi realizada com sucesso!');
+    }).catch(err => {
+      this.carrinhoService.clear();
+      this.gAlert.presentToastError('Não foi possível registrar a compra, tente novamente mais tarde!');
+      this.navCtrl.navigateRoot(['/']);
+    });
   }
 
   selecionarPagamento() {

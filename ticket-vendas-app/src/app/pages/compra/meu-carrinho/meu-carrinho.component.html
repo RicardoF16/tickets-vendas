@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="dadosEvento">
   <div padding>
     <ion-row no-padding>
       <ion-col size="12">
@@ -112,7 +112,7 @@
               <i class="fa fa-credit-card fa-1x" aria-hidden="true"></i>
             </ion-col>
             <ion-col size="9" style="padding-top: 7px;">
-              <p class="txt-smaller txt-bold title-card txt-bold">Cartão Nº {{ carrinho.cardSelected.cart_number }}</p>
+              <p class="txt-smaller txt-bold cartao-title-card txt-bold">Cartão Nº {{ carrinho.cardSelected.cart_number }}</p>
             </ion-col>
           </ion-row>
         </ion-card>
