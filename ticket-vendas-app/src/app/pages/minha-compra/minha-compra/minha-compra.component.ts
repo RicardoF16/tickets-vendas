@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { EventoResponse } from 'src/app/_models/eventoModel';
-import { EventoService } from 'src/app/_services/evento.service';
 import * as moment from 'moment';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { GenericAlertService } from 'src/app/_services/generic-alert.service';
@@ -14,7 +12,7 @@ import { CompraService } from 'src/app/_services/compra.service';
   styleUrls: ['./minha-compra.component.scss'],
 })
 export class MinhaCompraComponent implements OnInit {
-  idCompra: string = "";
+  idCompra: string = '';
   dadosCompra: any;
 
   @ViewChild(LoadingComponent) loading: LoadingComponent;
@@ -22,9 +20,7 @@ export class MinhaCompraComponent implements OnInit {
   constructor(public navCtrl: NavController,
     private gAlert: GenericAlertService,
     private compraService: CompraService,
-    public activatedRoute: ActivatedRoute) {
-
-  }
+    public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.loading.showLoading('Carregando...');
@@ -58,8 +54,9 @@ export class MinhaCompraComponent implements OnInit {
     this.navCtrl.navigateRoot(['/minhas-compras']);
   }
 
-  onClick(id) {
-    this.navCtrl.navigateRoot(['compras/ingresso'], { queryParams: { id: id } });
+  visualizarIngresso(id) {
+    localStorage.setItem('dadosCompra', JSON.stringify(this.dadosCompra));
+    this.navCtrl.navigateRoot(['/minhas-compras/ingresso'], { queryParams: { id: id } });
   }
 
 }

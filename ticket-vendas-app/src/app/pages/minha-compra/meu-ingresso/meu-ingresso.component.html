@@ -1,28 +1,64 @@
+<app-loading></app-loading>
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Ingresso</ion-title>
-    <ion-img src="assets/imgs/logo_login.png" class="add-item"></ion-img>
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col size="2" class="toolbar-buttons">
+        <i class="fa fa-angle-left fa-lg color-white" (click)="back()" aria-hidden="true"></i>
+      </ion-col>
+      <ion-col size="8" class="toolbar-text">
+        <ion-title>Meu ticket</ion-title>
+      </ion-col>
+      <ion-col size="2" class="toolbar-buttons">
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
 
-  <ion-card>
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="12" text-center>
-          <ngx-qrcode [value]="qrCode" class="imgQrcode"></ngx-qrcode>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" text-center>
+        <ngx-qrcode [value]="qrCode"></ngx-qrcode>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-card>
-    <div id="container">
-    </div>
-  </ion-card>
+  <div padding>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>{{ dadosCompra.evento?.titulo }}</p>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_calendario.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller color-white" no-margin>
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'DD [de] MMMM') }} à
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'DD [de] MMMM') }}
+            </p>
+            <p class="txt-smaller txt-bold color-white" no-margin>
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'dddd') }} à
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'dddd') }} das
+              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'hh:mm') }} às
+              {{ getDateFormated(dadosCompra.evento?.dataFim, 'hh:mm') }}
+            </p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_endereco.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller txt-bold color-white">{{ dadosCompra.evento?.nomeLocal }}</p>
+            <p class="txt-smaller color-white">{{ dadosCompra.evento?.local }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
 
 </ion-content>

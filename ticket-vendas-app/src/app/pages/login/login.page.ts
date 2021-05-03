@@ -142,7 +142,8 @@ export class LoginPage implements OnInit {
       .subscribe(async userInfo => {
         //if (userInfo.papel === TypeUser.user) {
         this.userState.setUser(userInfo);
-        this.navCtrl.navigateRoot(['/home']);
+        // this.navCtrl.navigateRoot(['/home']);
+        window.history.back();
         //this.pushService.getToken();
         // /} else {
         //   this.auth.logoff();

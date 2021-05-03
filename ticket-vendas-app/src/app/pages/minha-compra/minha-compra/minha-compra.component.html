@@ -111,7 +111,7 @@
     </ion-row>
 
     <ion-card class="box" *ngFor="let ticket of dadosCompra?.tickets; let i = index">
-      <ion-row padding>
+      <ion-row padding (click)="visualizarIngresso(ticket.id)">
         <ion-col size="9">
           <p class="txt-medium color-white">Ingresso Nº {{i + 1}}</p>
           <p class="txt-smaller color-white">Código: {{ticket.id}}</p>
