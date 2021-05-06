@@ -17,8 +17,8 @@
 <ion-content *ngIf="dadosCompra">
   <img [src]="dadosCompra.evento?.imagemUrl" style="width: 100% !important;" />
 
-  <div padding>
-    <ion-row no-padding>
+  <div>
+    <ion-row padding>
       <ion-col size="12">
         <p class="txt-medium txt-bold color-white" no-margin>{{ dadosCompra.evento?.titulo }}</p>
       </ion-col>
@@ -70,10 +70,10 @@
               <p class="txt-smaller color-white">Censura: {{ dadosCompra.evento?.diasEvento[0]?.censura }}</p>
             </ion-col>
             <ion-col size="12">
-              <p class="txt-smaller color-white">Atrações:</p>
+              <p class="txt-smaller color-white txt-bold">Atrações:</p>
               <ion-row *ngFor="let atracao of dadosCompra.evento?.diasEvento[0]?.atracoes">
                 <ion-col size="2">
-                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site@3x.png">
+                  <img class="img-btn-icon-atracao" src="assets/icon/ic_site.png">
                 </ion-col>
                 <ion-col>
                   <p class="txt-smaller color-white">{{ atracao?.nome }}</p>
@@ -86,11 +86,11 @@
               <button class="btn-white">
                 <ion-row>
                   <ion-col size="2" style="text-align: center;">
-                    <img src="assets/icon/ic_compartilhar_com_amigos@2x.png"
-                      style="text-align: center; margin-top: -1px;" />
+                    <img src="assets/icon/ic_compartilhar_com_amigos@2x.png" class="img-btn-options"
+                      style="text-align: center; margin-top: -4px !important;" />
                   </ion-col>
                   <ion-col size="9" style="margin-top: 8px;">
-                    <p class="txt-smaller txt-bold color-black" style="text-align: center;">
+                    <p class="txt-bold color-black" style="text-align: center; font-size: 12px;">
                       Compartilhe com seus amigos
                     </p>
                   </ion-col>
@@ -104,7 +104,7 @@
     </ion-card>
 
 
-    <ion-row no-padding>
+    <ion-row padding>
       <ion-col size="12">
         <p class="txt-medium txt-bold color-white" no-margin>Ingressos</p>
       </ion-col>

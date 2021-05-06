@@ -17,8 +17,8 @@
 <ion-content>
 
   <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide style="padding: 5px !important;" *ngFor="let destaque of destaques" (click)="openLink(destaque)">
-      <img [src]="destaque.imagemUrl" style="padding: 5px !important;" />
+    <ion-slide style="padding: 0px !important;" *ngFor="let destaque of destaques" (click)="openLink(destaque)">
+      <img [src]="destaque.imagemUrl" style="padding: 0px !important;" />
     </ion-slide>
   </ion-slides>
 
@@ -30,9 +30,13 @@
             <img class="img-row" [src]="evento.imagemUrl">
           </ion-col>
         </ion-row>
-        <ion-row class="text-align-center">
-          <img class="img-btn-options" style="margin-left: auto !important;" src="assets/icon/ic_compartilhar.png">
-          <img class="img-btn-options" style="margin-right: auto !important;" src="assets/icon/ic_curtir_on.png">
+        <ion-row class="text-align-center" no-padding text-right>
+          <ion-col no-padding no-margin>
+            <img class="img-btn-options" style="margin-right: 7px !important;" src="assets/icon/ic_compartilhar.png">
+          </ion-col>
+          <ion-col no-padding no-margin text-left>
+            <img class="img-btn-options" style="margin-left: 7px !important;" src="assets/icon/ic_curtir_on.png">
+          </ion-col>
         </ion-row>
       </ion-col>
       <ion-col size="7" no-padding>
@@ -40,11 +44,7 @@
           <p class="txt-smaller color-white date-card">
             {{ getDateFormated(evento?.dataInicio, 'DD MMM') }}  >  {{ getDateFormated(evento?.dataFim, 'DD MMM') }} {{ getDateFormated(evento?.dataInicio, 'hh:mm a') }}
           </p>
-        </ion-row>
-        <ion-row no-padding>
           <p class="color-white title-card txt-bold">{{evento.titulo}}</p>
-        </ion-row>
-        <ion-row no-padding>
           <p class="color-white subtitle-card">{{evento.descricao}}</p>
         </ion-row>
       </ion-col>

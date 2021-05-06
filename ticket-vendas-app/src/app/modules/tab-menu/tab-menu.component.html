@@ -1,14 +1,6 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button *ngIf="menuSelected === 'home'" (click)="navigate('home')">
-      <img class="tab-menu-img" src="assets/icon/ic_tab_home_on.png">
-      <ion-label class="color-white">Home</ion-label>
-    </ion-tab-button>
-    <ion-tab-button *ngIf="menuSelected !== 'home'" (click)="navigate('home')">
-      <img class="tab-menu-img" src="assets/icon/ic_tab_home_off.png">
-      <ion-label class="color-tab-menu-unfocus">Home</ion-label>
-    </ion-tab-button>
+<ion-row class="ion-tab">
 
+  <ion-col class="ion-tab-button" no-margin>
     <ion-tab-button *ngIf="menuSelected === 'tickets'" (click)="navigate('minhas-compras')">
       <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_on.png">
       <ion-label class="color-white">Meus Tickets</ion-label>
@@ -17,7 +9,20 @@
       <img class="tab-menu-img" src="assets/icon/ic_tab_tickets_off.png">
       <ion-label class="color-tab-menu-unfocus">Meus Tickets</ion-label>
     </ion-tab-button>
+  </ion-col>
 
+  <ion-col class="ion-tab-button" no-margin>
+    <ion-tab-button *ngIf="menuSelected === 'home'" (click)="navigate('home')">
+      <img class="tab-menu-img" src="assets/icon/ic_tab_home_on.png">
+      <ion-label class="color-white">Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button *ngIf="menuSelected !== 'home'" (click)="navigate('home')">
+      <img class="tab-menu-img" src="assets/icon/ic_tab_home_off.png">
+      <ion-label class="color-tab-menu-unfocus">Home</ion-label>
+    </ion-tab-button>
+  </ion-col>
+
+  <ion-col class="ion-tab-button" no-margin>
     <ion-tab-button *ngIf="menuSelected === 'perfil'" (click)="navigate('perfil')">
       <img class="tab-menu-img" src="assets/icon/ic_tab_perfil_on.png">
       <ion-label class="color-white">Perfil</ion-label>
@@ -26,5 +31,6 @@
       <img class="tab-menu-img" src="assets/icon/ic_tab_perfil_off.png">
       <ion-label class="color-tab-menu-unfocus">Perfil</ion-label>
     </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+  </ion-col>
+
+</ion-row>

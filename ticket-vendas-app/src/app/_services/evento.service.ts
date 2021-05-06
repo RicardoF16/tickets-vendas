@@ -24,8 +24,8 @@ export class EventoService {
   }*/
 
 
-  getEventos(): Observable<EventoResponse> {
-    return this.http.get<EventoResponse>(`${this.endpoint}`).pipe(take(1));
+  getEventos(): Observable<Array<EventoResponse>> {
+    return this.http.get<Array<EventoResponse>>(`${this.endpoint}`).pipe(take(1));
   }
 
   getDestaques(): Observable<Array<DestaqueResponse>> {

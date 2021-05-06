@@ -15,7 +15,7 @@ import * as moment from 'moment';
 export class HomePage {
 
   @ViewChild(LoadingComponent) loading: LoadingComponent;
-  eventos: EventoResponse;
+  eventos: Array<EventoResponse>;
   destaques: Array<DestaqueResponse> = [];
 
   slideOpts: any = {

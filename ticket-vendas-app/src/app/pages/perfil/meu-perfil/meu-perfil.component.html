@@ -16,87 +16,96 @@
 </ion-header>
 
 
-<ion-content padding>
-  <form [formGroup]="form" *ngIf="form != null">
-    <ion-card padding class="box">
-      <ion-row>
-        <ion-col class="ion-no-padding">
-          <p class="txt-smaller color-white">Dados Iniciais</p>
-          <hr style="background-color: white;" />
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ion-no-padding" size="12">
-          <p class="txt-bold txt-smaller color-white">Nome Completo</p>
-        </ion-col>
-        <ion-col class="ion-no-padding">
-          <ion-input class="input" type="text" placeholder="Digite seu nome" autocomplete="name" formControlName="nome">
-          </ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">
-          <ion-row>
-            <ion-col class="ion-no-padding" size="12">
-              <p class="txt-bold txt-smaller color-white">CPF</p>
-            </ion-col>
-            <ion-col class="ion-no-padding">
-              <ion-input class="input" type="text" maxlength="14" [brmasker]="{person: true}"
-                [ngClass]="{'input-error': form.get('cpf').value && form.get('cpf').errors}" formControlName="cpf"
-                placeholder="999.999.999-99" [readonly]="true"></ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-        <ion-col size="6">
-          <ion-row>
-            <ion-col class="ion-no-padding" size="12">
-              <p class="txt-bold txt-smaller color-white">Data de Nascimento</p>
-            </ion-col>
-            <ion-col class="ion-no-padding">
-              <ion-input class="input txt-small color-secondary" formControlName="dataNascimento" min="1940-01-01"
-                [max]="maxDate" type="date">
-              </ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+<ion-content>
+  <div style="padding: 6px !important;">
+    <form [formGroup]="form" *ngIf="form != null">
+      <ion-card padding class="box">
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <p class="txt-small color-white">Dados Iniciais</p>
+            <hr style="background-color: white;" />
+            <br />
+            <br />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-no-padding" size="12">
+            <p class="txt-bold txt-smaller color-white">Nome Completo</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-input class="input" type="text" placeholder="Digite seu nome" autocomplete="name"
+              formControlName="nome">
+            </ion-input>
+          </ion-col>
+        </ion-row>
+        <br />
+        <ion-row>
+          <ion-col size="6">
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <p class="txt-bold txt-smaller color-white">CPF</p>
+              </ion-col>
+              <ion-col class="ion-no-padding">
+                <ion-input class="input" type="text" maxlength="14" [brmasker]="{person: true}"
+                  [ngClass]="{'input-error': form.get('cpf').value && form.get('cpf').errors}" formControlName="cpf"
+                  placeholder="999.999.999-99" [readonly]="true"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="6">
+            <ion-row>
+              <ion-col class="ion-no-padding" size="12">
+                <p class="txt-bold txt-smaller color-white">Data de Nascimento</p>
+              </ion-col>
+              <ion-col class="ion-no-padding">
+                <ion-input class="input txt-small color-secondary" formControlName="dataNascimento" min="1940-01-01"
+                  [max]="maxDate" type="date">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <br />
+        <ion-row>
+          <ion-col class="ion-no-padding" size="12">
+            <p class="txt-bold txt-smaller color-white">Gênero</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <select class="input txt-small color-secondary" formControlName="genero"
+              style="width: 100%; padding-left: 10px;">
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+              <option value="N">Não informar</option>
+            </select>
+          </ion-col>
+        </ion-row>
+        <br />
+        <ion-row>
+          <ion-col class="ion-no-padding" size="12">
+            <p class="txt-bold txt-smaller color-white">E-mail</p>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-input class="input" type="email" formControlName="email" placeholder="email@email.com"
+              [readonly]="true">
+            </ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </form>
 
-      <ion-row>
-        <ion-col class="ion-no-padding" size="12">
-          <p class="txt-bold txt-smaller color-white">Gênero</p>
-        </ion-col>
-        <ion-col class="ion-no-padding">
-          <select class="input txt-small color-secondary" formControlName="genero"
-            style="width: 100%; padding-left: 10px;">
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-            <option value="N">Não informar</option>
-          </select>
-        </ion-col>
-      </ion-row>
 
+    <ion-card padding class="box" [routerLink]="['/cartao']">
       <ion-row>
-        <ion-col class="ion-no-padding" size="12">
-          <p class="txt-bold txt-smaller color-white">E-mail</p>
+        <ion-col size="9">
+          <label class="txt-medium color-white">Cartões</label>
         </ion-col>
-        <ion-col class="ion-no-padding">
-          <ion-input class="input" type="email" formControlName="email" placeholder="email@email.com" [readonly]="true">
-          </ion-input>
+        <ion-col size="3" text-right>
+          <i class="fa fa-angle-right color-white" aria-hidden="true"></i>
         </ion-col>
       </ion-row>
     </ion-card>
-  </form>
 
-  <ion-card padding class="box" [routerLink]="['/cartao']">
-    <ion-row>
-      <ion-col size="9">
-        <label class="color-white">Cartões</label>
-      </ion-col>
-      <ion-col size="3" text-right>
-        <i class="fa fa-angle-right color-white" aria-hidden="true"></i>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+  </div>
 
 </ion-content>
 
