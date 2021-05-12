@@ -21,7 +21,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.21.0",
     "node-cron": "^2.0.3",
-    "nodemailer": "^4.6.3",
+    "nodemailer": "^6.4.16",
     "nodemailer-express-handlebars": "^3.0.0",
     "pagarme": "^4.1.0",
     "request": "^2.88.0",
