@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { GenericAlertService } from 'src/app/_services/generic-alert.service';
 import { CompraService } from 'src/app/_services/compra.service';
+import { SetorEnum } from 'src/app/_models/enums';
 
 @Component({
   selector: 'app-minha-compra',
@@ -48,6 +49,10 @@ export class MinhaCompraComponent implements OnInit {
       return moment(date).locale('pt-br').format(format).toLocaleUpperCase();
     else
       return '';
+  }
+  
+  getSetor(setor) {
+    return SetorEnum[setor];
   }
 
   back() {
