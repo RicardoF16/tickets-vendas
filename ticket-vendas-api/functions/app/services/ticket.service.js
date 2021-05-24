@@ -50,13 +50,14 @@ class TicketService extends BaseService {
       newObj.idCompra = idCompra;
       newObj.idUsuario = idUser;
       newObj.idEvento = idEvento;
+      newObj.idDataEvento = obj.idDataEvento;
+      newObj.idLote = obj.idLote;
       newObj.dataCriacao = new Date().toISOString();
       newObj.setor = obj.setor;
       newObj.tipo = 1;
       if (obj.cortesia == true) {
         newObj.tipo = 2;
       }
-
       newObj.validado = false;
       newObj.valor = obj.valor;
 
