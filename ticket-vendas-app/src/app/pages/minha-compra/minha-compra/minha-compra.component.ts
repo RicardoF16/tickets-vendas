@@ -59,9 +59,24 @@ export class MinhaCompraComponent implements OnInit {
     this.navCtrl.navigateRoot(['/minhas-compras']);
   }
 
-  visualizarIngresso(id) {
-    localStorage.setItem('dadosCompra', JSON.stringify(this.dadosCompra));
-    this.navCtrl.navigateRoot(['/minhas-compras/ingresso'], { queryParams: { id: id } });
+  getTicketDate(idDiaEvento, format: string = 'DD/MM/YYYY') {
+    const diaEvento = this.dadosCompra.evento.diasEvento[idDiaEvento];
+    return this.getDateFormated(diaEvento.dataInicio, format);
+  }
+
+  visualizarIngresso(ticket) {
+    let dadosCompraSelecionado = {
+      evento: this.dadosCompra.evento,
+      dataCompra: this.dadosCompra.dataCompra,
+      id: this.dadosCompra.id,
+      idEvento: this.dadosCompra.idEvento,
+      idUsuario: this.dadosCompra.idUsuario,
+      valorTotal: this.dadosCompra.valorTotal,
+      ticket: ticket
+    };
+
+    localStorage.setItem('dadosCompraSelecionado', JSON.stringify(dadosCompraSelecionado));
+    this.navCtrl.navigateRoot(['/minhas-compras/ingresso'], { queryParams: { id: ticket.id } });
   }
 
 }

@@ -6,4 +6,6 @@ export class Carrinho {
     idEvento: string;
     ingressos: Array<IngressoModel>;
     cardSelected: CartaoResponse;
+    maiorIdade: boolean = false;
+    acceptBuyTherm: boolean = false;
 }

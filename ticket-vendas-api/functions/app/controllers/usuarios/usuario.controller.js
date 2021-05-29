@@ -16,7 +16,6 @@ class UsuarioController {
   }
 
   getById(req, res) {
-    console.log('getById');
     const { uid } = req.params;
 
     UsuarioService.getByUid(uid)
@@ -44,7 +43,6 @@ class UsuarioController {
       .then(usuario => {
         res.status(200).send(usuario);
       }).catch(err => {
-        console.log(err);
         res.status(501).send(err);
       });
   }

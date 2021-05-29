@@ -80,7 +80,6 @@ class EventoController {
   getDestaques(req, res) {
     EventoService.getDestaques()
       .then(destaques => {
-        console.log("bla >>", destaques);
         if (destaques) {
           res.send(destaques)
         } else {

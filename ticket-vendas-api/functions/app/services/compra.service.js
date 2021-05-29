@@ -54,15 +54,24 @@ class CompraService extends BaseService {
 
             const dateNow = new Date().toISOString();
 
+            //Cria objeto que será armazenado na collection 'compras'
             let newObj = {
                 id: key,
                 dataCompra: dateNow,
                 idEvento: obj.idEvento,
                 idUsuario: req.usuario.uid,
+                payment: {
+                    // Mudar esse type caso tiver outro tipo de pagamento
+                    paymentType: 1, //Cartão Credito
+                    cart_number: obj.cardSelected.cart_number
+                },
+                //maiorIdade: obj.maiorIdade, //Bool usuário maior de idade
+                //acceptBuyTherm: obj.acceptBuyTherm, //Termo de usu de compra aceito pelo usuário
                 valorTotal: 0,
                 tickets: []
             };
 
+            //Cria ingressos selecionados pelo usuário na collection de 'tickets' e os vincula a compra.
             for (let i = 0; i < obj.ingressos.length; i++) {
                 const t = obj.ingressos[i];
 
@@ -83,6 +92,7 @@ class CompraService extends BaseService {
                                 reject("Não foi possível armazenar o ticket no banco.", newObj);
                             }
                         }).catch(errT => {
+                            console.error(errT);
                             reject("Ocorreu uma falha ao armazenar o ticket no banco.", newObj);
                         });
                     }
@@ -94,6 +104,7 @@ class CompraService extends BaseService {
             const context = this;
             function finish() {
                 context.database.ref('compras/' + key).set(newObj).then(result => {
+                    //Atualiza a quantitade de ingressos disponíveis no evento.
                     eventoService.updateQtdeIngressos(obj);
                     resolve(newObj);
                 }).catch(err => {

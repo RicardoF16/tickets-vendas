@@ -58,7 +58,6 @@ class CompraController {
             .then(result => {
                 res.send(result)
             }).catch(err => {
-                console.log("bla 5", err);
                 if (err && err.hasError) {
                     res.status(400).send(err);
                 } else {

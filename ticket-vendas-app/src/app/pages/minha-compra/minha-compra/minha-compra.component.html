@@ -111,12 +111,12 @@
     </ion-row>
 
     <ion-card class="box" *ngFor="let ticket of dadosCompra?.tickets; let i = index">
-      <ion-row padding (click)="visualizarIngresso(ticket.id)">
+      <ion-row padding (click)="visualizarIngresso(ticket)">
         <ion-col size="11">
           <p class="txt-medium color-white">Ingresso Nº {{i + 1}}</p>
-          <p class="txt-smaller color-white" style="margin-top: 6px !important;"><b>Data:</b> 00/00/0000</p>
+          <p class="txt-smaller color-white" style="margin-top: 6px !important;"><b>Data:</b> {{getTicketDate(ticket.idDataEvento)}}</p>
           <p class="txt-smaller color-white" style="margin-top: -17px !important; text-align: right !important;">
-            <b>Hora:</b> 00:00
+            <b>Hora:</b> {{getTicketDate(ticket.idDataEvento, 'HH:mm')}}
           </p>
           <p class="txt-smaller color-white" style="margin-top: 3px !important;"><b>Setor:</b>
             {{getSetor(ticket.setor)}}

@@ -36,15 +36,29 @@
           </ion-col>
           <ion-col size="9">
             <p class="txt-smaller color-white" no-margin>
-              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'DD [de] MMMM') }} à
-              {{ getDateFormated(dadosCompra.evento?.dataFim, 'DD [de] MMMM') }}
+              {{ getTicketDateInfo() }}
             </p>
-            <p class="txt-smaller txt-bold color-white" no-margin>
-              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'dddd') }} à
-              {{ getDateFormated(dadosCompra.evento?.dataFim, 'dddd') }} das
-              {{ getDateFormated(dadosCompra.evento?.dataInicio, 'hh:mm') }} às
-              {{ getDateFormated(dadosCompra.evento?.dataFim, 'hh:mm') }}
-            </p>
+            <p class="txt-smaller color-white">Abertura: {{ getTicketHourAbertura() }}</p>
+            <p class="txt-smaller color-white">Show: {{ getTicketHourShow() }}</p>
+          </ion-col>
+          <ion-col size="12">
+            <p class="txt-smaller color-white">Censura:
+              {{dadosCompra?.evento?.diasEvento[dadosCompra.ticket.idDataEvento]?.censura}}</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <p class="txt-smaller color-white txt-bold">Atrações:</p>
+            <ion-row *ngFor="let atracao of dadosCompra.evento?.diasEvento[0]?.atracoes">
+              <ion-col size="2">
+                <img class="img-btn-icon-atracao" src="assets/icon/ic_site.png">
+              </ion-col>
+              <ion-col>
+                <p class="txt-smaller color-white">{{ atracao?.nome }}</p>
+                <a class="txt-smaller" [href]="atracao?.link" target="_blank">Contato da atração</a>
+              </ion-col>
+            </ion-row>
           </ion-col>
         </ion-row>
 

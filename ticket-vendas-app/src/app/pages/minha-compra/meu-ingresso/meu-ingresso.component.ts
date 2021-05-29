@@ -21,13 +21,11 @@ export class MeuIngressoComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.loading.showLoading('Carregando...');
       if (params && params.id) {
-        this.dadosCompra = JSON.parse(localStorage.getItem('dadosCompra'));
+        this.dadosCompra = JSON.parse(localStorage.getItem('dadosCompraSelecionado'));
         this.qrCode = params.id;
       }
       this.loading.dismissAll();
     });
-
-
   }
 
   getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
@@ -36,6 +34,21 @@ export class MeuIngressoComponent implements OnInit {
     else
       return '';
   }
+
+  getTicketDateInfo() {
+    const diaEvento = this.dadosCompra.evento.diasEvento[this.dadosCompra.ticket.idDataEvento];
+    return this.getDateFormated(diaEvento.dataInicio, 'DD [de] MMMM dddd');
+  }
+
+  getTicketHourAbertura() {
+    const diaEvento = this.dadosCompra.evento.diasEvento[this.dadosCompra.ticket.idDataEvento];
+    return diaEvento.horaAbertura;
+  }
+
+  getTicketHourShow() {
+    const diaEvento = this.dadosCompra.evento.diasEvento[this.dadosCompra.ticket.idDataEvento];
+    return diaEvento.horaShow;
+  }  
 
   back() {
     window.history.back();
