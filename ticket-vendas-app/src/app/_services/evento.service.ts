@@ -40,8 +40,8 @@ export class EventoService {
     return this.http.get<Array<DiasEventoResponse>>(`${this.endpoint}/${id}/datas`,).pipe(take(1));
   }
 
-  getLotes(idEvento: string, idDiaEvento): Observable<Array<IngressoModel>> {
-    return this.http.get<Array<IngressoModel>>(`${this.endpoint}/${idEvento}/${idDiaEvento}/lotes`,).pipe(take(1));
+  getLotes(idEvento: string, idDiaEvento): Observable<Array<any>> {
+    return this.http.get<Array<any>>(`${this.endpoint}/${idEvento}/${idDiaEvento}/lotes`,).pipe(take(1));
   }
 
 }

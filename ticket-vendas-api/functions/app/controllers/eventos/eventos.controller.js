@@ -3,7 +3,7 @@ const EventoService = require('../../services/evento.service');
 class EventoController {
 
   getAll(req, res) {
-    EventoService.getAll()
+    EventoService.getAll(true)
       .then(eventos => {
         if (eventos) {
           res.send(eventos)
@@ -62,9 +62,9 @@ class EventoController {
     const idDiaEvento = req.params.idDiaEvento;
 
     EventoService.getLotes(idEvento, idDiaEvento)
-      .then(lotes => {
-        if (lotes) {
-          res.send(lotes)
+      .then(evento => {
+        if (evento) {
+          res.send(evento);
         } else {
           res.sendStatus(204);
         }

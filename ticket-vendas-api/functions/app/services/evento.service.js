@@ -2,16 +2,27 @@ const { reject } = require('lodash');
 let BaseService = require('./base.service');
 
 class EventoService extends BaseService {
-  getAll() {
+  getAll(filtrarData = false) {
     return new Promise((resolve, reject) => {
       this.database.ref('eventos')
         .once('value', snap => {
           const value = snap.val();
           let list = [];
           if (value) {
-            list = Object.values(value);
-            list.forEach(item => {
+            Object.values(value).forEach(item => {
               delete item.diasEvento;
+
+              if (filtrarData) {
+                const timeNow = new Date().getTime();
+                const timeEnd = new Date(item.dataFim).getTime();
+
+                //Valida se o evento ainda está disponível pra compra
+                if (timeNow < timeEnd) {
+                  list.push(item);
+                }
+              } else {
+                list.push(item);
+              }
             });
           }
           resolve(list);
@@ -49,18 +60,41 @@ class EventoService extends BaseService {
   getLotes(idEvento, idDiaEvento) {
     return new Promise((resolve, reject) => {
       this.getById(idEvento).then(result => {
+
         if (result && result.diasEvento[idDiaEvento]) {
+          const timeNow = new Date().getTime();
+          const timeEnd = new Date(result.diasEvento[idDiaEvento].dataFim).getTime();
+
+          if (timeNow >= timeEnd) {
+            resolve();
+          }
+
           var filter = result.diasEvento[idDiaEvento].lotes.filter(lote => {
-            //TODO: Filtrar data
             if (lote.qtdeTicketsVendidos < lote.qtdeTotalTickets && lote.ativo) {
               return lote;
             }
           });
-          resolve(filter);
+
+          var evento = {
+            idEvento: result.id,
+            titulo: result.titulo,
+            tipo: result.tipo,
+            nomeLocal: result.nomeLocal,
+            local: result.local,
+            diaEvento: result.diasEvento[idDiaEvento].dataInicio,
+            horaAberturaDia: result.diasEvento[idDiaEvento].horaAbertura,
+            horaShowDia: result.diasEvento[idDiaEvento].horaShow,
+            lotes: filter
+          };
+
+          resolve(evento);
         } else {
           resolve()
         }
-      }).catch(() => reject());
+      }).catch(ex => {
+        console.exception(ex);
+        reject();
+      });
     });
   }
 

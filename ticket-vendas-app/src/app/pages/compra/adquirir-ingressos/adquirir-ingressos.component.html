@@ -14,7 +14,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="evento">
+
+  <div padding>
+    <ion-row no-padding>
+      <ion-col size="12">
+        <p class="txt-medium txt-bold color-white" no-margin>{{ evento?.titulo }}</p>
+      </ion-col>
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="2" class="img-btn-icon">
+            <img src="assets/icon/ic_calendario.png">
+          </ion-col>
+          <ion-col size="9">
+            <p class="txt-smaller color-white" no-margin>
+              {{ getDateFormated(evento.diaEvento, 'DD [de] MMMM dddd') }}
+            </p>
+            <p class="txt-smaller color-white">
+              Abertura: {{ evento?.horaAberturaDia }}
+              -
+              Show: {{ evento?.horaShowDia}}
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+
   <ion-card class="box">
     <ion-row class="header-card" padding>
       <ion-col>
@@ -28,7 +54,12 @@
           {{ formatMoneyToString(valorTotal) }} </p>
       </ion-col>
     </ion-row>
-    <div padding>
+    <div padding *ngIf="!listaLotes || listaLotes.length == 0">
+      <p class="txt-small color-white" style="text-align: center; margin-top: 15px;">
+        Não existem ingressos disponíveis pra essa data.
+      </p>
+    </div>
+    <div padding *ngIf="listaLotes && listaLotes.length > 0">
       <ion-row *ngFor="let item of listaLotes; let i = index" style="padding-top: 10px;">
         <ion-col size="7">
           <p class="txt-small color-white" style="text-align: left;">SETOR {{ getSetorName(item.setor) }}:</p>

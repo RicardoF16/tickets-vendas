@@ -8,6 +8,7 @@ import { EventoService } from 'src/app/_services/evento.service';
 import { SetorEnum } from 'src/app/_models/enums';
 import { LoadingComponent } from 'src/app/modules/loading/loading.component';
 import { CarrinhoService } from 'src/app/_services/carrinho.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-adquirir-ingressos',
@@ -17,6 +18,7 @@ import { CarrinhoService } from 'src/app/_services/carrinho.service';
 export class AdquirirIngressosComponent implements OnInit {
   idEvento: string = '';
   idDataEvento: string = '';
+  evento: any = null;
   listaLotes: Array<IngressoModel> = new Array();
 
   valorTotal: number = 0;
@@ -45,7 +47,8 @@ export class AdquirirIngressosComponent implements OnInit {
   getLotes() {
     this.loading.showLoading();
     this.eventoService.getLotes(this.idEvento, this.idDataEvento).toPromise().then(result => {
-      this.listaLotes = result;
+      this.evento = result;
+      this.listaLotes = this.evento.lotes;
       this.listaLotes.forEach(l => {
         l.qtdeSelecionada = 0;
         l.idDataEvento = this.idDataEvento;
@@ -57,6 +60,13 @@ export class AdquirirIngressosComponent implements OnInit {
       if (err != null)
         this.gAlert.presentToastInfo('Não foi possível carregar as informações.');
     });
+  }
+
+  getDateFormated(date: string, format: string = 'DD/MM/YYYY'): string {
+    if (date)
+      return moment(date).locale('pt-br').format(format);
+    else
+      return '';
   }
 
   getSetorName(setor: number): string {
@@ -83,7 +93,7 @@ export class AdquirirIngressosComponent implements OnInit {
           l.qtdeSelecionada = ingressos.qtdeSelecionada;
         }
       });
-      this.valorTotal = this.carrinhoService.getValorTotal();
+      this.valorTotal = this.carrinhoService.getValorTotalPorDia(this.idDataEvento);
     } else {
       this.carrinhoService.clear();
     }

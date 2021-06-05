@@ -37,6 +37,19 @@ export class CarrinhoService {
     return valorTotal;
   }
 
+  public getValorTotalPorDia(idDia: string): number {
+    const carrinho = this.getCarrinho();
+    let valorTotal = 0;
+    if (carrinho && carrinho.ingressos && carrinho.ingressos.length > 0) {
+      for (const i of carrinho.ingressos) {
+        if (i.idDataEvento === idDia) {
+          valorTotal += Number(i.valor) * Number(i.qtdeSelecionada);
+        }
+      }
+    }
+    return valorTotal;
+  }
+
   // Retorna carrinho salvo se for válido
   public getCarrinho(): Carrinho {
     let carrinhoStr = localStorage.getItem('carrinho');
